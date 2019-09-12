@@ -10,14 +10,14 @@ import java.util.List;
 
 /**
  * <p>[クラス名]</p>
- * 　　DATA_PATIENT (患者情報)テーブル　DAOクラス
+ * 　　DATA_PATIENT_1 (在宅履歴)テーブル　DAOクラス
  * <p>[概要]</p>
- * 　　Ciao用のSQL Server 2016 の DATA_PATIENTテーブルより</br>
+ * 　　Ciao用のSQL Server 2016 の DATA_PATIENT_1 テーブルより</br>
  * 　　データを取得し、DTOに格納するクラス。
  * <p>[変更履歴]</p>
  * 　　2019/09/12　小嶋純史　新規作成
  */
-public class DB00A001Z00 {
+public class DB00A002Z1 {
 
 	/** データベースのURL */
 	private static final String dbURL = "jdbc:sqlserver://192.168.11.10";
@@ -26,16 +26,16 @@ public class DB00A001Z00 {
 	/** パスワード */
 	private static final String pass = "supply";
 	/** 発行SQL */
-	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT order by ID";
+	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_1 order by ID";
 
 	/**
 	 * <p>[メソッド名] </p>
 	 * @param
 	 * @return
 	 */
-	public List<DB00T001Z00> findAll() {
+	public List<DB00T002Z00> findAll() {
 
-		List<DB00T001Z00> dtoList = new ArrayList<>();
+		List<DB00T002Z00> dtoList = new ArrayList<>();
 
 		// コネクション定義
 		Connection conn = null;
@@ -51,10 +51,15 @@ public class DB00A001Z00 {
 			try (ResultSet rs = ps.executeQuery()) {
 				//結果をDTOに格納
 				while (rs.next()) {
-					DB00T001Z00 dto = new DB00T001Z00();
+					DB00T002Z00 dto = new DB00T002Z00();
 					dto.setId(rs.getString("id"));
-					dto.setFname(rs.getString("fname"));
-					dto.setAname(rs.getString("aname"));
+					dto.setSeq(rs.getString("seq"));
+					dto.setZudate(rs.getString("zudate"));
+					dto.setZstdate(rs.getString("zstdate"));
+					dto.setZeddate(rs.getString("zeddate"));
+					dto.setZriyu(rs.getString("zriyu"));
+					dto.setDiedate(rs.getString("diedate"));
+					dto.setEnddate(rs.getString("enddate"));
 					dtoList.add(dto);
 				}
 			}

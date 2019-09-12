@@ -2,7 +2,7 @@ package jp.ne.tbs.frame.DB;
 
 /**
  * <p>[概要]</p>
- * 　　DATA_PATIENTテーブル　DTOクラス
+ * 　　DATA_PATIENT (患者情報)テーブル　DTOクラス
  * <p>[詳細]</p>
  * <p>[備考]</p>
  * <p>[メモ]</p>
