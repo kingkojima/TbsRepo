@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import jp.ne.tbs.control.FD.FD01C001Z00;
+import jp.ne.tbs.control.FD01.FD01C001Z00;
 
 /*
  * @author Junji Kojima

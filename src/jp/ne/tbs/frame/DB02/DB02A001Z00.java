@@ -1,4 +1,4 @@
-package jp.ne.tbs.frame.DB;
+package jp.ne.tbs.frame.DB02;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +17,7 @@ import java.util.List;
  * <p>[変更履歴]</p>
  * 　　2019/09/12　小嶋純史　新規作成
  */
-public class DB00A002Z1 {
+public class DB02A001Z00 {
 
 	/** データベースのURL */
 	private static final String dbURL = "jdbc:sqlserver://192.168.11.10";
@@ -33,9 +33,9 @@ public class DB00A002Z1 {
 	 * @param
 	 * @return
 	 */
-	public List<DB00T002Z00> findAll() {
+	public List<DB02T002Z00> findAll() {
 
-		List<DB00T002Z00> dtoList = new ArrayList<>();
+		List<DB02T002Z00> dtoList = new ArrayList<>();
 
 		// コネクション定義
 		Connection conn = null;
@@ -51,7 +51,7 @@ public class DB00A002Z1 {
 			try (ResultSet rs = ps.executeQuery()) {
 				//結果をDTOに格納
 				while (rs.next()) {
-					DB00T002Z00 dto = new DB00T002Z00();
+					DB02T002Z00 dto = new DB02T002Z00();
 					dto.setId(rs.getString("id"));
 					dto.setSeq(rs.getString("seq"));
 					dto.setZudate(rs.getString("zudate"));

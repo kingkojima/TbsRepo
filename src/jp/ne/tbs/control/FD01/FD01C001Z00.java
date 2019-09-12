@@ -1,4 +1,4 @@
-package jp.ne.tbs.control.FD;
+package jp.ne.tbs.control.FD01;
 
 //インフルエンザ予防接種希望集計　業務メイン
 public class FD01C001Z00 {
