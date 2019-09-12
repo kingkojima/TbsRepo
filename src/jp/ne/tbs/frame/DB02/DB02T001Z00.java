@@ -10,7 +10,7 @@ package jp.ne.tbs.frame.DB02;
  * @version 1.0.0
  * @author TBS-System-Administr
  */
-public class DB02T002Z00 {
+public class DB02T001Z00 {
 
 	/**
 	 * 患者ID
