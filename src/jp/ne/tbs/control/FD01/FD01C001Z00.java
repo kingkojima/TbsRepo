@@ -1,5 +1,7 @@
 package jp.ne.tbs.control.FD01;
 
+import jp.ne.tbs.frame.AA00.AA00B001Z00;
+
 //インフルエンザ予防接種希望集計　業務メイン
 public class FD01C001Z00 {
 
@@ -17,6 +19,8 @@ public class FD01C001Z00 {
 					//①－４.職員TBL取得
 				//②インプット｛(項目名/区切り文字/集計する値の形式)×ｎ、集計期間、集計方法｝の取得⇒今回は固定
 				//③AODに①～④を詰める。
+			AA00B001Z00 db = new AA00B001Z00();
+			db.execute();
 
 			//入力チェックCTL呼び出し
 				//現状なし

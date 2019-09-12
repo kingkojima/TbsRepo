@@ -26,7 +26,9 @@ public class DB03A001Z00 {
 	/** パスワード */
 	private static final String pass = "supply";
 	/** 発行SQL */
-	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 order by ID asc, FDATE asc, SEQ asc";
+//	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 order by ID asc, FDATE asc, SEQ asc";
+	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 where FDATE >= '2019/06/12' order by ID asc, FDATE asc, SEQ asc";
+
 
 	/**
 	 * <p>[メソッド名] </p>
