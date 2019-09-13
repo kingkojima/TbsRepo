@@ -9,7 +9,14 @@ import jp.ne.tbs.frame.DB02.DB02T001Z00;
 import jp.ne.tbs.frame.DB03.DB03A001Z00;
 import jp.ne.tbs.frame.DB03.DB03T001Z00;
 
-//AOD作成及び、業務メインのフレームワーク
+/**
+ * <p>[クラス名]</p>
+ * 　　業務メインフレームワーク
+ * <p>[概要]</p>
+ * 　　AOD作成及び、業務メインのフレームワーク
+ * <p>[変更履歴]</p>
+ * 　　2019/09/12　小嶋純史　新規作成
+ */
 public class AA00B001Z00 {
 
 	AA00B002Z00 allInOneData = null;

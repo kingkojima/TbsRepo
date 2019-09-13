@@ -5,7 +5,7 @@ import jp.ne.tbs.frame.AA00.AA00B001Z00;
 //インフルエンザ予防接種希望集計　業務メイン
 public class FD01C001Z00 {
 
-		public void fluDsrCntCtlMain() {
+		public void execute() {
 
 			//メモ
 			//ADO(ca、appData、ログアウト、マスター群、帳票データ)

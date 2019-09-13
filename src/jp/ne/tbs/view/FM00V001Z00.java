@@ -102,8 +102,8 @@ public class FM00V001Z00 extends JFrame implements ActionListener {
 		if(cmd.endsWith("flu_dsr_btn")) {
 
 			//インフルエンザ予防接種希望集計表作成クラスを実行
-			FD01C001Z00 obj = new FD01C001Z00();
-			obj.fluDsrCntCtlMain();
+			FD01C001Z00 fluDsrObj = new FD01C001Z00();
+			fluDsrObj.execute();
 
 			//処理が終わったら終了
 			 this.dispose();
