@@ -2,7 +2,7 @@ package jp.ne.tbs.model.FD;
 
 import java.sql.SQLException;
 
-public class FD01M001Z00 {
+public class MFD01M001Z00 {
 
 	//ＤＢ接続実行
 	public void execute() throws SQLException {

@@ -1,0 +1,119 @@
+package jp.ne.tbs.frame.AA00;
+
+import java.util.List;
+
+import jp.ne.tbs.frame.DB01.MDB01T001Z00;
+import jp.ne.tbs.frame.DB02.MDB02T001Z00;
+import jp.ne.tbs.frame.DB03.MDB03T001Z00;
+
+/**
+ * <p>[クラス名]</p>
+ * 　　オールインワンデータクラス
+ * <p>[概要]</p>
+ * 　　CA、appData、マスター群、ログアウト、帳票データを保持するクラス
+ * <p>[変更履歴]</p>
+ * 　　2019/09/12　小嶋純史　新規作成
+ */
+public class MAA00B002Z00 {
+
+	/**
+	 * アプリデータ
+	 */
+	private MAA00B003Z00 appData;
+
+	/**
+	 * 患者情報TBLリスト
+	 */
+	private List<MDB01T001Z00> ptInfoTbls;
+
+	/**
+	 * 在宅履歴TBLリスト
+	 */
+	private List<MDB02T001Z00> zaHistTbls;
+
+	/**
+	 * 診療記録TBLリスト
+	 */
+	private List<MDB03T001Z00> snRecoTbls;
+
+	/**
+	 * <p>[概 要] アプリデータを取得する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @return appData
+	 */
+	public MAA00B003Z00 getAppData() {
+		return appData;
+	}
+
+	/**
+	 * <p>[概 要] アプリデータを設定する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param appData セットする appData
+	 */
+	public void setAppData(MAA00B003Z00 appData) {
+		this.appData = appData;
+	}
+
+	/**
+	 * <p>[概 要] 患者情報テーブルを取得する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @return ptInfoTbls
+	 */
+	public List<MDB01T001Z00> getPtInfoTbls() {
+		return ptInfoTbls;
+	}
+
+	/**
+	 * <p>[概 要] 患者情報テーブルを設定する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param ptInfoTbls セットする ptInfoTbls
+	 */
+	public void setPtInfoTbls(List<MDB01T001Z00> ptInfoTbls) {
+		this.ptInfoTbls = ptInfoTbls;
+	}
+
+	/**
+	 * <p>[概 要] 在宅履歴テーブルを取得する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @return zaHistTbls
+	 */
+	public List<MDB02T001Z00> getZaHistTbls() {
+		return zaHistTbls;
+	}
+
+	/**
+	 * <p>[概 要] 在宅履歴テーブルを設定する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param zaHistTbls セットする zaHistTbls
+	 */
+	public void setZaHistTbls(List<MDB02T001Z00> zaHistTbls) {
+		this.zaHistTbls = zaHistTbls;
+	}
+
+	/**
+	 * <p>[概 要] 診療記録テーブルを取得する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @return snRecoTbls
+	 */
+	public List<MDB03T001Z00> getSnRecoTbls() {
+		return snRecoTbls;
+	}
+
+	/**
+	 * <p>[概 要] 診療記録テーブルを設定する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param snRecoTbls セットする snRecoTbls
+	 */
+	public void setSnRecoTbls(List<MDB03T001Z00> snRecoTbls) {
+		this.snRecoTbls = snRecoTbls;
+	}
+
+}

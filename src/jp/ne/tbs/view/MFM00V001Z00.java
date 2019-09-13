@@ -9,7 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import jp.ne.tbs.control.FD01.FD01C001Z00;
+import jp.ne.tbs.control.FD01.MFD01C001Z00;
+import jp.ne.tbs.frame.AA00.MAA00B003Z00;
 
 /*
  * @author Junji Kojima
@@ -20,7 +21,7 @@ import jp.ne.tbs.control.FD01.FD01C001Z00;
  * バッチメインクラス
  * スキャンした書類(PDF)のファイル名を変更する機能
  */
-public class FM00V001Z00 extends JFrame implements ActionListener {
+public class MFM00V001Z00 extends JFrame implements ActionListener {
 
 	//部品
 	private JPanel buttonPanel;
@@ -33,7 +34,7 @@ public class FM00V001Z00 extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 
 		//メインフレームを生成し実行。
-		FM00V001Z00 frame = new FM00V001Z00();
+		MFM00V001Z00 frame = new MFM00V001Z00();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(900, 100, 300, 400);
 		frame.setTitle("トーマス君デラックス");
@@ -41,7 +42,7 @@ public class FM00V001Z00 extends JFrame implements ActionListener {
 	}
 
 	//コンストラクタ
-	FM00V001Z00() {
+	MFM00V001Z00() {
 
 		//ボタンを生成。
 		//ボタン１
@@ -101,9 +102,14 @@ public class FM00V001Z00 extends JFrame implements ActionListener {
 		//インフル希望集計の場合
 		if(cmd.endsWith("flu_dsr_btn")) {
 
+			//appData作成
+			MAA00B003Z00 appData = new MAA00B003Z00();
+			appData.setMsgIn("","");
+
+
 			//インフルエンザ予防接種希望集計表作成クラスを実行
-			FD01C001Z00 fluDsrObj = new FD01C001Z00();
-			fluDsrObj.execute();
+			MFD01C001Z00 fluDsrObj = new MFD01C001Z00();
+			fluDsrObj.execute(appData);
 
 			//処理が終わったら終了
 			 this.dispose();

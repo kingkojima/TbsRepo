@@ -1,4 +1,4 @@
-package jp.ne.tbs.frame.DB02;
+package jp.ne.tbs.frame.DB03;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,14 +10,14 @@ import java.util.List;
 
 /**
  * <p>[クラス名]</p>
- * 　　DATA_PATIENT_1 (在宅履歴)テーブル　DAOクラス
+ * 　　DATA_PATIENT_KKIRIKU2 (記録２)テーブル　DAOクラス
  * <p>[概要]</p>
- * 　　Ciao用のSQL Server 2016 の DATA_PATIENT_1 テーブルより</br>
+ * 　　Ciao用のSQL Server 2016 の DATA_PATIENT_KKIROKU2 テーブルより</br>
  * 　　データを取得し、DTOに格納するクラス。
  * <p>[変更履歴]</p>
  * 　　2019/09/12　小嶋純史　新規作成
  */
-public class DB02A001Z00 {
+public class MDB03A001Z00 {
 
 	/** データベースのURL */
 	private static final String dbURL = "jdbc:sqlserver://192.168.11.10";
@@ -26,16 +26,18 @@ public class DB02A001Z00 {
 	/** パスワード */
 	private static final String pass = "supply";
 	/** 発行SQL */
-	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_1 order by ID asc";
+//	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 order by ID asc, FDATE asc, SEQ asc";
+	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 where FDATE >= '2019/06/12' order by ID asc, FDATE asc, SEQ asc";
+
 
 	/**
 	 * <p>[メソッド名] </p>
 	 * @param
 	 * @return
 	 */
-	public List<DB02T001Z00> findAll() {
+	public List<MDB03T001Z00> findAll() {
 
-		List<DB02T001Z00> dtoList = new ArrayList<>();
+		List<MDB03T001Z00> dtoList = new ArrayList<>();
 
 		// コネクション定義
 		Connection conn = null;
@@ -51,15 +53,16 @@ public class DB02A001Z00 {
 			try (ResultSet rs = ps.executeQuery()) {
 				//結果をDTOに格納
 				while (rs.next()) {
-					DB02T001Z00 dto = new DB02T001Z00();
+					MDB03T001Z00 dto = new MDB03T001Z00();
 					dto.setId(rs.getString("id"));
+					dto.setFdate(rs.getString("fdate"));
 					dto.setSeq(rs.getString("seq"));
-					dto.setZudate(rs.getString("zudate"));
-					dto.setZstdate(rs.getString("zstdate"));
-					dto.setZeddate(rs.getString("zeddate"));
-					dto.setZriyu(rs.getString("zriyu"));
-					dto.setDiedate(rs.getString("diedate"));
-					dto.setEnddate(rs.getString("enddate"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setObject(rs.getString("object"));
+					dto.setAssment(rs.getString("assment"));
+					dto.setKplan(rs.getString("kplan"));
+					dto.setSubject2(rs.getString("subject2"));
+					dto.setMemo(rs.getString("memo"));
 					dtoList.add(dto);
 				}
 			}

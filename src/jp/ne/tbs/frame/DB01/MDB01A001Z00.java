@@ -17,7 +17,7 @@ import java.util.List;
  * <p>[変更履歴]</p>
  * 　　2019/09/12　小嶋純史　新規作成
  */
-public class DB01A001Z00 {
+public class MDB01A001Z00 {
 
 	/** データベースのURL */
 	private static final String dbURL = "jdbc:sqlserver://192.168.11.10";
@@ -33,9 +33,9 @@ public class DB01A001Z00 {
 	 * @param
 	 * @return
 	 */
-	public List<DB01T001Z00> findAll() {
+	public List<MDB01T001Z00> findAll() {
 
-		List<DB01T001Z00> dtoList = new ArrayList<>();
+		List<MDB01T001Z00> dtoList = new ArrayList<>();
 
 		// コネクション定義
 		Connection conn = null;
@@ -51,7 +51,7 @@ public class DB01A001Z00 {
 			try (ResultSet rs = ps.executeQuery()) {
 				//結果をDTOに格納
 				while (rs.next()) {
-					DB01T001Z00 dto = new DB01T001Z00();
+					MDB01T001Z00 dto = new MDB01T001Z00();
 					dto.setId(rs.getString("id"));
 					dto.setFname(rs.getString("fname"));
 					dto.setAname(rs.getString("aname"));

@@ -1,11 +1,18 @@
 package jp.ne.tbs.control.FD01;
 
-import jp.ne.tbs.frame.AA00.AA00B001Z00;
+import jp.ne.tbs.frame.AA00.MAA00B001Z00;
+import jp.ne.tbs.frame.AA00.MAA00B003Z00;
 
 //インフルエンザ予防接種希望集計　業務メイン
-public class FD01C001Z00 {
+public class MFD01C001Z00 {
 
-		public void execute() {
+	/**
+	 * <p>[概 要] 業務メインを実行する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param appData セットする
+	 */
+		public void execute(MAA00B003Z00 appData) {
 
 			//メモ
 			//ADO(ca、appData、ログアウト、マスター群、帳票データ)
@@ -19,7 +26,7 @@ public class FD01C001Z00 {
 					//①－４.職員TBL取得
 				//②インプット｛(項目名/区切り文字/集計する値の形式)×ｎ、集計期間、集計方法｝の取得⇒今回は固定
 				//③AODに①～④を詰める。
-			AA00B001Z00 db = new AA00B001Z00();
+			MAA00B001Z00 db = new MAA00B001Z00();
 			db.execute();
 
 			//入力チェックCTL呼び出し
