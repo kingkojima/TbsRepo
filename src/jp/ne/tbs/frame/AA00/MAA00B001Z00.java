@@ -13,20 +13,64 @@ import jp.ne.tbs.frame.DB03.MDB03T001Z00;
  * <p>[クラス名]</p>
  * 　　業務メインフレームワーク
  * <p>[概要]</p>
- * 　　AOD作成及び、業務メインのフレームワーク
+ * 　　AOD作成及び、業務メインのフレームワーク。抽象クラス。
  * <p>[変更履歴]</p>
  * 　　2019/09/12　小嶋純史　新規作成
  */
-public class MAA00B001Z00 {
+public abstract class MAA00B001Z00 {
 
 	/** 	オールインワンデータ */
 	MAA00B002Z00 allInOneData = null;
 
-	public void execute() {
+	/**
+	 * <p>[概 要] 業務メインフレームワークを実行する。</p>
+	 * <p>[詳 細] 継承不可</p>
+	 * <p>[備 考] </p>
+	 * @param appData セットする
+	 */
+	public final void execute(MAA00B003Z00 appData) {
 
-		System.out.println("AOD設定開始！");
-
+		//AODをインスタンス化
 		allInOneData = new MAA00B002Z00();
+		//アプリデータを設定
+		allInOneData.setAppData(appData);
+
+		//トランザクションチェックを実行(要継承)
+		this.doTrxChk(allInOneData);
+
+		//マスターデータ取得を実行(継承不可)
+		this.doGetMst(allInOneData);
+
+		//マスターチェックを実行(要継承)
+		this.doMstChk(allInOneData);
+
+		//業務コントロールを実行(要継承)
+		this.doBizCtl(allInOneData);
+
+		//帳票編集コントロールを実行(要継承)
+		this.doEdtCtl(allInOneData);
+
+		//作業ログ出力(今後実装予定)
+
+	}
+
+	/**
+	 * <p>[概 要] トランザクションをチェックする</p>
+	 * <p>[詳 細] 継承必須</p>
+	 * <p>[備 考] </p>
+	 * @param allInOneData セットする
+	 */
+	public abstract void doTrxChk(MAA00B002Z00 allInOneData) ;
+
+	/**
+	 * <p>[概 要] マスターデータを取得する。</p>
+	 * <p>[詳 細] 継承不可</p>
+	 * <p>[備 考] </p>
+	 * @param allInOneData セットする
+	 */
+	private void doGetMst(MAA00B002Z00 allInOneData) {
+
+//		System.out.println("AOD設定開始！");
 
 		//患者情報TBL
 		MDB01A001Z00 patientDao = new MDB01A001Z00();
@@ -53,9 +97,32 @@ public class MAA00B001Z00 {
 //            System.out.println(patientKkiroku2Dto.getFdate());
 //        }
 
-        System.out.println("AOD設定終わり！");
-
+//    		System.out.println("AOD設定終わり！");
 	}
+
+	/**
+	 * <p>[概 要] マスターチェックを実行する</p>
+	 * <p>[詳 細] 継承必須</p>
+	 * <p>[備 考] </p>
+	 * @param allInOneData セットする
+	 */
+	public abstract void doMstChk(MAA00B002Z00 allInOneData) ;
+
+	/**
+	 * <p>[概 要] 業務コントロールを実行する</p>
+	 * <p>[詳 細] 継承必須</p>
+	 * <p>[備 考] </p>
+	 * @param allInOneData セットする
+	 */
+	public abstract void doBizCtl(MAA00B002Z00 allInOneData) ;
+
+	/**
+	 * <p>[概 要] 帳票編集コントロールを実行する</p>
+	 * <p>[詳 細] 継承必須</p>
+	 * <p>[備 考] </p>
+	 * @param allInOneData セットする
+	 */
+	public abstract void doEdtCtl(MAA00B002Z00 allInOneData) ;
 
 	/**
 	 * <p>[概 要] allInOneData を取得する。</p>

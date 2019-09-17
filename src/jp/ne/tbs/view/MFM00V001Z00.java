@@ -9,8 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import jp.ne.tbs.control.FD01.MFD01C001Z00;
+import jp.ne.tbs.control.FD01.MFD01B001Z00;
 import jp.ne.tbs.frame.AA00.MAA00B003Z00;
+import jp.ne.tbs.frame.AA00.MAAT00;
 
 /*
  * @author Junji Kojima
@@ -104,11 +105,39 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 
 			//appData作成
 			MAA00B003Z00 appData = new MAA00B003Z00();
-			appData.setMsgIn("","");
+			appData.setMsgIn(MAAT00.DCP_SRT,"2019/09/01");
+			appData.setMsgIn(MAAT00.DCP_END,"2019/12/31");
 
+			appData.setMsgIn(MAAT00.ITM_NME_1,"/*インフルエンザ希望");
+			appData.setMsgIn(MAAT00.ITM_DLM_1,MAAT00.CHAR.LF);
+			appData.setMsgIn(MAAT00.ITM_PTN_1,MAAT00.DROP.STRING);
+
+			appData.setMsgIn(MAAT00.ITM_NME_2,"家族");
+			appData.setMsgIn(MAAT00.ITM_DLM_2,MAAT00.CHAR.LF);
+			appData.setMsgIn(MAAT00.ITM_PTN_2,MAAT00.DROP.NUMBER);
+
+			appData.setMsgIn(MAAT00.ITM_NME_3,"続柄");
+			appData.setMsgIn(MAAT00.ITM_DLM_3,MAAT00.CHAR.LF);
+			appData.setMsgIn(MAAT00.ITM_PTN_3,MAAT00.DROP.STRING);
+
+			appData.setMsgIn(MAAT00.ITM_NME_4,"保険証撮影");
+			appData.setMsgIn(MAAT00.ITM_DLM_4,MAAT00.CHAR.LF);
+			appData.setMsgIn(MAAT00.ITM_PTN_4,MAAT00.DROP.STRING);
+
+			appData.setMsgIn(MAAT00.ITM_NME_5,"助成");
+			appData.setMsgIn(MAAT00.ITM_DLM_5,MAAT00.CHAR.LF);
+			appData.setMsgIn(MAAT00.ITM_PTN_5,MAAT00.DROP.STRING);
+
+			appData.setMsgIn(MAAT00.ITM_NME_6,"予診票保管場所");
+			appData.setMsgIn(MAAT00.ITM_DLM_6,MAAT00.CHAR.LF);
+			appData.setMsgIn(MAAT00.ITM_PTN_6,MAAT00.DROP.STRING);
+
+			appData.setMsgIn(MAAT00.ITM_NME_7,"支払方法");
+			appData.setMsgIn(MAAT00.ITM_DLM_7,MAAT00.CHAR.LF);
+			appData.setMsgIn(MAAT00.ITM_PTN_7,MAAT00.DROP.STRING);
 
 			//インフルエンザ予防接種希望集計表作成クラスを実行
-			MFD01C001Z00 fluDsrObj = new MFD01C001Z00();
+			MFD01B001Z00 fluDsrObj = new MFD01B001Z00();
 			fluDsrObj.execute(appData);
 
 			//処理が終わったら終了
