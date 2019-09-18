@@ -52,7 +52,7 @@ public class MFD01B001Z00 extends MAA00B001Z00 {
 	 * <p>[備 考] </p>
 	 * @param allInOneData セットする
 	 */
-	public void doBizCtl(MAA00B002Z00 allInOneData) {
+	public void doBizCtl(MAA00B002Z00 allInOneData) throws Exception {
 
 		//業務コントロールを実行
 		MAA00B006Z00 trxChkObj = new MFD01B004Z00();

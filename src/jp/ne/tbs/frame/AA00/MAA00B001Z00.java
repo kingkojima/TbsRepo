@@ -28,7 +28,7 @@ public abstract class MAA00B001Z00 {
 	 * <p>[備 考] </p>
 	 * @param appData セットする
 	 */
-	public final void execute(MAA00B003Z00 appData) {
+	public final void execute(MAA00B003Z00 appData) throws Exception {
 
 		//AODをインスタンス化
 		allInOneData = new MAA00B002Z00();
@@ -111,7 +111,7 @@ public abstract class MAA00B001Z00 {
 	 * <p>[備 考] </p>
 	 * @param allInOneData セットする
 	 */
-	public abstract void doBizCtl(MAA00B002Z00 allInOneData) ;
+	public abstract void doBizCtl(MAA00B002Z00 allInOneData) throws Exception ;
 
 	/**
 	 * <p>[概 要] 帳票編集コントロールを実行する</p>

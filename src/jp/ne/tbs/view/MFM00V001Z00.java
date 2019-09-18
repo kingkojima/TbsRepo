@@ -134,9 +134,19 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 			appData.setMsgIn(MAAT00.ITM_DLM_7,MAAT00.CHAR.LF);
 			appData.setMsgIn(MAAT00.ITM_PTN_7,MAAT00.DROP.STRING);
 
-			//インフルエンザ予防接種希望集計表作成クラスを実行
-			MFD01B001Z00 fluDsrObj = new MFD01B001Z00();
-			fluDsrObj.execute(appData);
+			try {
+
+				//インフルエンザ予防接種希望集計表作成クラスを実行
+				MFD01B001Z00 fluDsrObj = new MFD01B001Z00();
+				fluDsrObj.execute(appData);
+
+			//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+
+			}
 
 			//処理が終わったら終了
 			 this.dispose();
