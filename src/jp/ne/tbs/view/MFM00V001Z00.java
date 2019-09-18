@@ -13,14 +13,12 @@ import jp.ne.tbs.control.FD01.MFD01B001Z00;
 import jp.ne.tbs.frame.AA00.MAA00B003Z00;
 import jp.ne.tbs.frame.AA00.MAAT00;
 
-/*
- * @author Junji Kojima
- * @version 0.0.1
- */
-
-/*
- * バッチメインクラス
- * スキャンした書類(PDF)のファイル名を変更する機能
+/**
+ * <p>[クラス名]</p>
+ * 　　インフルエンザ予防接種希望集計　メイン画面
+ * <p>[概要]</p>
+ * <p>[変更履歴]</p>
+ * 　　2019/09/17　小嶋純史　新規作成
  */
 public class MFM00V001Z00 extends JFrame implements ActionListener {
 

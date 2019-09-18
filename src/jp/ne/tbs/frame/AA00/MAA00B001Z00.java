@@ -76,9 +76,6 @@ public abstract class MAA00B001Z00 {
 		MDB01A001Z00 patientDao = new MDB01A001Z00();
     	List<MDB01T001Z00> patientDtoList = patientDao.findAll();
     	allInOneData.setPtInfoTbls(patientDtoList);
-//        for (DB01T001Z00 patientDto: patientDtoList) {
-//            System.out.println(patientDto.getId());
-//        }
 
         //在宅履歴TBL
 		MDB02A001Z00 patient1Dao = new MDB02A001Z00();

@@ -18,7 +18,7 @@ public abstract class MAA00B006Z00 {
 	 * <p>[詳 細] 継承必須</p>
 	 * <p>[備 考] </p>
 	 */
-	public abstract void execute();
+	public abstract void execute() throws Exception ;
 
 	/**
 	 * <p>[概 要] allInOneData を取得する。</p>

@@ -11,6 +11,7 @@ public final class MAAT00 {
 		public static final String BLANK = " ";
 		public static final String CRLF = "¥r¥n";
 		public static final String LF = "¥n";
+		public static final String EMPTY_STRING = "";
 	}
 
 	public static class DROP {
