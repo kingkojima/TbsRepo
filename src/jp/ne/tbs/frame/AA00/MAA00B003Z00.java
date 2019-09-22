@@ -14,14 +14,14 @@ import java.util.Map;
 public class MAA00B003Z00 {
 
 	/**
-	 * メッセージイン
+	 * メッセージイン(画面入力)
 	 * Key:キーワード
 	 * Value:値
 	 */
 	private Map<String, String> msgIn;
 
 	/**
-	 * メッセージアウト
+	 * メッセージアウト(画面出力)
 	 * Key:キーワード
 	 * Value:値
 	 */
@@ -36,7 +36,7 @@ public class MAA00B003Z00 {
 	}
 
 	/**
-	 * <p>[概 要] msgIn から値を取得する。</p>
+	 * <p>[概 要] 画面入力から値を取得する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
 	 * @param key
@@ -47,7 +47,7 @@ public class MAA00B003Z00 {
 	}
 
 	/**
-	 * <p>[概 要] msgIn に値を設定する。</p>
+	 * <p>[概 要] 画面入力に値を設定する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
 	 * @param key
@@ -58,7 +58,7 @@ public class MAA00B003Z00 {
 	}
 
 	/**
-	 * <p>[概 要] msgOut から値を取得する。</p>
+	 * <p>[概 要] 画面出力から値を取得する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
 	 * @param key
@@ -69,7 +69,7 @@ public class MAA00B003Z00 {
 	}
 
 	/**
-	 * <p>[概 要] msgOut に値を設定する。</p>
+	 * <p>[概 要] 画面出力に値を設定する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
 	 * @param key

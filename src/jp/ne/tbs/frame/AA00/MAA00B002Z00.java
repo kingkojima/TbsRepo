@@ -37,6 +37,11 @@ public class MAA00B002Z00 {
 	private List<MDB03T001Z00> snRecoTbls;
 
 	/**
+	 * ログアウト
+	 */
+	private MAA00B008Z00 logOut;
+
+	/**
 	 * <p>[概 要] アプリデータを取得する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
@@ -52,7 +57,7 @@ public class MAA00B002Z00 {
 	 * <p>[備 考] </p>
 	 * @param appData セットする appData
 	 */
-	public void setAppData(MAA00B003Z00 appData) {
+	protected void setAppData(MAA00B003Z00 appData) {
 		this.appData = appData;
 	}
 
@@ -72,7 +77,7 @@ public class MAA00B002Z00 {
 	 * <p>[備 考] </p>
 	 * @param ptInfoTbls セットする ptInfoTbls
 	 */
-	public void setPtInfoTbls(List<MDB01T001Z00> ptInfoTbls) {
+	protected void setPtInfoTbls(List<MDB01T001Z00> ptInfoTbls) {
 		this.ptInfoTbls = ptInfoTbls;
 	}
 
@@ -92,7 +97,7 @@ public class MAA00B002Z00 {
 	 * <p>[備 考] </p>
 	 * @param zaHistTbls セットする zaHistTbls
 	 */
-	public void setZaHistTbls(List<MDB02T001Z00> zaHistTbls) {
+	protected void setZaHistTbls(List<MDB02T001Z00> zaHistTbls) {
 		this.zaHistTbls = zaHistTbls;
 	}
 
@@ -112,8 +117,27 @@ public class MAA00B002Z00 {
 	 * <p>[備 考] </p>
 	 * @param snRecoTbls セットする snRecoTbls
 	 */
-	public void setSnRecoTbls(List<MDB03T001Z00> snRecoTbls) {
+	protected void setSnRecoTbls(List<MDB03T001Z00> snRecoTbls) {
 		this.snRecoTbls = snRecoTbls;
 	}
 
+	/**
+	 * <p>[概 要] LogOut を取得する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @return logOut
+	 */
+	public MAA00B008Z00 getLogOut() {
+		return logOut;
+	}
+
+	/**
+	 * <p>[概 要] LogOut を設定する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param logOut セットする logOut
+	 */
+	protected void setLogOut(MAA00B008Z00 logOut) {
+		this.logOut = logOut;
+	}
 }

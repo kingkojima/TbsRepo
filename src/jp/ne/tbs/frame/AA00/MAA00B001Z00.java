@@ -30,10 +30,8 @@ public abstract class MAA00B001Z00 {
 	 */
 	public final void execute(MAA00B003Z00 appData) throws Exception {
 
-		//AODをインスタンス化
-		allInOneData = new MAA00B002Z00();
-		//アプリデータを設定
-		allInOneData.setAppData(appData);
+		//オールインワンデータを作成(継承不可)
+		this.createAod(appData);
 
 		//トランザクションチェックを実行(要継承)
 		this.doTrxChk(allInOneData);
@@ -44,6 +42,9 @@ public abstract class MAA00B001Z00 {
 		//マスターチェックを実行(要継承)
 		this.doMstChk(allInOneData);
 
+		//ログアウトを作成(継承不可)
+		this.createLogOut(allInOneData);
+
 		//業務コントロールを実行(要継承)
 		this.doBizCtl(allInOneData);
 
@@ -52,6 +53,20 @@ public abstract class MAA00B001Z00 {
 
 		//作業ログ出力(今後実装予定)
 
+	}
+
+	/**
+	 * <p>[概 要] AODを作成する。</p>
+	 * <p>[詳 細] 継承不可</p>
+	 * <p>[備 考] </p>
+	 * @param appData セットする
+	 */
+	private void createAod(MAA00B003Z00 appData) {
+
+		//AODをインスタンス化
+		allInOneData = new MAA00B002Z00();
+		//アプリデータを設定
+		allInOneData.setAppData(appData);
 	}
 
 	/**
@@ -70,8 +85,6 @@ public abstract class MAA00B001Z00 {
 	 */
 	private void doGetMst(MAA00B002Z00 allInOneData) {
 
-//		System.out.println("AOD設定開始！");
-
 		//患者情報TBL
 		MDB01A001Z00 patientDao = new MDB01A001Z00();
     	List<MDB01T001Z00> patientDtoList = patientDao.findAll();
@@ -81,20 +94,11 @@ public abstract class MAA00B001Z00 {
 		MDB02A001Z00 patient1Dao = new MDB02A001Z00();
     	List<MDB02T001Z00> patient1DtoList = patient1Dao.findAll();
     	allInOneData.setZaHistTbls(patient1DtoList);
-//        for (DB02T001Z00 patient1Dto: patient1DtoList) {
-//            System.out.println(patient1Dto.getId());
-//        }
 
         //診療記録TBL
 		MDB03A001Z00 patientKkiroku2Dao = new MDB03A001Z00();
     	List<MDB03T001Z00> patientKkiroku2DtoList = patientKkiroku2Dao.findAll();
     	allInOneData.setSnRecoTbls(patientKkiroku2DtoList);
-//        for (DB03T001Z00 patientKkiroku2Dto: patientKkiroku2DtoList) {
-//            System.out.println(patientKkiroku2Dto.getId());
-//            System.out.println(patientKkiroku2Dto.getFdate());
-//        }
-
-//    		System.out.println("AOD設定終わり！");
 	}
 
 	/**
@@ -104,6 +108,19 @@ public abstract class MAA00B001Z00 {
 	 * @param allInOneData セットする
 	 */
 	public abstract void doMstChk(MAA00B002Z00 allInOneData) ;
+
+	/**
+	 * <p>[概 要] ログアウトを作成する。</p>
+	 * <p>[詳 細] 継承不可</p>
+	 * <p>[備 考] </p>
+	 * @param allInOneData セットする
+	 */
+	private void createLogOut(MAA00B002Z00 allInOneData) {
+
+		//ログアウトをインスタンス化
+		MAA00B008Z00 logOut = new MAA00B008Z00();
+		allInOneData.setLogOut(logOut);
+	}
 
 	/**
 	 * <p>[概 要] 業務コントロールを実行する</p>
