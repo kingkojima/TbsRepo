@@ -9,9 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import jp.ne.tbs.control.FD01.MFD01B001Z00;
-import jp.ne.tbs.frame.AA00.MAA00B003Z00;
-import jp.ne.tbs.frame.AA00.MAAT00;
+import jp.ne.tbs.view.FD01.MFD01V001Z00;
 
 /**
  * <p>[クラス名]</p>
@@ -34,14 +32,16 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 
 		//メインフレームを生成し実行。
 		MFM00V001Z00 frame = new MFM00V001Z00();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(900, 100, 300, 400);
-		frame.setTitle("トーマス君デラックス");
 		frame.setVisible(true);
 	}
 
 	//コンストラクタ
-	MFM00V001Z00() {
+	public MFM00V001Z00() {
+
+		//画面設定
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(900, 100, 300, 400);
+		setTitle("トーマス君デラックス");
 
 		//ボタンを生成。
 		//ボタン１
@@ -92,86 +92,27 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 	//ボタン押下後の処理
 	public void actionPerformed(ActionEvent e) {
 
-//		JFileChooser filechooser = new JFileChooser();
-//		int selected = filechooser.showOpenDialog(this);
-
 		//ボタン毎にセットしたアクションコマンドを取得
 		String cmd = e.getActionCommand();
 
 		//インフル希望集計の場合
-		if(cmd.endsWith("flu_dsr_btn")) {
-
-			//appData作成
-			MAA00B003Z00 appData = new MAA00B003Z00();
-			appData.setMsgIn(MAAT00.DCP_SRT,"2019/09/01");
-			appData.setMsgIn(MAAT00.DCP_END,"2019/12/31");
-
-			appData.setMsgIn(MAAT00.ITM_NME_1,"/*インフルエンザ希望");
-			appData.setMsgIn(MAAT00.ITM_DLM_1,MAAT00.CHAR.CRLF);
-			appData.setMsgIn(MAAT00.ITM_PTN_1,MAAT00.DROP.STRING);
-			appData.setMsgIn(MAAT00.ITM_END_1,MAAT00.CHAR.CRLF);
-
-			appData.setMsgIn(MAAT00.ITM_NME_2,"家族");
-			appData.setMsgIn(MAAT00.ITM_DLM_2,MAAT00.CHAR.CRLF);
-			appData.setMsgIn(MAAT00.ITM_PTN_2,MAAT00.DROP.NUMBER);
-			appData.setMsgIn(MAAT00.ITM_END_2,MAAT00.CHAR.CRLF);
-
-			appData.setMsgIn(MAAT00.ITM_NME_3,"続柄");
-			appData.setMsgIn(MAAT00.ITM_DLM_3,MAAT00.CHAR.CRLF);
-			appData.setMsgIn(MAAT00.ITM_PTN_3,MAAT00.DROP.STRING);
-			appData.setMsgIn(MAAT00.ITM_END_3,MAAT00.CHAR.CRLF);
-
-			appData.setMsgIn(MAAT00.ITM_NME_4,"保険証撮影");
-			appData.setMsgIn(MAAT00.ITM_DLM_4,MAAT00.CHAR.CRLF);
-			appData.setMsgIn(MAAT00.ITM_PTN_4,MAAT00.DROP.STRING);
-			appData.setMsgIn(MAAT00.ITM_END_4,MAAT00.CHAR.CRLF);
-
-			appData.setMsgIn(MAAT00.ITM_NME_5,"助成");
-			appData.setMsgIn(MAAT00.ITM_DLM_5,MAAT00.CHAR.CRLF);
-			appData.setMsgIn(MAAT00.ITM_PTN_5,MAAT00.DROP.STRING);
-			appData.setMsgIn(MAAT00.ITM_END_5,MAAT00.CHAR.CRLF);
-
-			appData.setMsgIn(MAAT00.ITM_NME_6,"予診票保管場所");
-			appData.setMsgIn(MAAT00.ITM_DLM_6,MAAT00.CHAR.CRLF);
-			appData.setMsgIn(MAAT00.ITM_PTN_6,MAAT00.DROP.STRING);
-			appData.setMsgIn(MAAT00.ITM_END_6,MAAT00.CHAR.CRLF);
-
-			appData.setMsgIn(MAAT00.ITM_NME_7,"支払方法");
-			appData.setMsgIn(MAAT00.ITM_DLM_7,MAAT00.CHAR.CRLF);
-			appData.setMsgIn(MAAT00.ITM_PTN_7,MAAT00.DROP.STRING);
-			appData.setMsgIn(MAAT00.ITM_END_7,MAAT00.CHAR.CRLF);
-
-			appData.setMsgIn(MAAT00.ITM_NME_8,MAAT00.CHAR.EMPTY_STRING);
-			appData.setMsgIn(MAAT00.ITM_DLM_8,MAAT00.CHAR.EMPTY_STRING);
-			appData.setMsgIn(MAAT00.ITM_PTN_8,MAAT00.CHAR.EMPTY_STRING);
-			appData.setMsgIn(MAAT00.ITM_END_8,MAAT00.CHAR.EMPTY_STRING);
-
-			appData.setMsgIn(MAAT00.ITM_NME_9,MAAT00.CHAR.EMPTY_STRING);
-			appData.setMsgIn(MAAT00.ITM_DLM_9,MAAT00.CHAR.EMPTY_STRING);
-			appData.setMsgIn(MAAT00.ITM_PTN_9,MAAT00.CHAR.EMPTY_STRING);
-			appData.setMsgIn(MAAT00.ITM_END_9,MAAT00.CHAR.EMPTY_STRING);
-
-			appData.setMsgIn(MAAT00.ITM_NME_10,MAAT00.CHAR.EMPTY_STRING);
-			appData.setMsgIn(MAAT00.ITM_DLM_10,MAAT00.CHAR.EMPTY_STRING);
-			appData.setMsgIn(MAAT00.ITM_PTN_10,MAAT00.CHAR.EMPTY_STRING);
-			appData.setMsgIn(MAAT00.ITM_END_10,MAAT00.CHAR.EMPTY_STRING);
+		if (cmd.equals("flu_dsr_btn")) {
 
 			try {
 
-				//インフルエンザ予防接種希望集計表作成クラスを実行
-				MFD01B001Z00 fluDsrObj = new MFD01B001Z00();
-				fluDsrObj.execute(appData);
+				//インフルエンザ希望集計画面
+				MFD01V001Z00 fluFrame = new MFD01V001Z00();
+				fluFrame.setVisible(true);
 
-			//エラー発生時
+				//エラー発生時
 			} catch (Exception ex) {
 
 				//標準出力
 				ex.printStackTrace();
-
 			}
 
 			//処理が終わったら終了
-			 this.dispose();
+			this.dispose();
 
 		}
 	}

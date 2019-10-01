@@ -17,6 +17,11 @@ import jp.ne.tbs.frame.DB03.MDB03T001Z00;
 public class MAA00B002Z00 {
 
 	/**
+	 * CA
+	 */
+	private MAA00B009Z00 ca;
+
+	/**
 	 * アプリデータ
 	 */
 	private MAA00B003Z00 appData;
@@ -40,6 +45,26 @@ public class MAA00B002Z00 {
 	 * ログアウト
 	 */
 	private MAA00B008Z00 logOut;
+
+	/**
+	 * <p>[概 要] ca を取得する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @return ca
+	 */
+	public MAA00B009Z00 getCa() {
+		return ca;
+	}
+
+	/**
+	 * <p>[概 要] ca を設定する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param ca セットする ca
+	 */
+	protected void setCa(MAA00B009Z00 ca) {
+		this.ca = ca;
+	}
 
 	/**
 	 * <p>[概 要] アプリデータを取得する。</p>

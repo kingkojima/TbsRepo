@@ -1,6 +1,7 @@
 package jp.ne.tbs.control.FD01;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -87,6 +88,8 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 		int patDisCnt = 0;
 		//本人以外希望カウント
 		int fmyDisCnt = 0;
+		//処理済みリスト
+		List <String> prcssdList = new ArrayList<String>();
 
 		//入力データより集計期間開始と集計期間終了を取得し、Date型に変換。
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -163,8 +166,9 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 			//診療記録TBL.ID を取得
 			String targetId = snRecoDto.getId().trim();
 
-			//当該レコードの患者が、出力対象患者の場合
-			if (resultMap.containsKey(targetId)) {
+			//当該レコードの患者(targetId)が出力対象患者(resultMapに含む)の場合
+			//かつ、処理済みリスト(prcssdList)にない場合
+			if (resultMap.containsKey(targetId) && !prcssdList.contains(targetId)) {
 
 				//当該レコードが、集計対象期間の場合
 				//条件式：入力データ.集計期間開始 ≦ 診療記録TBL.FDATE ≦ 入力データ.集計期間終了
@@ -213,9 +217,15 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 									targetStr = targetStr.substring(indexDlm1);
 									//終了文字のインデックスを取得
 									indexEnd1 = targetStr.indexOf(end1);
-									//終了文字以前の文字列を取得
-									result1 = targetStr.substring(0, indexEnd1);
 
+									//カルテが改行無しで終わっている場合の対応
+									if(indexEnd1 == -1) {
+										//残りの文字をそのまま取得
+										result1 = targetStr;
+									}else {
+										//終了文字以前の文字列を取得
+										result1 = targetStr.substring(0, indexEnd1);
+									}
 									//区切り文字が設定されていない場合
 								} else {
 
@@ -230,11 +240,15 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 								}
 
 								//テスト用出力
-								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "：" + result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
+//								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "：" + result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
 
 								//処理結果マップ.項目マップに項目名と値を格納
 								String val = result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", "");
 								resultMap.get(targetId).put(ITM_NME_LIST[i], val);
+
+								//最新の(最初に格納の)記録レコードのみを処理するため、
+								//処理済み(結果格納済)のIDを処理済みリストに記憶しておく。
+								prcssdList.add(targetId);
 
 								//集計行用カウント
 								if(ITM_NME_LIST[i].equals(MAAT00.ITM_NME_1)) {
@@ -247,6 +261,7 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 									if(!val.equals("無し")) {
 										String removed = val.replace("人", MAAT00.CHAR.EMPTY_STRING);
 										fmyDisCnt += Integer.parseInt(removed);
+										System.out.println("ID：" + targetId + "　　トータル：" + fmyDisCnt + "　　追加：" + Integer.parseInt(removed));
 									}
 								}
 

@@ -27,7 +27,7 @@ public class MDB03A001Z00 {
 	private static final String pass = "supply";
 	/** 発行SQL */
 //	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 order by ID asc, FDATE asc, SEQ asc";
-	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 where FDATE >= '2019/09/01' order by ID asc, FDATE asc, SEQ asc";
+	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 where FDATE >= '2019/09/01' order by ID asc, FDATE desc, SEQ desc";
 
 
 	/**

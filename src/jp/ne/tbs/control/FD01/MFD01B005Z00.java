@@ -1,6 +1,7 @@
 package jp.ne.tbs.control.FD01;
 
 import java.awt.Component;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,7 @@ import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.PrintSetup;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -24,6 +26,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import jp.ne.tbs.frame.AA00.MAA00B003Z00;
 import jp.ne.tbs.frame.AA00.MAA00B007Z00;
 import jp.ne.tbs.frame.AA00.MAA00B008Z00;
+import jp.ne.tbs.frame.AA00.MAAE00;
 import jp.ne.tbs.frame.AA00.MAAT00;
 
 /**
@@ -118,10 +121,10 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 			headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
 			headerCellStyle.setFillForegroundColor(IndexedColors.PALE_BLUE.index);
-			headerCellStyle.setBorderTop(BorderStyle.MEDIUM);
-			headerCellStyle.setBorderBottom(BorderStyle.MEDIUM);
-			headerCellStyle.setBorderRight(BorderStyle.MEDIUM);
-			headerCellStyle.setBorderLeft(BorderStyle.MEDIUM);
+			headerCellStyle.setBorderTop(BorderStyle.THIN);
+			headerCellStyle.setBorderBottom(BorderStyle.THIN);
+			headerCellStyle.setBorderRight(BorderStyle.THIN);
+			headerCellStyle.setBorderLeft(BorderStyle.THIN);
 
 			// セルに「表のヘッダ」を設定
 			row = sheet.createRow(1);
@@ -156,14 +159,14 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			resultCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 			resultCellStyle.setAlignment(HorizontalAlignment.CENTER);
 			resultCellStyle.setFillForegroundColor(IndexedColors.WHITE.index);
-			resultCellStyle.setBorderTop(BorderStyle.MEDIUM);
-			resultCellStyle.setBorderBottom(BorderStyle.MEDIUM);
-			resultCellStyle.setBorderRight(BorderStyle.MEDIUM);
-			resultCellStyle.setBorderLeft(BorderStyle.MEDIUM);
+			resultCellStyle.setBorderTop(BorderStyle.THIN);
+			resultCellStyle.setBorderBottom(BorderStyle.THIN);
+			resultCellStyle.setBorderRight(BorderStyle.THIN);
+			resultCellStyle.setBorderLeft(BorderStyle.THIN);
 
 			//ログアウト取得
 			MAA00B008Z00 logout = super.getAllInOneData().getLogOut();
-			@SuppressWarnings({ "unchecked"})
+			@SuppressWarnings({ "unchecked" })
 			Map<String, Map<String, String>> resultMap = (Map<String, Map<String, String>>) logout
 					.getResultMap(MAAT00.BIZ_RESULT);
 
@@ -201,9 +204,9 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			cell = row.createCell(0);
 			cell.setCellValue("集計");
 			cell = row.createCell(3);
-			cell.setCellValue((Integer)logout.getResultMap(MAAT00.PAT_DIR));
+			cell.setCellValue((Integer) logout.getResultMap(MAAT00.PAT_DIR));
 			cell = row.createCell(4);
-			cell.setCellValue((Integer)logout.getResultMap(MAAT00.FMY_DIR));
+			cell.setCellValue((Integer) logout.getResultMap(MAAT00.FMY_DIR));
 
 			//=======================
 			//=最終調整=================
@@ -214,17 +217,20 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			}
 
 			//ウィンドウ枠の固定
-			sheet.createFreezePane(0, 2, 0, 2);
+			sheet.createFreezePane(2, 2, 2, 2);
+
+			//ヘッダ行にオートフィルタの設定
+			sheet.setAutoFilter(new CellRangeAddress(1, roopCnt, 0, hedColCnt));
 
 			//印刷設定
-			PrintSetup printSetup =sheet.getPrintSetup();
+			PrintSetup printSetup = sheet.getPrintSetup();
 			printSetup.setPaperSize(PrintSetup.A4_PAPERSIZE);
 			//縦(false)印刷
 			printSetup.setLandscape(false);
 			//横１枚
-			printSetup.setFitHeight((short)5);
+			printSetup.setFitHeight((short) 5);
 			//横１枚
-			printSetup.setFitWidth((short)5);
+			printSetup.setFitWidth((short) 5);
 
 			// エクセルファイルを出力
 			try {
@@ -237,8 +243,14 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 				outPutFilePath = System.getProperty("user.home") + "/Desktop/";
 				outPutFileName = "インフル希望集計_" + dateFormat.format(date).toString() + ".xlsx";
 
-				// エクセルファイルを出力
-				outPutFile = new FileOutputStream(outPutFilePath + outPutFileName);
+				try {
+					// エクセルファイルを出力
+					outPutFile = new FileOutputStream(outPutFilePath + outPutFileName);
+				} catch (FileNotFoundException e) {
+					super.getAllInOneData().getCa().setBussnesErrCode(MAAE00.EFD00A004);
+					e.printStackTrace();
+					return;
+				}
 				workBook.write(outPutFile);
 
 				System.out.println("「" + outPutFilePath + outPutFileName + "」を出力しました。");
@@ -254,7 +266,7 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 
 		System.out.println("帳票編集が終わったぜい！");
 
-		JOptionPane.showConfirmDialog((Component)null, "ﾃﾞｽｸﾄｯﾌﾟに集計表ができたンゴ", "集計完了", -1, 1);
+		JOptionPane.showConfirmDialog((Component) null, "デスクトップに集計表が出来ました。", "集計完了", -1, 1);
 
 	}
 }

@@ -36,11 +36,26 @@ public abstract class MAA00B001Z00 {
 		//トランザクションチェックを実行(要継承)
 		this.doTrxChk(allInOneData);
 
+		//業務エラーが発生していた場合はエラー終了
+		if(allInOneData.getCa().errOccurred()) {
+			return;
+		}
+
 		//マスターデータ取得を実行(継承不可)
 		this.doGetMst(allInOneData);
 
+		//業務エラーが発生していた場合はエラー終了
+		if(allInOneData.getCa().errOccurred()) {
+			return;
+		}
+
 		//マスターチェックを実行(要継承)
 		this.doMstChk(allInOneData);
+
+		//業務エラーが発生していた場合はエラー終了
+		if(allInOneData.getCa().errOccurred()) {
+			return;
+		}
 
 		//ログアウトを作成(継承不可)
 		this.createLogOut(allInOneData);
@@ -48,8 +63,18 @@ public abstract class MAA00B001Z00 {
 		//業務コントロールを実行(要継承)
 		this.doBizCtl(allInOneData);
 
+		//業務エラーが発生していた場合はエラー終了
+		if(allInOneData.getCa().errOccurred()) {
+			return;
+		}
+
 		//帳票編集コントロールを実行(要継承)
 		this.doEdtCtl(allInOneData);
+
+		//業務エラーが発生していた場合はエラー終了
+		if(allInOneData.getCa().errOccurred()) {
+			return;
+		}
 
 		//作業ログ出力(今後実装予定)
 
@@ -65,8 +90,9 @@ public abstract class MAA00B001Z00 {
 
 		//AODをインスタンス化
 		allInOneData = new MAA00B002Z00();
-		//アプリデータを設定
+		//アプリデータとCAを設定
 		allInOneData.setAppData(appData);
+		allInOneData.setCa(new MAA00B009Z00());
 	}
 
 	/**
