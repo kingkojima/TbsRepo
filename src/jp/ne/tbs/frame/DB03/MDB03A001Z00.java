@@ -5,8 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.ne.tbs.frame.AA00.MAA00B002Z00;
+import jp.ne.tbs.frame.AA00.MAAT00;
 
 /**
  * <p>[クラス名]</p>
@@ -26,16 +30,18 @@ public class MDB03A001Z00 {
 	/** パスワード */
 	private static final String pass = "supply";
 	/** 発行SQL */
-//	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 order by ID asc, FDATE asc, SEQ asc";
-	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 where FDATE >= '2019/09/01' order by ID asc, FDATE desc, SEQ desc";
+	private static final String SQL1 = "select * from Ciao.dbo.DATA_PATIENT_KKIROKU2 where FDATE >= '";
+	private static final String SQL2 = "' and FDATE <= '";
+	private static final String SQL3 = "' order by ID asc, FDATE desc, SEQ desc";
 
 
 	/**
 	 * <p>[メソッド名] </p>
+	 * @param allInOneData
 	 * @param
 	 * @return
 	 */
-	public List<MDB03T001Z00> findAll() {
+	public List<MDB03T001Z00> findAll(MAA00B002Z00 allInOneData) throws Exception {
 
 		List<MDB03T001Z00> dtoList = new ArrayList<>();
 
@@ -43,12 +49,17 @@ public class MDB03A001Z00 {
 		Connection conn = null;
 		PreparedStatement ps = null;
 
+		//入力項目の取得
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+		String strYmd = sdFormat.format(sdFormat.parse(allInOneData.getAppData().getMsgIn(MAAT00.DCP_SRT)));
+		String endYmd = sdFormat.format( sdFormat.parse(allInOneData.getAppData().getMsgIn(MAAT00.DCP_END)));
+
 		// 接続開始
 		try {
 			//コネクション取得
 			conn = DriverManager.getConnection(dbURL, user, pass);
 			//SQL設定
-			ps = conn.prepareStatement(SQL);
+			ps = conn.prepareStatement(SQL1 + strYmd +SQL2+ endYmd +SQL3);
 			//SQLを発行し、結果取得
 			try (ResultSet rs = ps.executeQuery()) {
 				//結果をDTOに格納

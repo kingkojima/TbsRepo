@@ -24,15 +24,20 @@ public class MFD01B002Z00 extends MAA00B004Z00 {
 	 */
 	public void execute() {
 
+		Date strYmd = null;
+		Date endYmd = null;
+
 		//文字列フォーマット、日付解析
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
 		sdFormat.setLenient(false);
 
+		//====================
 		//集計開始日　エラーチェック
+		//====================
 		try {
 
 			//日付変換できるか？
-			sdFormat.parse(super.getAllInOneData().getAppData().getMsgIn(MAAT00.DCP_SRT));
+			strYmd = sdFormat.parse(super.getAllInOneData().getAppData().getMsgIn(MAAT00.DCP_SRT));
 
 		} catch (ParseException e) {
 
@@ -42,11 +47,13 @@ public class MFD01B002Z00 extends MAA00B004Z00 {
 			return;
 		}
 
+		//====================
 		//集計終了日　エラーチェック
+		//====================
 		try {
 
 			//日付変換できるか？
-			sdFormat.parse(super.getAllInOneData().getAppData().getMsgIn(MAAT00.DCP_END));
+			endYmd = sdFormat.parse(super.getAllInOneData().getAppData().getMsgIn(MAAT00.DCP_END));
 
 		} catch (ParseException e) {
 
@@ -56,26 +63,26 @@ public class MFD01B002Z00 extends MAA00B004Z00 {
 			return;
 		}
 
-		Date strYmd = null;
-		Date endYmd = null;
-		try {
-			strYmd = sdFormat.parse(super.getAllInOneData().getAppData().getMsgIn(MAAT00.DCP_SRT));
-			endYmd = sdFormat.parse(super.getAllInOneData().getAppData().getMsgIn(MAAT00.DCP_END));
-		} catch (Exception e) {
-			//エラーコードを設定
-			super.getAllInOneData().getCa().setBussnesErrCode(MAAE00.EFD00A001);
-			e.printStackTrace();
-			return;
-		}
-
+		//====================
 		//日付の大小関係チェック
-		if(!endYmd.after(strYmd)) {
+		//====================
+		long MIN_DATE_Diff = 0;
+		long dayDiff = (endYmd.getTime()- strYmd.getTime())/(1000*60*60*24);
+		if(dayDiff < MIN_DATE_Diff) {
 			//エラーコードを設定
 			super.getAllInOneData().getCa().setBussnesErrCode(MAAE00.EFD00A003);
 			return;
 		}
 
+		//====================
+		//日付の間隔チェック(150日以内)
+		//====================
+		long MAX_DATE_DIFF = 150;
+		if(dayDiff > MAX_DATE_DIFF) {
+			//エラーコードを設定
+			super.getAllInOneData().getCa().setBussnesErrCode(MAAE00.EFD00A005);
+			return;
+		}
 	}
-
 }
 

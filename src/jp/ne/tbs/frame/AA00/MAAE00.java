@@ -21,5 +21,8 @@ public class MAAE00 {
 	/** ファイル保存エラー */
 	public static final String EFD00A004 = "インフル集計表(エクセル)を閉じて下さい";
 
+	/** 日付間隔エラー */
+	public static final String EFD00A005 = "日付の間隔は150日以内にして下さい";
+
 
 }

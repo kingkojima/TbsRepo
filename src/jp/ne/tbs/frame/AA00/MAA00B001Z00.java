@@ -108,22 +108,23 @@ public abstract class MAA00B001Z00 {
 	 * <p>[詳 細] 継承不可</p>
 	 * <p>[備 考] </p>
 	 * @param allInOneData セットする
+	 * @throws Exception
 	 */
-	private void doGetMst(MAA00B002Z00 allInOneData) {
+	private void doGetMst(MAA00B002Z00 allInOneData) throws Exception {
 
 		//患者情報TBL
 		MDB01A001Z00 patientDao = new MDB01A001Z00();
-    	List<MDB01T001Z00> patientDtoList = patientDao.findAll();
+    	List<MDB01T001Z00> patientDtoList = patientDao.findAll(allInOneData);
     	allInOneData.setPtInfoTbls(patientDtoList);
 
         //在宅履歴TBL
 		MDB02A001Z00 patient1Dao = new MDB02A001Z00();
-    	List<MDB02T001Z00> patient1DtoList = patient1Dao.findAll();
+    	List<MDB02T001Z00> patient1DtoList = patient1Dao.findAll(allInOneData);
     	allInOneData.setZaHistTbls(patient1DtoList);
 
         //診療記録TBL
 		MDB03A001Z00 patientKkiroku2Dao = new MDB03A001Z00();
-    	List<MDB03T001Z00> patientKkiroku2DtoList = patientKkiroku2Dao.findAll();
+    	List<MDB03T001Z00> patientKkiroku2DtoList = patientKkiroku2Dao.findAll(allInOneData);
     	allInOneData.setSnRecoTbls(patientKkiroku2DtoList);
 	}
 

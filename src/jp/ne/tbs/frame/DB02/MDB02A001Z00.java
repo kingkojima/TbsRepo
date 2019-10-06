@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.ne.tbs.frame.AA00.MAA00B002Z00;
+
 /**
  * <p>[クラス名]</p>
  * 　　DATA_PATIENT_1 (在宅履歴)テーブル　DAOクラス
@@ -30,10 +32,11 @@ public class MDB02A001Z00 {
 
 	/**
 	 * <p>[メソッド名] </p>
+	 * @param allInOneData
 	 * @param
 	 * @return
 	 */
-	public List<MDB02T001Z00> findAll() {
+	public List<MDB02T001Z00> findAll(MAA00B002Z00 allInOneData) {
 
 		List<MDB02T001Z00> dtoList = new ArrayList<>();
 

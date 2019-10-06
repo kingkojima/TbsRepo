@@ -73,7 +73,7 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 	 */
 	public void execute() throws Exception {
 
-		System.out.println("業務処理が始まったぜい！");
+//		System.out.println("業務処理が始まったぜい！");
 
 		/*********************/
 		/* 業務処理用の変数Map群 */
@@ -169,6 +169,8 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 			//当該レコードの患者(targetId)が出力対象患者(resultMapに含む)の場合
 			//かつ、処理済みリスト(prcssdList)にない場合
 			if (resultMap.containsKey(targetId) && !prcssdList.contains(targetId)) {
+//			if (resultMap.containsKey(targetId) && !prcssdList.contains(targetId)
+//					&& targetId.equals("XXXXXXXX")) {
 
 				//当該レコードが、集計対象期間の場合
 				//条件式：入力データ.集計期間開始 ≦ 診療記録TBL.FDATE ≦ 入力データ.集計期間終了
@@ -240,7 +242,7 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 								}
 
 								//テスト用出力
-//								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "：" + result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
+								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "：" + result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
 
 								//処理結果マップ.項目マップに項目名と値を格納
 								String val = result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", "");
@@ -261,15 +263,23 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 									if(!val.equals("無し")) {
 										String removed = val.replace("人", MAAT00.CHAR.EMPTY_STRING);
 										fmyDisCnt += Integer.parseInt(removed);
-										System.out.println("ID：" + targetId + "　　トータル：" + fmyDisCnt + "　　追加：" + Integer.parseInt(removed));
+//										System.out.println("ID：" + targetId + "　　トータル：" + fmyDisCnt + "　　追加：" + Integer.parseInt(removed));
 									}
 								}
 
 								//終了文字を含めた文字列長を算出
 								indexEnd1 += end1.length();
-								//さらにもう１つ分の改行を飛ばす(※１)
-								//※１　モバカルのカスタムウィザードでは項目と項目の間に空行が必ず入るため。
-								indexEnd1 += MAAT00.CHAR.CRLF.length();
+
+								//残りの文字列長を取得
+								int targetStrLen=  targetStr.length();
+
+								//まだ読み込む行がある場合
+								if(targetStrLen > indexEnd1) {
+
+									//さらにもう１つ分の改行を飛ばす。
+									//　→カスタムウィザードでは項目と項目の間に空行が必ず入るため。
+									indexEnd1 += MAAT00.CHAR.CRLF.length();
+								}
 								//終了文字以降の文字列を取得し、次の処理に渡す
 								targetStr = targetStr.substring(indexEnd1);
 							}
@@ -285,7 +295,7 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 		logOut.setResultMap(MAAT00.PAT_DIR, patDisCnt);
 		logOut.setResultMap(MAAT00.FMY_DIR, fmyDisCnt);
 
-		System.out.println("業務処理が終わったぜい！");
+//		System.out.println("業務処理が終わったぜい！");
 
 	}
 

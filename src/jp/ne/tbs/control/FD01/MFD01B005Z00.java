@@ -64,7 +64,7 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 	 */
 	public void execute() {
 
-		System.out.println("帳票編集が始まったぜい！");
+//		System.out.println("帳票編集が始まったぜい！");
 
 		// ワークブック
 		XSSFWorkbook workBook = null;
@@ -253,7 +253,7 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 				}
 				workBook.write(outPutFile);
 
-				System.out.println("「" + outPutFilePath + outPutFileName + "」を出力しました。");
+//				System.out.println("「" + outPutFilePath + outPutFileName + "」を出力しました。");
 
 			} catch (IOException e) {
 				System.out.println(e.toString());
@@ -264,7 +264,7 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			e.printStackTrace();
 		}
 
-		System.out.println("帳票編集が終わったぜい！");
+//		System.out.println("帳票編集が終わったぜい！");
 
 		JOptionPane.showConfirmDialog((Component) null, "デスクトップに集計表が出来ました。", "集計完了", -1, 1);
 
