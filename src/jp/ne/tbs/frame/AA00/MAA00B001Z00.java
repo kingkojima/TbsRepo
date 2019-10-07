@@ -8,6 +8,8 @@ import jp.ne.tbs.frame.DB02.MDB02A001Z00;
 import jp.ne.tbs.frame.DB02.MDB02T001Z00;
 import jp.ne.tbs.frame.DB03.MDB03A001Z00;
 import jp.ne.tbs.frame.DB03.MDB03T001Z00;
+import jp.ne.tbs.frame.DB04.MDB04A001Z00;
+import jp.ne.tbs.frame.DB04.MDB04T001Z00;
 
 /**
  * <p>[クラス名]</p>
@@ -37,7 +39,7 @@ public abstract class MAA00B001Z00 {
 		this.doTrxChk(allInOneData);
 
 		//業務エラーが発生していた場合はエラー終了
-		if(allInOneData.getCa().errOccurred()) {
+		if (allInOneData.getCa().errOccurred()) {
 			return;
 		}
 
@@ -45,7 +47,7 @@ public abstract class MAA00B001Z00 {
 		this.doGetMst(allInOneData);
 
 		//業務エラーが発生していた場合はエラー終了
-		if(allInOneData.getCa().errOccurred()) {
+		if (allInOneData.getCa().errOccurred()) {
 			return;
 		}
 
@@ -53,7 +55,7 @@ public abstract class MAA00B001Z00 {
 		this.doMstChk(allInOneData);
 
 		//業務エラーが発生していた場合はエラー終了
-		if(allInOneData.getCa().errOccurred()) {
+		if (allInOneData.getCa().errOccurred()) {
 			return;
 		}
 
@@ -64,7 +66,7 @@ public abstract class MAA00B001Z00 {
 		this.doBizCtl(allInOneData);
 
 		//業務エラーが発生していた場合はエラー終了
-		if(allInOneData.getCa().errOccurred()) {
+		if (allInOneData.getCa().errOccurred()) {
 			return;
 		}
 
@@ -72,7 +74,7 @@ public abstract class MAA00B001Z00 {
 		this.doEdtCtl(allInOneData);
 
 		//業務エラーが発生していた場合はエラー終了
-		if(allInOneData.getCa().errOccurred()) {
+		if (allInOneData.getCa().errOccurred()) {
 			return;
 		}
 
@@ -101,7 +103,7 @@ public abstract class MAA00B001Z00 {
 	 * <p>[備 考] </p>
 	 * @param allInOneData セットする
 	 */
-	public abstract void doTrxChk(MAA00B002Z00 allInOneData) ;
+	public abstract void doTrxChk(MAA00B002Z00 allInOneData);
 
 	/**
 	 * <p>[概 要] マスターデータを取得する。</p>
@@ -114,18 +116,23 @@ public abstract class MAA00B001Z00 {
 
 		//患者情報TBL
 		MDB01A001Z00 patientDao = new MDB01A001Z00();
-    	List<MDB01T001Z00> patientDtoList = patientDao.findAll(allInOneData);
-    	allInOneData.setPtInfoTbls(patientDtoList);
+		List<MDB01T001Z00> patientDtoList = patientDao.findAll(allInOneData);
+		allInOneData.setPtInfoTbls(patientDtoList);
 
-        //在宅履歴TBL
+		//在宅履歴TBL
 		MDB02A001Z00 patient1Dao = new MDB02A001Z00();
-    	List<MDB02T001Z00> patient1DtoList = patient1Dao.findAll(allInOneData);
-    	allInOneData.setZaHistTbls(patient1DtoList);
+		List<MDB02T001Z00> patient1DtoList = patient1Dao.findAll(allInOneData);
+		allInOneData.setZaHistTbls(patient1DtoList);
 
-        //診療記録TBL
+		//診療記録TBL
 		MDB03A001Z00 patientKkiroku2Dao = new MDB03A001Z00();
-    	List<MDB03T001Z00> patientKkiroku2DtoList = patientKkiroku2Dao.findAll(allInOneData);
-    	allInOneData.setSnRecoTbls(patientKkiroku2DtoList);
+		List<MDB03T001Z00> patientKkiroku2DtoList = patientKkiroku2Dao.findAll(allInOneData);
+		allInOneData.setSnRecoTbls(patientKkiroku2DtoList);
+
+        //予定TBL
+		MDB04A001Z00 patientYoteiDao = new MDB04A001Z00();
+    	List<MDB04T001Z00> patientYoteiDtoList = patientYoteiDao.findAll(allInOneData);
+    	allInOneData.setYoteiTbls(patientYoteiDtoList);
 	}
 
 	/**
@@ -134,7 +141,7 @@ public abstract class MAA00B001Z00 {
 	 * <p>[備 考] </p>
 	 * @param allInOneData セットする
 	 */
-	public abstract void doMstChk(MAA00B002Z00 allInOneData) ;
+	public abstract void doMstChk(MAA00B002Z00 allInOneData);
 
 	/**
 	 * <p>[概 要] ログアウトを作成する。</p>
@@ -155,7 +162,7 @@ public abstract class MAA00B001Z00 {
 	 * <p>[備 考] </p>
 	 * @param allInOneData セットする
 	 */
-	public abstract void doBizCtl(MAA00B002Z00 allInOneData) throws Exception ;
+	public abstract void doBizCtl(MAA00B002Z00 allInOneData) throws Exception;
 
 	/**
 	 * <p>[概 要] 帳票編集コントロールを実行する</p>
@@ -163,7 +170,7 @@ public abstract class MAA00B001Z00 {
 	 * <p>[備 考] </p>
 	 * @param allInOneData セットする
 	 */
-	public abstract void doEdtCtl(MAA00B002Z00 allInOneData) ;
+	public abstract void doEdtCtl(MAA00B002Z00 allInOneData);
 
 	/**
 	 * <p>[概 要] allInOneData を取得する。</p>

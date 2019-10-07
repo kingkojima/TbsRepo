@@ -125,4 +125,7 @@ public final class MAAT00 {
 	public static final String PAT_DIR = "FD00C103Z00";
 	/** 家族希望 */
 	public static final String FMY_DIR = "FD00C104Z00";
+
+	/** 対象年月日 */
+	public static final String TRG_YMD = "FD00C105Z00";
 }

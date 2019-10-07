@@ -5,6 +5,7 @@ import java.util.List;
 import jp.ne.tbs.frame.DB01.MDB01T001Z00;
 import jp.ne.tbs.frame.DB02.MDB02T001Z00;
 import jp.ne.tbs.frame.DB03.MDB03T001Z00;
+import jp.ne.tbs.frame.DB04.MDB04T001Z00;
 
 /**
  * <p>[クラス名]</p>
@@ -40,6 +41,11 @@ public class MAA00B002Z00 {
 	 * 診療記録TBLリスト
 	 */
 	private List<MDB03T001Z00> snRecoTbls;
+
+	/**
+	 * 予定TBLリスト
+	 */
+	private List<MDB04T001Z00> yoteiTbls;
 
 	/**
 	 * ログアウト
@@ -144,6 +150,26 @@ public class MAA00B002Z00 {
 	 */
 	protected void setSnRecoTbls(List<MDB03T001Z00> snRecoTbls) {
 		this.snRecoTbls = snRecoTbls;
+	}
+
+	/**
+	 * <p>[概 要] yoteiTbls を取得する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @return yoteiTbls
+	 */
+	public List<MDB04T001Z00> getYoteiTbls() {
+		return yoteiTbls;
+	}
+
+	/**
+	 * <p>[概 要] yoteiTbls を設定する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param yoteiTbls セットする yoteiTbls
+	 */
+	protected void setYoteiTbls(List<MDB04T001Z00> yoteiTbls) {
+		this.yoteiTbls = yoteiTbls;
 	}
 
 	/**
