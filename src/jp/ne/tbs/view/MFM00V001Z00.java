@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import jp.ne.tbs.view.FD01.MFD01V001Z00;
+import jp.ne.tbs.view.FD02.MFD02V001Z00;
 
 /**
  * <p>[クラス名]</p>
@@ -40,7 +41,7 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 
 		//画面設定
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(900, 100, 300, 400);
+		setBounds(900, 100, 350, 400);
 		setTitle("トーマス君デラックス");
 
 		//ボタンを生成。
@@ -52,11 +53,11 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_1.setEnabled(true);
 
 		//ボタン２
-		button_2 = new JButton("機能追加枠①");
+		button_2 = new JButton("インフル希望(往診列)");
 		button_2.addActionListener(this);
 		button_2.setFont(new Font("メイリオ", Font.BOLD, 26));
-		button_2.setActionCommand("tsuika_1");
-		button_2.setEnabled(false);
+		button_2.setActionCommand("flu_vst_btn");
+		button_2.setEnabled(true);
 
 		//ボタン３
 		button_3 = new JButton("機能追加枠②");
@@ -102,6 +103,25 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 
 				//インフルエンザ希望集計画面
 				MFD01V001Z00 fluFrame = new MFD01V001Z00();
+				fluFrame.setVisible(true);
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+
+			//処理が終わったら終了
+			this.dispose();
+
+		//インフル希望(往診列)の場合
+		} else if (cmd.equals("flu_vst_btn")) {
+
+			try {
+
+				//インフルエンザ希望集計画面
+				MFD02V001Z00 fluFrame = new MFD02V001Z00();
 				fluFrame.setVisible(true);
 
 				//エラー発生時

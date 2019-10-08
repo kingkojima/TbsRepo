@@ -24,5 +24,7 @@ public class MAAE00 {
 	/** 日付間隔エラー */
 	public static final String EFD00A005 = "日付の間隔は150日以内にして下さい";
 
+	/** 集計開始日　不備 */
+	public static final String EFD00A006 = "往診日の入力に不備があります";
 
 }

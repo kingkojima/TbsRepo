@@ -1,0 +1,80 @@
+package jp.ne.tbs.frame.DB05;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import jp.ne.tbs.frame.AA00.MAA00B002Z00;
+
+/**
+ * <p>[クラス名]</p>
+ * 　　MST_USER (職員情報)テーブル　DAOクラス
+ * <p>[概要]</p>
+ * 　　Ciao用のSQL Server 2016 の MST_USER テーブルより</br>
+ * 　　データを取得し、DTOに格納するクラス。
+ * <p>[変更履歴]</p>
+ * 　　2019/10/6　小嶋純史　新規作成
+ */
+public class MDB05A001Z00 {
+
+	/** データベースのURL */
+	private static final String dbURL = "jdbc:sqlserver://192.168.11.10";
+	/** ユーザーID */
+	private static final String user = "sa";
+	/** パスワード */
+	private static final String pass = "supply";
+	/** 発行SQL */
+	private static final String SQL1 = "select * from Ciao.dbo.MST_USER order by ID asc";
+
+	/**
+	 * <p>[メソッド名] </p>
+	 * @param allInOneData
+	 * @param
+	 * @return
+	 */
+	public List<MDB05T001Z00> findAll(MAA00B002Z00 allInOneData) throws Exception {
+
+		List<MDB05T001Z00> dtoList = new ArrayList<>();
+
+		// コネクション定義
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		// 接続開始
+		try {
+			//コネクション取得
+			conn = DriverManager.getConnection(dbURL, user, pass);
+			//SQL設定
+			ps = conn.prepareStatement(SQL1);
+			//SQLを発行し、結果取得
+			try (ResultSet rs = ps.executeQuery()) {
+				//結果をDTOに格納
+				while (rs.next()) {
+					MDB05T001Z00 dto = new MDB05T001Z00();
+					dto.setId(rs.getString("id"));
+					dto.setFname(rs.getString("fname"));
+					dto.setAname(rs.getString("aname"));
+					dto.setRyak(rs.getString("ryak"));
+					dtoList.add(dto);
+				}
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (conn != null && !conn.isClosed()) {
+					conn.close();
+				}
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return dtoList;
+	}
+}

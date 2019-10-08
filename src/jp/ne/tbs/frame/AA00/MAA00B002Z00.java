@@ -6,6 +6,7 @@ import jp.ne.tbs.frame.DB01.MDB01T001Z00;
 import jp.ne.tbs.frame.DB02.MDB02T001Z00;
 import jp.ne.tbs.frame.DB03.MDB03T001Z00;
 import jp.ne.tbs.frame.DB04.MDB04T001Z00;
+import jp.ne.tbs.frame.DB05.MDB05T001Z00;
 
 /**
  * <p>[クラス名]</p>
@@ -46,6 +47,11 @@ public class MAA00B002Z00 {
 	 * 予定TBLリスト
 	 */
 	private List<MDB04T001Z00> yoteiTbls;
+
+	/**
+	 * 職員情報TBLリスト
+	 */
+	private List<MDB05T001Z00> userTbls;
 
 	/**
 	 * ログアウト
@@ -170,6 +176,26 @@ public class MAA00B002Z00 {
 	 */
 	protected void setYoteiTbls(List<MDB04T001Z00> yoteiTbls) {
 		this.yoteiTbls = yoteiTbls;
+	}
+
+	/**
+	 * <p>[概 要] userTbls を取得する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @return userTbls
+	 */
+	public List<MDB05T001Z00> getUserTbls() {
+		return userTbls;
+	}
+
+	/**
+	 * <p>[概 要] userTbls を設定する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param userTbls セットする userTbls
+	 */
+	protected void setUserTbls(List<MDB05T001Z00> userTbls) {
+		this.userTbls = userTbls;
 	}
 
 	/**

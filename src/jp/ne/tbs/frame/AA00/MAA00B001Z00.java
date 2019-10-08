@@ -10,6 +10,8 @@ import jp.ne.tbs.frame.DB03.MDB03A001Z00;
 import jp.ne.tbs.frame.DB03.MDB03T001Z00;
 import jp.ne.tbs.frame.DB04.MDB04A001Z00;
 import jp.ne.tbs.frame.DB04.MDB04T001Z00;
+import jp.ne.tbs.frame.DB05.MDB05A001Z00;
+import jp.ne.tbs.frame.DB05.MDB05T001Z00;
 
 /**
  * <p>[クラス名]</p>
@@ -129,10 +131,15 @@ public abstract class MAA00B001Z00 {
 		List<MDB03T001Z00> patientKkiroku2DtoList = patientKkiroku2Dao.findAll(allInOneData);
 		allInOneData.setSnRecoTbls(patientKkiroku2DtoList);
 
-        //予定TBL
+		//予定TBL
 		MDB04A001Z00 patientYoteiDao = new MDB04A001Z00();
-    	List<MDB04T001Z00> patientYoteiDtoList = patientYoteiDao.findAll(allInOneData);
-    	allInOneData.setYoteiTbls(patientYoteiDtoList);
+		List<MDB04T001Z00> patientYoteiDtoList = patientYoteiDao.findAll(allInOneData);
+		allInOneData.setYoteiTbls(patientYoteiDtoList);
+
+		//職員情報TBL
+		MDB05A001Z00 userDao = new MDB05A001Z00();
+		List<MDB05T001Z00> userDtoList = userDao.findAll(allInOneData);
+		allInOneData.setUserTbls(userDtoList);
 	}
 
 	/**
