@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.ne.tbs.frame.AA00.MAA00B002Z00;
+import jp.ne.tbs.frame.AA00.MAAT00;
 
 /**
  * <p>[クラス名]</p>
@@ -21,12 +22,6 @@ import jp.ne.tbs.frame.AA00.MAA00B002Z00;
  */
 public class MDB02A001Z00 {
 
-	/** データベースのURL */
-	private static final String dbURL = "jdbc:sqlserver://192.168.11.10";
-	/** ユーザーID */
-	private static final String user = "sa";
-	/** パスワード */
-	private static final String pass = "supply";
 	/** 発行SQL */
 	private static final String SQL = "select * from Ciao.dbo.DATA_PATIENT_1 order by ID asc, SEQ asc";
 
@@ -47,7 +42,10 @@ public class MDB02A001Z00 {
 		// 接続開始
 		try {
 			//コネクション取得
-			conn = DriverManager.getConnection(dbURL, user, pass);
+			conn = DriverManager.getConnection(
+					allInOneData.getCa().getDbUrl(),
+					MAAT00.SYS.DB_USER,
+					MAAT00.SYS.DB_PASS);
 			//SQL設定
 			ps = conn.prepareStatement(SQL);
 			//SQLを発行し、結果取得

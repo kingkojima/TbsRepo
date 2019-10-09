@@ -23,12 +23,6 @@ import jp.ne.tbs.frame.AA00.MAAT00;
  */
 public class MDB04A001Z00 {
 
-	/** データベースのURL */
-	private static final String dbURL = "jdbc:sqlserver://192.168.11.10";
-	/** ユーザーID */
-	private static final String user = "sa";
-	/** パスワード */
-	private static final String pass = "supply";
 	/** 発行SQL */
 	private static final String SQL1 = "select * from Ciao.dbo.DATA_PATIENT_YOTEI where FDATE = '";
 	private static final String SQL2 = "' order by HOUMON asc, STTIME asc";
@@ -59,7 +53,10 @@ public class MDB04A001Z00 {
 		// 接続開始
 		try {
 			//コネクション取得
-			conn = DriverManager.getConnection(dbURL, user, pass);
+			conn = DriverManager.getConnection(
+					allInOneData.getCa().getDbUrl(),
+					MAAT00.SYS.DB_USER,
+					MAAT00.SYS.DB_PASS);
 			//SQL設定
 			ps = conn.prepareStatement(SQL1 + trgYmd + SQL2);
 			//SQLを発行し、結果取得

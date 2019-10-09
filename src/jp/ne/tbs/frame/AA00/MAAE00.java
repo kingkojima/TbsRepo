@@ -6,6 +6,9 @@ public class MAAE00 {
 	private MAAE00() {
 	}
 
+	/** IPアドレスエラー */
+	public static final String EAA00A001 = "予期せぬIPアドレスからのアクセスです";
+
 	/** 想定外エラー */
 	public static final String EFD00A000 = "予期せぬエラーが発生しました";
 

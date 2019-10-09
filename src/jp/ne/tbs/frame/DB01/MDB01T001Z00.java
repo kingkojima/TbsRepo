@@ -112,6 +112,4 @@ public class MDB01T001Z00 {
 		this.sex = sex;
 	}
 
-
-
 }

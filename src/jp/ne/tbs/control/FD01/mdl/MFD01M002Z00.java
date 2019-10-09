@@ -257,8 +257,8 @@ public class MFD01M002Z00 {
 									result1 = targetStr.substring(indexNme1, indexEnd1);
 								}
 
-								//テスト用出力
-								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "：" + result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
+//								//テスト用出力
+//								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "：" + result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
 
 								//処理結果マップ.項目マップに項目名と値を格納
 								String val = result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", "");

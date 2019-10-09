@@ -28,7 +28,7 @@ public class MFD01B004Z00 extends MAA00B006Z00 {
 
 		//AOD.LOGOUTに処理結果マップを設定。
 		MAA00B008Z00 logOut =  super.getAllInOneData().getLogOut();
-		logOut.setResultMap(MAAT00.BIZ_RESULT, calcObj.getResultMap());
+		logOut.setResultMap(MAAT00.BIZ_RST, calcObj.getResultMap());
 		logOut.setResultMap(MAAT00.PAT_DIR, calcObj.getPatDisCnt());
 		logOut.setResultMap(MAAT00.FMY_DIR, calcObj.getFmyDisCnt());
 

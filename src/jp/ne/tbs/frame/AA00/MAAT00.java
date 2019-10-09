@@ -6,6 +6,15 @@ public final class MAAT00 {
 	private MAAT00() {
 	}
 
+	public static class SYS {
+		public static final String IP_EAST = "192.168.11";
+		public static final String IP_WEST = "192.168.12";
+		public static final String DB_URL_EAST = "jdbc:sqlserver://192.168.11.10";
+		public static final String DB_URL_WEST = "jdbc:sqlserver://192.168.12.1";
+		public static final String DB_USER = "sa";
+		public static final String DB_PASS = "supply";
+	}
+
 	public static class CHAR {
 		public static final String SLASH = "/";
 		public static final String BLANK = " ";
@@ -120,7 +129,7 @@ public final class MAAT00 {
 	public static final String PTT_ANM = "FD00C101Z00";
 
 	/** 処理結果 */
-	public static final String BIZ_RESULT = "FD00C102Z00";
+	public static final String BIZ_RST = "FD00C102Z00";
 	/** 本人希望 */
 	public static final String PAT_DIR = "FD00C103Z00";
 	/** 家族希望 */
@@ -128,4 +137,15 @@ public final class MAAT00 {
 
 	/** 対象年月日 */
 	public static final String TRG_YMD = "FD00C105Z00";
+
+	/** 職員　漢字名 */
+	public static final String USR_NME = "FD00C106Z00";
+	/** 職員　フリガナ */
+	public static final String USR_ANM = "FD00C107Z00";
+	/** 職員　略称 */
+	public static final String USR_RYK = "FD00C108Z00";
+	/** 職員　情報 */
+	public static final String USR_INF = "FD00C109Z00";
+
+
 }

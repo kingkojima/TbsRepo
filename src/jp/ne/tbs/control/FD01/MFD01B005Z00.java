@@ -10,18 +10,19 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFPrintSetup;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import jp.ne.tbs.frame.AA00.MAA00B003Z00;
 import jp.ne.tbs.frame.AA00.MAA00B007Z00;
@@ -67,9 +68,9 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 //		System.out.println("帳票編集が始まったぜい！");
 
 		// ワークブック
-		XSSFWorkbook workBook = null;
+		HSSFWorkbook workBook = null;
 		// シート
-		XSSFSheet sheet = null;
+		HSSFSheet sheet = null;
 		// 出力ファイル
 		FileOutputStream outPutFile = null;
 		// 出力ファイルパス
@@ -81,7 +82,7 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 		try {
 
 			// ワークブックの作成
-			workBook = new XSSFWorkbook();
+			workBook = new HSSFWorkbook();
 
 			// シートの設定
 			sheet = workBook.createSheet();
@@ -93,15 +94,15 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			//=======================
 
 			// 初期行の作成(行番号は0から始まる)
-			XSSFRow row = sheet.createRow(0);
+			HSSFRow row = sheet.createRow(0);
 
 			// 「タイトル」のセルスタイル設定(セル番号は0から始まる)
-			XSSFCellStyle titleCellStyle = workBook.createCellStyle();
-			XSSFCell cell = row.createCell(0);
-			XSSFFont titleFont = workBook.createFont();
+			HSSFCellStyle titleCellStyle = workBook.createCellStyle();
+			HSSFCell cell = row.createCell(0);
+			HSSFFont titleFont = workBook.createFont();
 			titleFont.setFontName("ＭＳ ゴシック");
 			titleFont.setFontHeightInPoints((short) 18);
-			titleFont.setUnderline(XSSFFont.U_SINGLE);
+			titleFont.setUnderline(HSSFFont.U_SINGLE);
 			titleCellStyle.setFont(titleFont);
 			cell.setCellStyle(titleCellStyle);
 
@@ -113,8 +114,8 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			//=======================
 
 			// 「表のヘッダ」のセルスタイル設定
-			XSSFCellStyle headerCellStyle = workBook.createCellStyle();
-			XSSFFont headerFont = workBook.createFont();
+			HSSFCellStyle headerCellStyle = workBook.createCellStyle();
+			HSSFFont headerFont = workBook.createFont();
 			headerFont.setFontName("ＭＳ ゴシック");
 			headerFont.setFontHeightInPoints((short) 12);
 			headerCellStyle.setFont(headerFont);
@@ -151,8 +152,8 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			}
 
 			// 「表の値」のセルスタイル設定
-			XSSFCellStyle resultCellStyle = workBook.createCellStyle();
-			XSSFFont resultFont = workBook.createFont();
+			HSSFCellStyle resultCellStyle = workBook.createCellStyle();
+			HSSFFont resultFont = workBook.createFont();
 			resultFont.setFontName("ＭＳ ゴシック");
 			resultFont.setFontHeightInPoints((short) 12);
 			resultCellStyle.setFont(resultFont);
@@ -168,7 +169,7 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			MAA00B008Z00 logout = super.getAllInOneData().getLogOut();
 			@SuppressWarnings({ "unchecked" })
 			Map<String, Map<String, String>> resultMap = (Map<String, Map<String, String>>) logout
-					.getResultMap(MAAT00.BIZ_RESULT);
+					.getResultMap(MAAT00.BIZ_RST);
 
 			// セルに値を設定
 			int roopCnt = 0 + DATA_ROW;
@@ -212,25 +213,48 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			//=最終調整=================
 			//=======================
 			//タイトル行以外の列幅を自動調節
-			for (int i = 1; i < hedColCnt; i++) {
-				sheet.autoSizeColumn(i, true);
+			for (int i = 0; i < hedColCnt; i++) {
+				if (i == 0) {
+					//ID
+					sheet.setColumnWidth(0, 12*256);
+				} else if (i == 5) {
+					//続柄
+					sheet.setColumnWidth(5, 100*256);
+				} else if (i == 6) {
+					//保険証撮影
+					sheet.setColumnWidth(6, 12*256);
+				} else if (i == 7) {
+					//助成
+					sheet.setColumnWidth(7, 6*256);
+				} else if (i == 8) {
+					//予診票保管場所
+					sheet.setColumnWidth(8, 60*256);
+				} else if (i == 9) {
+					//支払方法
+					sheet.setColumnWidth(9, 15*256);
+				} else {
+					sheet.autoSizeColumn(i, true);
+				}
 			}
 
 			//ウィンドウ枠の固定
 			sheet.createFreezePane(2, 2, 2, 2);
-
 			//ヘッダ行にオートフィルタの設定
 			sheet.setAutoFilter(new CellRangeAddress(1, roopCnt, 0, hedColCnt));
+			//印刷タイトルを設定
+			sheet.setRepeatingRows(new CellRangeAddress(0, 1, 0, 0));
 
 			//印刷設定
-			PrintSetup printSetup = sheet.getPrintSetup();
-			printSetup.setPaperSize(PrintSetup.A4_PAPERSIZE);
-			//縦(false)印刷
-			printSetup.setLandscape(false);
-			//横１枚
-			printSetup.setFitHeight((short) 5);
-			//横１枚
-			printSetup.setFitWidth((short) 5);
+			HSSFPrintSetup printSetup = sheet.getPrintSetup();
+			printSetup.setPaperSize(PrintSetup.A3_PAPERSIZE);
+			//横(true)印刷
+			printSetup.setLandscape(true);
+			//			//横１枚←うまく動かない
+			//			printSetup.setFitWidth((short) 1);
+			//			//縦１枚←うまく動かない
+			//			printSetup.setFitHeight((short) 1);
+			//印刷倍率
+			printSetup.setScale((short) 65);
 
 			// エクセルファイルを出力
 			try {
@@ -241,7 +265,7 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 
 				//ファイルパス・ファイル名の指定
 				outPutFilePath = System.getProperty("user.home") + "/Desktop/";
-				outPutFileName = "インフル希望集計_" + dateFormat.format(date).toString() + ".xlsx";
+				outPutFileName = "インフル希望集計_" + dateFormat.format(date).toString() + ".xls";
 
 				try {
 					// エクセルファイルを出力

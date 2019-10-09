@@ -37,6 +37,11 @@ public abstract class MAA00B001Z00 {
 		//オールインワンデータを作成(継承不可)
 		this.createAod(appData);
 
+		//業務エラーが発生していた場合はエラー終了
+		if (allInOneData.getCa().errOccurred()) {
+			return;
+		}
+
 		//トランザクションチェックを実行(要継承)
 		this.doTrxChk(allInOneData);
 
