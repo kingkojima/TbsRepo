@@ -8,13 +8,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import jp.ne.tbs.view.FD01.MFD01V001Z00;
 import jp.ne.tbs.view.FD02.MFD02V001Z00;
+import jp.ne.tbs.view.FD03.MFD03V001Z00;
 
 /**
  * <p>[クラス名]</p>
- * 　　インフルエンザ予防接種希望集計　メイン画面
+ * 　　トーマス君デラックス　メイン画面
  * <p>[概要]</p>
  * <p>[変更履歴]</p>
  * 　　2019/09/17　小嶋純史　新規作成
@@ -22,11 +24,20 @@ import jp.ne.tbs.view.FD02.MFD02V001Z00;
 public class MFM00V001Z00 extends JFrame implements ActionListener {
 
 	//部品
-	private JPanel buttonPanel;
+	private JTabbedPane tabbedPane;
+
+	private JPanel buttonPanel1;
+	private JPanel buttonPanel2;
+
 	private JButton button_1;
 	private JButton button_2;
 	private JButton button_3;
 	private JButton button_4;
+
+	private JButton button_5;
+	private JButton button_6;
+	private JButton button_7;
+	private JButton button_8;
 
 	//メイン処理
 	public static void main(String[] args) {
@@ -44,6 +55,10 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		setBounds(900, 100, 350, 400);
 		setTitle("トーマス君デラックス");
 
+		//タブ生成
+		tabbedPane = new JTabbedPane();
+		add(tabbedPane);
+
 		//ボタンを生成。
 		//ボタン１
 		button_1 = new JButton("インフル希望集計");
@@ -60,33 +75,78 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_2.setEnabled(true);
 
 		//ボタン３
-		button_3 = new JButton("機能追加枠②");
+		button_3 = new JButton("カルテ汎用検索");
 		button_3.addActionListener(this);
 		button_3.setFont(new Font("メイリオ", Font.BOLD, 26));
-		button_3.setActionCommand("tsuika_2");
-		button_3.setEnabled(false);
+		button_3.setActionCommand("gnl_src_btn");
+		button_3.setEnabled(true);
 
-		//ボタン4
+		//ボタン４
 		button_4 = new JButton("機能追加枠③");
 		button_4.addActionListener(this);
 		button_4.setFont(new Font("メイリオ", Font.BOLD, 26));
 		button_4.setActionCommand("tsuika_3");
 		button_4.setEnabled(false);
 
-		//パネルを生成。
-		buttonPanel = new JPanel();
-		//パネルにレイアウトを設定。
+		//パネル１を生成。
+		buttonPanel1 = new JPanel();
+		//パネル１にレイアウトを設定。
 		//※ボタンを増やすにはここを変更する。
-		buttonPanel.setLayout(new GridLayout(4, 1));
+		buttonPanel1.setLayout(new GridLayout(4, 1));
 
 		//ボタンを設定。
-		buttonPanel.add(button_1);
-		buttonPanel.add(button_2);
-		buttonPanel.add(button_3);
-		buttonPanel.add(button_4);
+		buttonPanel1.add(button_1);
+		buttonPanel1.add(button_2);
+		buttonPanel1.add(button_3);
+		buttonPanel1.add(button_4);
 
-		//パネルを設定。
-		getContentPane().add(buttonPanel);
+		//パネル１をタブに設定。
+		tabbedPane.addTab("集計", buttonPanel1);
+
+		//ボタン５
+		button_5 = new JButton("機能追加枠④");
+		button_5.addActionListener(this);
+		button_5.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_5.setActionCommand("tsuika_4");
+		button_5.setEnabled(false);
+
+		//ボタン６
+		button_6 = new JButton("機能追加枠⑤");
+		button_6.addActionListener(this);
+		button_6.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_6.setActionCommand("tsuika_5");
+		button_6.setEnabled(false);
+
+		//ボタン７
+		button_7 = new JButton("機能追加枠⑥");
+		button_7.addActionListener(this);
+		button_7.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_7.setActionCommand("tsuika_6");
+		button_7.setEnabled(false);
+
+		//ボタン８
+		button_8 = new JButton("機能追加枠⑦");
+		button_8.addActionListener(this);
+		button_8.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_8.setActionCommand("tsuika_7");
+		button_8.setEnabled(false);
+
+
+		//パネル２を生成。
+		buttonPanel2 = new JPanel();
+		//パネルにレイアウトを設定。
+		//※ボタンを増やすにはここを変更する。
+		buttonPanel2.setLayout(new GridLayout(4, 1));
+
+		//ボタンを設定。
+		buttonPanel2.add(button_5);
+		buttonPanel2.add(button_6);
+		buttonPanel2.add(button_7);
+		buttonPanel2.add(button_8);
+
+		//パネル２をタブに設定。
+		tabbedPane.addTab("予定表", buttonPanel2);
+
 
 	}
 
@@ -102,8 +162,7 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 			try {
 
 				//インフルエンザ希望集計画面
-				MFD01V001Z00 fluFrame = new MFD01V001Z00();
-				fluFrame.setVisible(true);
+				MFD01V001Z00.exec();
 
 				//エラー発生時
 			} catch (Exception ex) {
@@ -134,75 +193,27 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 			//処理が終わったら終了
 			this.dispose();
 
+		//カルテ汎用修正の場合
+		} else if (cmd.equals("gnl_src_btn")) {
+
+			try {
+
+				//インフルエンザ希望集計画面
+				MFD03V001Z00 fluFrame = new MFD03V001Z00();
+				fluFrame.setVisible(true);
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+
+			//処理が終わったら終了
+			this.dispose();
+
 		}
+
 	}
 
 }
-//package jp.ne.tbs.view;
-//
-//import java.awt.Color;
-//import java.awt.FlowLayout;
-//import java.awt.Font;
-//
-//import javax.swing.JFrame;
-//import javax.swing.JLabel;
-//import javax.swing.SwingUtilities;
-//import javax.swing.UIManager;
-//import javax.swing.UnsupportedLookAndFeelException;
-//
-//public class FrameMain extends JFrame {
-//
-////		private final String LOOK_AND_FEEL = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
-//		private final String LOOK_AND_FEEL = "com.sun.java.swing.plaf.mac.MacLookAndFeel";
-//
-//		/**
-//		 * 起動メイン処理
-//		 * @param args
-//		 */
-//		public static void main(String [] args) {
-//
-//				//メインメニュー実行
-//				new FrameMain();
-//		}
-//
-//		/**
-//		 * メインメニュー実行
-//		 *
-//		 */
-//		FrameMain() {
-//
-//				//ペインを取得
-//				super.getContentPane().setLayout(new FlowLayout());
-//
-//				//ラベル設定	　ラベルを設定
-//				JLabel label = new JLabel("つばさ在宅クリニック医療支援システム");
-//				label.setFont(new Font("メイリオ", Font.BOLD, 32));
-//				label.setForeground(Color.BLUE);
-//				label.setBackground(Color.WHITE);
-//				label.setOpaque(true);
-//				super.getContentPane().add(label);
-//
-//				//終了処理を設定
-//				super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//				//タイトル　タイトルを設定
-//				super.setTitle("つばさ在宅クリニック医療支援システム　トップメニュー");
-//
-//				//サイズを設定
-//				super.setSize(1000, 600);
-//
-//				//Look&Feelを実行
-//				try {
-//					UIManager.setLookAndFeel(LOOK_AND_FEEL);
-//				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-//						| UnsupportedLookAndFeelException e) {
-//					// TODO 自動生成された catch ブロック
-//					e.printStackTrace();
-//				}
-//				SwingUtilities.updateComponentTreeUI(this);
-//
-//				//表示
-//				super.setVisible(true);
-//		}
-//
-//}

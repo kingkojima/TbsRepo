@@ -2,6 +2,8 @@ package jp.ne.tbs.frame.AA00;
 
 import java.util.List;
 
+import javax.swing.JProgressBar;
+
 import jp.ne.tbs.frame.DB01.MDB01A001Z00;
 import jp.ne.tbs.frame.DB01.MDB01T001Z00;
 import jp.ne.tbs.frame.DB02.MDB02A001Z00;
@@ -31,38 +33,55 @@ public abstract class MAA00B001Z00 {
 	 * <p>[詳 細] 継承不可</p>
 	 * <p>[備 考] </p>
 	 * @param appData セットする
+	 * @param pgBar
 	 */
-	public final void execute(MAA00B003Z00 appData) throws Exception {
+	public final void execute(MAA00B003Z00 appData, JProgressBar pgBar) throws Exception {
 
 		//オールインワンデータを作成(継承不可)
 		this.createAod(appData);
 
+		pgBar.setString("10%");
+		pgBar.setValue(10);
+
 		//業務エラーが発生していた場合はエラー終了
 		if (allInOneData.getCa().errOccurred()) {
+			pgBar.setString("	エラー発生");
 			return;
 		}
 
 		//トランザクションチェックを実行(要継承)
 		this.doTrxChk(allInOneData);
 
+		pgBar.setString("20%");
+		pgBar.setValue(20);
+
 		//業務エラーが発生していた場合はエラー終了
 		if (allInOneData.getCa().errOccurred()) {
+			pgBar.setString("	エラー発生");
 			return;
 		}
 
 		//マスターデータ取得を実行(継承不可)
 		this.doGetMst(allInOneData);
 
+		pgBar.setString("30%");
+		pgBar.setValue(30);
+
 		//業務エラーが発生していた場合はエラー終了
 		if (allInOneData.getCa().errOccurred()) {
+			pgBar.setString("	エラー発生");
 			return;
 		}
 
 		//マスターチェックを実行(要継承)
 		this.doMstChk(allInOneData);
 
+		pgBar.setString("50%");
+		pgBar.setValue(50);
+
 		//業務エラーが発生していた場合はエラー終了
 		if (allInOneData.getCa().errOccurred()) {
+			pgBar.setString("	エラー発生");
 			return;
 		}
 
@@ -72,8 +91,12 @@ public abstract class MAA00B001Z00 {
 		//業務コントロールを実行(要継承)
 		this.doBizCtl(allInOneData);
 
+		pgBar.setString("100%");
+		pgBar.setValue(100);
+
 		//業務エラーが発生していた場合はエラー終了
 		if (allInOneData.getCa().errOccurred()) {
+			pgBar.setString("	エラー発生");
 			return;
 		}
 
@@ -82,11 +105,10 @@ public abstract class MAA00B001Z00 {
 
 		//業務エラーが発生していた場合はエラー終了
 		if (allInOneData.getCa().errOccurred()) {
+			pgBar.setString("	エラー発生");
 			return;
 		}
-
 		//作業ログ出力(今後実装予定)
-
 	}
 
 	/**

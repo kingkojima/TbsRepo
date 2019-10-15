@@ -20,9 +20,15 @@ import javax.swing.JOptionPane;
 public class MAA00B009Z00 {
 
 	/**
-	 * 業務エラー
+	 * 業務エラーコード
 	 */
 	private String bussnesErrCode = null;
+
+	/**
+	 * 業務ワーニングコード
+	 */
+	 //TODO ワーニングは複数設定できるようにList化したい
+	private String WarningCode = null;
 
 	/**
 	 * IPアドレス
@@ -74,7 +80,6 @@ public class MAA00B009Z00 {
 				}
 			}
 		} catch (SocketException e1) {
-			// TODO 自動生成された catch ブロック
 			e1.printStackTrace();
 		} finally {
 			//IPアドレスが想定外の場合、エラーとする。
@@ -88,14 +93,14 @@ public class MAA00B009Z00 {
 		//=================
 		if (ipAddress.startsWith(MAAT00.SYS.IP_EAST)) {
 			dbUrl = MAAT00.SYS.DB_URL_EAST;
-		}else if(ipAddress.startsWith(MAAT00.SYS.IP_WEST)) {
+		} else if (ipAddress.startsWith(MAAT00.SYS.IP_WEST)) {
 			dbUrl = MAAT00.SYS.DB_URL_WEST;
 		}
 	}
 
 	/**
 	 * <p>[概 要] </p>
-	 * 　業務エラー を設定する。
+	 * 　業務エラーを設定する。
 	 * <p>[詳 細] </p>
 	 * 　業務エラーコード(MAAExx.Exxxxxxxx)を設定することにより、<BR>
 	 * 　エラーメッセージを画面表示する。
@@ -103,8 +108,32 @@ public class MAA00B009Z00 {
 	 * @param bussnesErrCode セットする bussnesErrCode
 	 */
 	public void setBussnesErrCode(String bussnesErrCode) {
-		JOptionPane.showConfirmDialog((Component) null, bussnesErrCode, "エラー", -1, 1);
+		JOptionPane.showConfirmDialog(
+				(Component) null,
+				bussnesErrCode,
+				"エラー",
+				JOptionPane.DEFAULT_OPTION,
+				JOptionPane.ERROR_MESSAGE);
 		this.bussnesErrCode = bussnesErrCode;
+	}
+
+	/**
+	 * <p>[概 要] </p>
+	 * 　ワーニングを設定する。
+	 * <p>[詳 細] </p>
+	 * 　ワーニングコード(MAAWxx.Wxxxxxxxx)を設定することにより、<BR>
+	 * 　エラーメッセージを画面表示する。
+	 * <p>[備 考] </p>
+	 * @param bussnesErrCode セットする bussnesErrCode
+	 */
+	public void setWarningCode(String WarningCode) {
+		JOptionPane.showConfirmDialog(
+				(Component) null,
+				WarningCode,
+				"警告",
+				JOptionPane.DEFAULT_OPTION,
+				JOptionPane.WARNING_MESSAGE);
+		this.WarningCode = WarningCode;
 	}
 
 	/**
@@ -131,7 +160,7 @@ public class MAA00B009Z00 {
 	 * 　IPアドレスを取得する。
 	 * <p>[詳 細] </p>
 	 * 　アプリケーションを実行したマシンのIPアドレスを返却。<BR>
-	 * 　「192.168.XX.XXX」を返却する。
+	 * 　「192.168.xx.xxx」を返却する。
 	 * <p>[備 考] </p>
 	 * @return ipAddress
 	 */

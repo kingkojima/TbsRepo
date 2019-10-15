@@ -10,6 +10,7 @@ import java.util.TreeMap;
 
 import jp.ne.tbs.frame.AA00.MAA00B002Z00;
 import jp.ne.tbs.frame.AA00.MAAT00;
+import jp.ne.tbs.frame.AA00.MAAW00;
 import jp.ne.tbs.frame.DB01.MDB01T001Z00;
 import jp.ne.tbs.frame.DB02.MDB02T001Z00;
 import jp.ne.tbs.frame.DB03.MDB03T001Z00;
@@ -257,8 +258,8 @@ public class MFD01M002Z00 {
 									result1 = targetStr.substring(indexNme1, indexEnd1);
 								}
 
-//								//テスト用出力
-//								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "：" + result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
+								//テスト用出力
+								//System.out.println("格納文字⇒" + targetId + "：" + nme1 + "：" + result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
 
 								//処理結果マップ.項目マップに項目名と値を格納
 								String val = result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", "");
@@ -278,8 +279,15 @@ public class MFD01M002Z00 {
 								if(ITM_NME_LIST[i].equals(MAAT00.ITM_NME_2)) {
 									if(!val.equals("無し")) {
 										String removed = val.replace("人", MAAT00.CHAR.EMPTY_STRING);
-										fmyDisCnt += Integer.parseInt(removed);
-//										System.out.println("ID：" + targetId + "　　トータル：" + fmyDisCnt + "　　追加：" + Integer.parseInt(removed));
+										try {
+											//人数を数値変換
+											fmyDisCnt += Integer.parseInt(removed);
+										} catch (NumberFormatException e) {
+											//人数入力エラー
+											allInOneData.getCa().setWarningCode(targetId + "の" + MAAW00.WFD00A001);
+											continue;
+										}
+										//System.out.println("ID：" + targetId + "　　トータル：" + fmyDisCnt + "　　追加：" + Integer.parseInt(removed));
 									}
 								}
 

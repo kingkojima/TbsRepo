@@ -1,31 +1,199 @@
 package jp.ne.tbs.control.FD01;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Test {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
-	public static void main(String[] args) throws SocketException {
+public class Test extends JFrame {
+    JProgressBar progressBar = new JProgressBar(0, 100);
+    JButton button = new JButton("開始");
+    Test() {
+        super("重いアクション");
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(progressBar, BorderLayout.SOUTH);
+        getContentPane().add(button, BorderLayout.CENTER);
 
-		Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
-		while(e.hasMoreElements())
-		{
-		    NetworkInterface n = (NetworkInterface) e.nextElement();
-		    Enumeration<InetAddress> ee = n.getInetAddresses();
-		    while (ee.hasMoreElements())
-		    {
-		        InetAddress i = (InetAddress) ee.nextElement();
-		        String ipAddress = i.getHostAddress();
-		        if(ipAddress.startsWith("192.168.")) {
-			        System.out.println(i.getHostAddress());
-		        }
-		    }
-		}
+        progressBar.setStringPainted(true);
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	button.setEnabled(false);
+                new HeavyThread().start();
+            }
+        });
+        setSize(640, 480);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    class HeavyThread extends Thread {
+        public void run() {
+            for (int i=0; i<100; i++) {
+                try { Thread.sleep(100L); } catch (InterruptedException e) {}
+                final int pos = i+1;
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        progressBar.setString(pos + "/100");
+                        progressBar.setValue(pos);
+                    }
+                });
+            }
+        }
+    }
+
+    public static void main(final String[] args) throws Exception {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Test().setVisible(true);
+            }
+        });
+    }
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//package jp.ne.tbs.control.FD01;
+//
+//import javax.swing.JFrame;
+//import javax.swing.JProgressBar;
+//
+//
+//public class Test extends JFrame {
+//
+//    private JProgressBar progressBar1 = null;
+//
+//    /**
+//     * main メソッド
+//     * @param args
+//     */
+//    public static void main(String[] args) {
+//        try {
+//        	Test example = new Test();
+//            example.createGUI();
+//            example.setVisible(true);
+//
+//            example.runProgress();
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+//
+//    /**
+//     * GUIを作成
+//     */
+//    public void createGUI() {
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        int width = 640;
+//        int height = 480;
+//        this.setSize(width, height);
+//        this.setTitle("JProgressBarExample");
+//
+//        progressBar1 = new JProgressBar();
+//        progressBar1.setStringPainted(true);
+//        progressBar1.setMinimum(0);
+//        progressBar1.setMaximum(100);
+//        progressBar1.setValue(0);
+//        progressBar1.setVisible(true);
+//        this.add(progressBar1);
+//    }
+//
+//    /**
+//     * プログレスの実行
+//     */
+//    public void runProgress() {
+//        for (int i = progressBar1.getMinimum();
+//                i <= progressBar1.getMaximum(); i++) {
+//            progressBar1.setValue(i);
+////          progressBar1.repaint();
+//            execHeavyProcess();
+//        }
+//    }
+//
+//    /**
+//     * 負荷を掛ける処理
+//     */
+//    public void execHeavyProcess() {
+//        long start = System.currentTimeMillis();
+//        long millis = 1000;
+//        long now = 0;
+//        for (;;) {
+//            now = System.currentTimeMillis();
+//            if ((start + millis < now) || (now < start)) {
+//                break;
+//            }
+//        }
+//    }
+//
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//package jp.ne.tbs.control.FD01;
+//
+//import java.net.InetAddress;
+//import java.net.NetworkInterface;
+//import java.net.SocketException;
+//import java.util.Enumeration;
+//
+//public class Test {
+//
+//	public static void main(String[] args) throws SocketException {
+//
+//		Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
+//		while(e.hasMoreElements())
+//		{
+//		    NetworkInterface n = (NetworkInterface) e.nextElement();
+//		    Enumeration<InetAddress> ee = n.getInetAddresses();
+//		    while (ee.hasMoreElements())
+//		    {
+//		        InetAddress i = (InetAddress) ee.nextElement();
+//		        String ipAddress = i.getHostAddress();
+//		        if(ipAddress.startsWith("192.168.")) {
+//			        System.out.println(i.getHostAddress());
+//		        }
+//		    }
+//		}
+//
+//
+//
 //		String targetStr = "/*インフルエンザ希望\r\n"
 //				+ "　あり\r\n"
 //				+ "家族\r\n"
@@ -118,7 +286,7 @@ public class Test {
 //			//				System.out.println("ここから対象文字列②⇒" + targetStr);
 //
 //		}
-
-	}
-
-}
+//
+//	}
+//
+//}

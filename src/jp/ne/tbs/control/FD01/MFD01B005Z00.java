@@ -217,6 +217,12 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 				if (i == 0) {
 					//ID
 					sheet.setColumnWidth(0, 12*256);
+				} else if (i == 1) {
+					//名前
+					sheet.setColumnWidth(1, 18*256);
+				} else if (i == 2) {
+					//フリガナ
+					sheet.setColumnWidth(2, 18*256);
 				} else if (i == 5) {
 					//続柄
 					sheet.setColumnWidth(5, 100*256);
@@ -233,6 +239,7 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 					//支払方法
 					sheet.setColumnWidth(9, 15*256);
 				} else {
+					//上記以外は自動調整
 					sheet.autoSizeColumn(i, true);
 				}
 			}

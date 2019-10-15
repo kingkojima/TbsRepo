@@ -240,7 +240,13 @@ public class MFD02B005Z00 extends MAA00B007Z00 {
 			//=======================
 			//タイトル行以外の列幅を自動調節
 			for (int i = 1; i < hedColCnt; i++) {
-				if (i == 6) {
+				if (i == 2) {
+					//ID
+					sheet.setColumnWidth(2, 12*256);
+				} else if (i == 3) {
+					//名前
+					sheet.setColumnWidth(3, 18*256);
+				} else if (i == 6) {
 					//続柄
 					sheet.setColumnWidth(6, 45*256);
 				} else if (i == 7) {

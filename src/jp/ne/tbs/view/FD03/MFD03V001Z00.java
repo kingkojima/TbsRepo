@@ -1,4 +1,4 @@
-package jp.ne.tbs.view.FD02;
+package jp.ne.tbs.view.FD03;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -8,8 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,8 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
-import jp.ne.tbs.control.FD02.MFD02B001Z00;
+import jp.ne.tbs.control.FD01.MFD01B001Z00;
 import jp.ne.tbs.frame.AA00.MAA00B001Z00;
 import jp.ne.tbs.frame.AA00.MAA00B003Z00;
 import jp.ne.tbs.frame.AA00.MAAT00;
@@ -26,24 +25,22 @@ import jp.ne.tbs.view.MFM00V001Z00;
 
 /**
  * <p>[クラス名]</p>
- * 　　往診列毎インフルエンザ予防接種希望集計　メイン画面
+ * 　　汎用検索　メイン画面
  * <p>[概要]</p>
  * <p>[変更履歴]</p>
- * 　　2019/09/17　小嶋純史　新規作成
+ * 　　2019/10/15　小嶋純史　新規作成
  */
-public class MFD02V001Z00 extends JFrame implements ActionListener {
+public class MFD03V001Z00 extends JFrame implements ActionListener {
 
-	//部品群
+	/** 部品群 */
 	private JPanel panel;
 	private GridBagLayout gblayout;
 	private GridBagConstraints gbc;
 
-	//集計開始日テキスト
+	/** 集計開始日テキスト */
 	JTextField text_1;
-	//集計終了日テキスト
+	/** 集計終了日テキスト */
 	JTextField text_2;
-	//対象年月日テキスト
-	JTextField text_3;
 
 	/** 戻るボタン */
 	JButton button_1;
@@ -52,21 +49,43 @@ public class MFD02V001Z00 extends JFrame implements ActionListener {
 
 	/** 進捗バー */
 	JProgressBar pgBar = null;
-
 	/** 表示ラベル */
-	JLabel label_8 = null;
+	JLabel label_6 = null;
 	/** 表示ラベル(進捗バーにあたる場所) */
-	JLabel label_9 = null;
+	JLabel label_7 = null;
 
 	/** 業務処理スレッド */
 	BusinessThread bizTh;
 
-	public MFD02V001Z00() {
+	/**
+	 * <p>[概 要] </p>
+	 * 　汎用検索　実行メソッド<BR>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 */
+	public static void exec() {
+
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				MFD03V001Z00 fluFrame = new MFD03V001Z00();
+				fluFrame.setVisible(true);
+			}
+		});
+	}
+
+	/**
+	 * <p>[概 要] </p>
+	 * 　汎用検索　コンストラクタ<BR>
+	 * <p>[詳 細] </p>
+	 * 　画面のレイアウトを作成する。
+	 * <p>[備 考] </p>
+	 */
+	public MFD03V001Z00() {
 
 		//画面設定
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(800, 100, 400, 400);
-		setTitle("インフルエンザ希望(往診列)君");
+		setBounds(800, 100, 400, 350);
+		setTitle("汎用検索君");
 
 		//パネル,GBL,GBCを生成。
 		panel = new JPanel();
@@ -75,7 +94,7 @@ public class MFD02V001Z00 extends JFrame implements ActionListener {
 		panel.setLayout(gblayout);
 
 		//１行目
-		JLabel label_1 = new JLabel("インフル希望(往診列毎)");
+		JLabel label_1 = new JLabel("カルテ汎用検索君");
 		label_1.setFont(new Font("メイリオ", Font.BOLD, 26));
 		this.addComp(label_1, 0, 0, 3, 1);
 
@@ -89,7 +108,7 @@ public class MFD02V001Z00 extends JFrame implements ActionListener {
 		this.addComp(label_4, 2, 1, 1, 1);
 
 		//３行目
-		text_1 = new JTextField("2019/09/01");
+		text_1 = new JTextField("YYYY/MM/DD");
 		text_1.setFont(new Font("メイリオ", Font.PLAIN, 17));
 		text_1.setPreferredSize(new Dimension(120, 40));
 		this.addComp(text_1, 0, 2, 1, 1);
@@ -98,74 +117,59 @@ public class MFD02V001Z00 extends JFrame implements ActionListener {
 		label_3.setFont(new Font("メイリオ", Font.PLAIN, 22));
 		this.addComp(label_3, 1, 2, 1, 1);
 
-		text_2 = new JTextField("2019/12/31");
+		text_2 = new JTextField("YYYY/MM/DD");
 		text_2.setFont(new Font("メイリオ", Font.PLAIN, 17));
 		text_2.setPreferredSize(new Dimension(120, 40));
 		this.addComp(text_2, 2, 2, 1, 1);
 
-		//4行目(改行のための空白文字)
-		JLabel label_7 = new JLabel("　");
-		label_7.setFont(new Font("メイリオ", Font.PLAIN, 11));
-		this.addComp(label_7, 0, 3, 1, 1);
-
-		//5行目
-		JLabel label_6 = new JLabel("往診日");
-		label_6.setFont(new Font("メイリオ", Font.PLAIN, 22));
-		this.addComp(label_6, 2, 4, 1, 1);
-
-		//翌日を取得
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, 1);
-
-		//6行目
-		text_3 = new JTextField(sdf.format(cal.getTime()));
-		text_3.setFont(new Font("メイリオ", Font.PLAIN, 17));
-		text_3.setPreferredSize(new Dimension(120, 40));
-		this.addComp(text_3, 2, 5, 1, 1);
-
-		//7行目(改行のための空白文字)
+		//４行目(改行のための空白文字)
 		JLabel label_5 = new JLabel("　");
 		label_5.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		this.addComp(label_5, 0, 6, 1, 1);
+		this.addComp(label_5, 0, 3, 3, 1);
 
-		//8行目(進捗バーのラベル)
-		label_8 = new JLabel("開始日と終了日を入力し集計ボタンを押してください");
-		label_8.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		this.addComp(label_8, 0, 7, 3, 1);
+		//５行目(進捗バーのラベル)
+		label_6 = new JLabel("開始日と終了日を入力し集計ボタンを押してください");
+		label_6.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		this.addComp(label_6, 0, 4, 3, 1);
 
-		//9行目(進捗バーのための余白)
-		label_9 = new JLabel("　");
-		label_9.setFont(new Font("メイリオ", Font.PLAIN, 13));
-		this.addComp(label_9, 0, 8, 3, 1);
+		//６行目(進捗バーのための余白)
+		label_7 = new JLabel("　");
+		label_7.setFont(new Font("メイリオ", Font.PLAIN, 13));
+		this.addComp(label_7, 0, 5, 3, 1);
 
 		//進捗バーはここで生成しておく
 		pgBar = new JProgressBar(0, 100);
 		pgBar.setStringPainted(true);
 
-		//10行目(改行のための空白文字)
-		JLabel label_10 = new JLabel("　");
-		label_10.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		this.addComp(label_10, 0, 9, 3, 1);
+		//７行目(改行のための空白文字)
+		JLabel label_8 = new JLabel("　");
+		label_8.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		this.addComp(label_8, 0, 6, 3, 1);
 
-		//11行目
+		//８行目
 		button_1 = new JButton("戻る");
 		button_1.addActionListener(this);
 		button_1.setFont(new Font("メイリオ", Font.PLAIN, 18));
 		button_1.setActionCommand("return_btn");
-		this.addComp(button_1, 0, 10, 1, 1);
+		this.addComp(button_1, 0, 7, 1, 1);
 
-		button_2 = new JButton("作成");
+		button_2 = new JButton("集計");
 		button_2.addActionListener(this);
 		button_2.setFont(new Font("メイリオ", Font.PLAIN, 18));
 		button_2.setActionCommand("calc_btn");
-		this.addComp(button_2, 2, 10, 1, 1);
+		this.addComp(button_2, 2, 7, 1, 1);
 
 		//パネルを設定。
 		getContentPane().add(panel, BorderLayout.CENTER);
 	}
 
-	//ボタン押下後の処理
+	/**
+	 * <p>[概 要] </p>
+	 * 　ボタン押下後に呼ばれる処理<BR>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		//ボタン毎にセットしたアクションコマンドを取得
@@ -174,32 +178,23 @@ public class MFD02V001Z00 extends JFrame implements ActionListener {
 		//「戻る」の場合
 		if (cmd.endsWith("return_btn")) {
 
-			try {
+			//メインフレームを生成し実行。
+			MFM00V001Z00 frame = new MFM00V001Z00();
+			frame.setVisible(true);
 
-				//メインフレームを生成し実行。
-				MFM00V001Z00 frame = new MFM00V001Z00();
-				frame.setVisible(true);
-
-				//エラー発生時
-			} catch (Exception ex) {
-
-				//標準出力
-				ex.printStackTrace();
-			}
-
-			//処理が終わったら終了
+			//処理が終わったら画面終了
 			this.dispose();
 
-			//「作成」の場合
+			//「集計」の場合
 		} else if (cmd.endsWith("calc_btn")) {
 
 			//ボタンを非活性
-			button_1.setEnabled(false);
-			button_2.setEnabled(false);
+//			button_1.setEnabled(false);
+//			button_2.setEnabled(false);
 
 			//業務処理スタート
-			bizTh = new BusinessThread();
-			bizTh.start();
+//			bizTh = new BusinessThread();
+//			bizTh.start();
 		}
 	}
 
@@ -208,14 +203,17 @@ public class MFD02V001Z00 extends JFrame implements ActionListener {
 
 		public void run() {
 
-			label_8.setText("しばらくお待ちください。");
-			remComp(label_9, pgBar, 0, 8, 3, 1);
+			label_6.setText("しばらくお待ちください。");
+
+
+			remComp(label_7, pgBar, 0, 5, 3, 1);
 
 			//appData作成
 			MAA00B003Z00 appData = new MAA00B003Z00();
 			appData.setMsgIn(MAAT00.DCP_SRT, text_1.getText());
 			appData.setMsgIn(MAAT00.DCP_END, text_2.getText());
-			appData.setMsgIn(MAAT00.TRG_YMD, text_3.getText());
+			appData.setMsgIn(MAAT00.DCP_SRT, "2019/09/01");
+			appData.setMsgIn(MAAT00.DCP_END, "2019/12/31");
 
 			appData.setMsgIn(MAAT00.ITM_NME_1, "/*インフルエンザ希望");
 			appData.setMsgIn(MAAT00.ITM_DLM_1, MAAT00.CHAR.CRLF);
@@ -269,12 +267,13 @@ public class MFD02V001Z00 extends JFrame implements ActionListener {
 
 			try {
 
-				//インフルエンザ予防接種希望(往診列毎)作成クラスを実行
-				MAA00B001Z00 fluDsrObj = new MFD02B001Z00();
+				//インフルエンザ予防接種希望集計表作成クラスを実行
+				MAA00B001Z00 fluDsrObj = new MFD01B001Z00();
 				fluDsrObj.execute(appData, pgBar);
 
+				//業務エラーが発生していた場合は画面を閉じずに終了。
 				if (fluDsrObj.getAllInOneData().getCa().errOccurred()) {
-					label_8.setText("×ボタンで画面を閉じて、最初からやり直して下さい。");
+					label_6.setText("×ボタンで画面を閉じて、最初からやり直して下さい。");
 					return;
 				}
 
@@ -284,7 +283,7 @@ public class MFD02V001Z00 extends JFrame implements ActionListener {
 				//標準出力
 				ex.printStackTrace();
 			}
-			label_8.setText("×ボタンで画面を閉じて下さい。");
+			label_6.setText("×ボタンで画面を閉じて下さい。");
 		}
 	}
 
