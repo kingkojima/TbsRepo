@@ -1,4 +1,4 @@
-package jp.ne.tbs.control.FD02.mdl;
+package jp.ne.tbs.model.FD02;
 
 import java.util.HashMap;
 import java.util.List;

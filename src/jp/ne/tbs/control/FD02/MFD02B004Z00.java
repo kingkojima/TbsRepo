@@ -1,10 +1,10 @@
 package jp.ne.tbs.control.FD02;
 
-import jp.ne.tbs.control.FD01.mdl.MFD01M002Z00;
-import jp.ne.tbs.control.FD02.mdl.MFD02M002Z00;
 import jp.ne.tbs.frame.AA00.MAA00B006Z00;
 import jp.ne.tbs.frame.AA00.MAA00B008Z00;
 import jp.ne.tbs.frame.AA00.MAAT00;
+import jp.ne.tbs.model.FD01.MFD01M002Z00;
+import jp.ne.tbs.model.FD02.MFD02M002Z00;
 
 /**
  * <p>[クラス名]</p>

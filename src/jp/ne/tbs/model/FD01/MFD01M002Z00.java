@@ -1,4 +1,4 @@
-package jp.ne.tbs.control.FD01.mdl;
+package jp.ne.tbs.model.FD01;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
