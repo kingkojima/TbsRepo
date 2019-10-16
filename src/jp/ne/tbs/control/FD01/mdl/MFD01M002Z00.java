@@ -104,9 +104,9 @@ public class MFD01M002Z00 {
 		//フリガナMap<患者ID,フリガナ>
 		Map<String, String> aNameMap = new HashMap<String, String>();
 		//処理済みリスト
-		List <String> prcssdList = new ArrayList<String>();
+		List<String> prcssdList = new ArrayList<String>();
 		//結果マップをインスタンス化(※Keyで自然ソート。)
-		 resultMap = new TreeMap<String, Map<String, String>>();
+		resultMap = new TreeMap<String, Map<String, String>>();
 
 		//入力データより集計期間開始と集計期間終了を取得し、Date型に変換。
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -186,8 +186,8 @@ public class MFD01M002Z00 {
 			//当該レコードの患者(targetId)が出力対象患者(resultMapに含む)の場合
 			//かつ、処理済みリスト(prcssdList)にない場合
 			if (resultMap.containsKey(targetId) && !prcssdList.contains(targetId)) {
-//			if (resultMap.containsKey(targetId) && !prcssdList.contains(targetId)
-//					&& targetId.equals("XXXXXXXX")) {
+				//			if (resultMap.containsKey(targetId) && !prcssdList.contains(targetId)
+				//					&& targetId.equals("XXXXXXXX")) {
 
 				//当該レコードが、集計対象期間の場合
 				//条件式：入力データ.集計期間開始 ≦ 診療記録TBL.FDATE ≦ 入力データ.集計期間終了
@@ -214,7 +214,7 @@ public class MFD01M002Z00 {
 							//項目名が(※１)空文字ではなくかつ、対象文字列内にある場合
 							//※１）入力項目.名前が設定されていないかった場合(拡張分)の考慮。
 							if (!nme1.equals(MAAT00.CHAR.EMPTY_STRING)
-										&& targetStr.contains(nme1)) {
+									&& targetStr.contains(nme1)) {
 
 								//格納用結果を定義
 								String result1 = MAAT00.CHAR.EMPTY_STRING;
@@ -238,10 +238,10 @@ public class MFD01M002Z00 {
 									indexEnd1 = targetStr.indexOf(end1);
 
 									//カルテが改行無しで終わっている場合の対応
-									if(indexEnd1 == -1) {
+									if (indexEnd1 == -1) {
 										//残りの文字をそのまま取得
 										result1 = targetStr;
-									}else {
+									} else {
 										//終了文字以前の文字列を取得
 										result1 = targetStr.substring(0, indexEnd1);
 									}
@@ -258,8 +258,9 @@ public class MFD01M002Z00 {
 									result1 = targetStr.substring(indexNme1, indexEnd1);
 								}
 
-								//テスト用出力
-								//System.out.println("格納文字⇒" + targetId + "：" + nme1 + "：" + result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
+								//TODO テスト用 標準出力 格納文字列
+								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "："
+										+ result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
 
 								//処理結果マップ.項目マップに項目名と値を格納
 								String val = result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", "");
@@ -270,14 +271,14 @@ public class MFD01M002Z00 {
 								prcssdList.add(targetId);
 
 								//集計行用カウント
-								if(ITM_NME_LIST[i].equals(MAAT00.ITM_NME_1)) {
-									if(val.equals("あり")) {
+								if (ITM_NME_LIST[i].equals(MAAT00.ITM_NME_1)) {
+									if (val.equals("あり")) {
 										patDisCnt++;
 									}
 								}
 
-								if(ITM_NME_LIST[i].equals(MAAT00.ITM_NME_2)) {
-									if(!val.equals("無し")) {
+								if (ITM_NME_LIST[i].equals(MAAT00.ITM_NME_2)) {
+									if (!val.equals("無し")) {
 										String removed = val.replace("人", MAAT00.CHAR.EMPTY_STRING);
 										try {
 											//人数を数値変換
@@ -295,17 +296,22 @@ public class MFD01M002Z00 {
 								indexEnd1 += end1.length();
 
 								//残りの文字列長を取得
-								int targetStrLen=  targetStr.length();
+								int targetStrLen = targetStr.length();
 
 								//まだ読み込む行がある場合
-								if(targetStrLen > indexEnd1) {
+								if (targetStrLen > indexEnd1) {
 
 									//さらにもう１つ分の改行を飛ばす。
 									//　→カスタムウィザードでは項目と項目の間に空行が必ず入るため。
 									indexEnd1 += MAAT00.CHAR.CRLF.length();
 								}
-								//終了文字以降の文字列を取得し、次の処理に渡す
-								targetStr = targetStr.substring(indexEnd1);
+								try {
+									//終了文字以降の文字列を取得し、次の処理に渡す
+									targetStr = targetStr.substring(indexEnd1);
+								} catch (StringIndexOutOfBoundsException e) {
+									allInOneData.getCa().setWarningCode(targetId + "の" + MAAW00.WFD00A001);
+									continue;
+								}
 							}
 						}
 					}

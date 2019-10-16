@@ -295,7 +295,7 @@ public class MFD02B005Z00 extends MAA00B007Z00 {
 
 				//ファイルパス・ファイル名の指定
 				outPutFilePath = System.getProperty("user.home") + "/Desktop/";
-				outPutFileName = "インフル確認状況_" + dateFormat.format(date).toString() + ".xls";
+				outPutFileName = "往診列インフル確認状況_" + dateFormat.format(date).toString() + ".xls";
 
 				try {
 					// エクセルファイルを出力
@@ -320,7 +320,7 @@ public class MFD02B005Z00 extends MAA00B007Z00 {
 
 		//		System.out.println("帳票編集が終わったぜい！");
 
-		JOptionPane.showConfirmDialog((Component) null, "デスクトップに集計表が出来ました。", "集計完了", -1, 1);
+		JOptionPane.showConfirmDialog((Component) null, "デスクトップに確認表(往診列)が出来ました。", "集計完了", -1, 1);
 
 	}
 }

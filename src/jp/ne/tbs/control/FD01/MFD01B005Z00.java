@@ -272,7 +272,7 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 
 				//ファイルパス・ファイル名の指定
 				outPutFilePath = System.getProperty("user.home") + "/Desktop/";
-				outPutFileName = "インフル希望集計_" + dateFormat.format(date).toString() + ".xls";
+				outPutFileName = "全体インフル希望集計_" + dateFormat.format(date).toString() + ".xls";
 
 				try {
 					// エクセルファイルを出力
