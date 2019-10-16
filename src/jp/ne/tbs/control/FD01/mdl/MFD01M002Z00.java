@@ -259,8 +259,8 @@ public class MFD01M002Z00 {
 								}
 
 								//TODO テスト用 標準出力 格納文字列
-								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "："
-										+ result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
+//								System.out.println("格納文字⇒" + targetId + "：" + nme1 + "："
+//										+ result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", ""));
 
 								//処理結果マップ.項目マップに項目名と値を格納
 								String val = result1.replaceFirst("^[\\h]+", "").replaceFirst("[\\h]+$", "");
@@ -309,6 +309,7 @@ public class MFD01M002Z00 {
 									//終了文字以降の文字列を取得し、次の処理に渡す
 									targetStr = targetStr.substring(indexEnd1);
 								} catch (StringIndexOutOfBoundsException e) {
+									//入力エラー
 									allInOneData.getCa().setWarningCode(targetId + "の" + MAAW00.WFD00A001);
 									continue;
 								}

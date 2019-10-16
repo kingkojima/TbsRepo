@@ -212,8 +212,6 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 			MAA00B003Z00 appData = new MAA00B003Z00();
 			appData.setMsgIn(MAAT00.DCP_SRT, text_1.getText());
 			appData.setMsgIn(MAAT00.DCP_END, text_2.getText());
-			appData.setMsgIn(MAAT00.DCP_SRT, "2019/09/01");
-			appData.setMsgIn(MAAT00.DCP_END, "2019/12/31");
 
 			appData.setMsgIn(MAAT00.ITM_NME_1, "/*インフルエンザ希望");
 			appData.setMsgIn(MAAT00.ITM_DLM_1, MAAT00.CHAR.CRLF);
