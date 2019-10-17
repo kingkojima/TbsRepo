@@ -9,9 +9,9 @@ public final class MAAT00 {
 	public static class SYS {
 		public static final String IP_EAST = "192.168.11";
 		public static final String IP_WEST = "192.168.12";
-		public static final String DB_URL_EAST = "jdbc:sqlserver://192.168.11.10";
+//		public static final String DB_URL_EAST = "jdbc:sqlserver://192.168.11.10";
 //TODO テスト用 ★東西IPアドレス変更★
-//		public static final String DB_URL_EAST = "jdbc:sqlserver://192.168.12.1";
+		public static final String DB_URL_EAST = "jdbc:sqlserver://192.168.12.1";
 		public static final String DB_URL_WEST = "jdbc:sqlserver://192.168.12.1";
 		public static final String DB_USER = "sa";
 		public static final String DB_PASS = "supply";

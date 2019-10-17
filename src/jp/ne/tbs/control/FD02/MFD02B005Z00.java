@@ -224,10 +224,18 @@ public class MFD02B005Z00 extends MAA00B007Z00 {
 						cell.setCellValue(pId);
 					} else if (i == 3) {
 						//名前(漢字)
-						cell.setCellValue(itemMap.get(MAAT00.PTT_NME) + " 様");
+						try {
+							cell.setCellValue(itemMap.get(MAAT00.PTT_NME) + " 様");
+						} catch (NullPointerException e) {
+							cell.setCellValue("-");
+						}
 					} else {
 						//集計項目
-						cell.setCellValue(itemMap.get(ITM_NME_LIST[j]));
+						try {
+							cell.setCellValue(itemMap.get(ITM_NME_LIST[j]));
+						} catch (Exception e) {
+							cell.setCellValue("-");
+						}
 					}
 				}
 				// 次の行の処理

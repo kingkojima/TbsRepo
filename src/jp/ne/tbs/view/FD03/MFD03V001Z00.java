@@ -1,6 +1,7 @@
 package jp.ne.tbs.view.FD03;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -10,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,6 +44,13 @@ public class MFD03V001Z00 extends JFrame implements ActionListener {
 	/** 集計終了日テキスト */
 	JTextField text_2;
 
+	/** 検索文字１テキスト */
+	JTextField text_3;
+	/** 検索文字２テキスト */
+	JTextField text_4;
+	/** 検索文字３テキスト */
+	JTextField text_5;
+
 	/** 戻るボタン */
 	JButton button_1;
 	/** 集計ボタン */
@@ -53,6 +62,9 @@ public class MFD03V001Z00 extends JFrame implements ActionListener {
 	JLabel label_6 = null;
 	/** 表示ラベル(進捗バーにあたる場所) */
 	JLabel label_7 = null;
+
+	/** コンボリストのデータ */
+	String[] combodata  = {"改行", "なし", "。(句点)", ",(カンマ)", ":(コロン)"};
 
 	/** 業務処理スレッド */
 	BusinessThread bizTh;
@@ -84,7 +96,7 @@ public class MFD03V001Z00 extends JFrame implements ActionListener {
 
 		//画面設定
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(800, 100, 400, 350);
+		setBounds(800, 100, 400, 480);
 		setTitle("汎用検索君");
 
 		//パネル,GBL,GBCを生成。
@@ -113,7 +125,7 @@ public class MFD03V001Z00 extends JFrame implements ActionListener {
 		text_1.setPreferredSize(new Dimension(120, 40));
 		this.addComp(text_1, 0, 2, 1, 1);
 
-		JLabel label_3 = new JLabel("　～　");
+		JLabel label_3 = new JLabel("　　～　　");
 		label_3.setFont(new Font("メイリオ", Font.PLAIN, 22));
 		this.addComp(label_3, 1, 2, 1, 1);
 
@@ -124,40 +136,98 @@ public class MFD03V001Z00 extends JFrame implements ActionListener {
 
 		//４行目(改行のための空白文字)
 		JLabel label_5 = new JLabel("　");
-		label_5.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		label_5.setFont(new Font("メイリオ", Font.PLAIN, 15));
 		this.addComp(label_5, 0, 3, 3, 1);
 
-		//５行目(進捗バーのラベル)
-		label_6 = new JLabel("開始日と終了日を入力し集計ボタンを押してください");
-		label_6.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		this.addComp(label_6, 0, 4, 3, 1);
+		//５行目
+		JLabel label_9 = new JLabel("検索文字");
+		label_9.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		this.addComp(label_9, 0, 4, 1, 1);
 
-		//６行目(進捗バーのための余白)
+		JLabel label_10 = new JLabel("区切り(始)");
+		label_10.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		this.addComp(label_10, 1, 4, 1, 1);
+
+		JLabel label_11 = new JLabel("区切り(終)");
+		label_11.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		this.addComp(label_11, 2, 4, 1, 1);
+
+		//６行目　検索文字１
+		text_3 = new JTextField("検索文字１");
+		text_3.setFont(new Font("メイリオ", Font.PLAIN, 17));
+		text_3.setHorizontalAlignment(JTextField.CENTER);
+		text_3.setPreferredSize(new Dimension(120, 40));
+		this.addComp(text_3, 0, 5, 1, 1);
+
+		JComboBox<?> combo1 = new JComboBox<>(combodata);
+		this.addComp(combo1, 1, 5, 1, 1);
+
+		JComboBox<?> combo2 = new JComboBox<>(combodata);
+		this.addComp(combo2, 2, 5, 1, 1);
+
+		//７行目　検索文字２
+		text_4 = new JTextField("検索文字２");
+		text_4.setFont(new Font("メイリオ", Font.PLAIN, 17));
+		text_4.setHorizontalAlignment(JTextField.CENTER);
+		text_4.setPreferredSize(new Dimension(120, 40));
+		this.addComp(text_4, 0, 6, 1, 1);
+
+		JComboBox<?> combo3 = new JComboBox<>(combodata);
+		this.addComp(combo3, 1, 6, 1, 1);
+
+		JComboBox<?> combo4 = new JComboBox<>(combodata);
+		this.addComp(combo4, 2, 6, 1, 1);
+
+		//8行目　検索文字3
+		text_5 = new JTextField("検索文字３");
+		text_5.setFont(new Font("メイリオ", Font.PLAIN, 17));
+		text_5.setHorizontalAlignment(JTextField.CENTER);
+		text_5.setPreferredSize(new Dimension(120, 40));
+		this.addComp(text_5, 0, 7, 1, 1);
+
+		JComboBox<?> combo5 = new JComboBox<>(combodata);
+		this.addComp(combo5, 1, 7, 1, 1);
+
+		JComboBox<?> combo6 = new JComboBox<>(combodata);
+		this.addComp(combo6, 2, 7, 1, 1);
+
+		//９行目(進捗バーのための余白)
+		label_9 = new JLabel("　");
+		label_9.setFont(new Font("メイリオ", Font.PLAIN, 13));
+		this.addComp(label_9, 0, 8, 3, 1);
+
+		//１０行目(進捗バーのラベル)
+		label_6 = new JLabel("開始日/終了日/検索文字列/を入力し集計ボタンを押してください");
+		label_6.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		label_6.setForeground(Color.BLUE);
+		this.addComp(label_6, 0, 9, 3, 1);
+
+		//１１行目(進捗バーのための余白)
 		label_7 = new JLabel("　");
-		label_7.setFont(new Font("メイリオ", Font.PLAIN, 13));
-		this.addComp(label_7, 0, 5, 3, 1);
+		label_7.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		this.addComp(label_7, 0, 10, 3, 1);
 
 		//進捗バーはここで生成しておく
 		pgBar = new JProgressBar(0, 100);
 		pgBar.setStringPainted(true);
 
-		//７行目(改行のための空白文字)
+		//１２行目(改行のための空白文字)
 		JLabel label_8 = new JLabel("　");
 		label_8.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		this.addComp(label_8, 0, 6, 3, 1);
+		this.addComp(label_8, 0, 11, 3, 1);
 
-		//８行目
+		//１３行目
 		button_1 = new JButton("戻る");
 		button_1.addActionListener(this);
 		button_1.setFont(new Font("メイリオ", Font.PLAIN, 18));
 		button_1.setActionCommand("return_btn");
-		this.addComp(button_1, 0, 7, 1, 1);
+		this.addComp(button_1, 0, 12, 1, 1);
 
-		button_2 = new JButton("集計");
+		button_2 = new JButton("検索");
 		button_2.addActionListener(this);
 		button_2.setFont(new Font("メイリオ", Font.PLAIN, 18));
 		button_2.setActionCommand("calc_btn");
-		this.addComp(button_2, 2, 7, 1, 1);
+		this.addComp(button_2, 2, 12, 1, 1);
 
 		//パネルを設定。
 		getContentPane().add(panel, BorderLayout.CENTER);
@@ -204,7 +274,6 @@ public class MFD03V001Z00 extends JFrame implements ActionListener {
 		public void run() {
 
 			label_6.setText("しばらくお待ちください。");
-
 
 			remComp(label_7, pgBar, 0, 5, 3, 1);
 

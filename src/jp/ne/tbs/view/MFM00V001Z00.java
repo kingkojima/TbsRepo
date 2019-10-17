@@ -82,7 +82,7 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_3.setEnabled(true);
 
 		//ボタン４
-		button_4 = new JButton("機能追加枠③");
+		button_4 = new JButton("患者病名検索");
 		button_4.addActionListener(this);
 		button_4.setFont(new Font("メイリオ", Font.BOLD, 26));
 		button_4.setActionCommand("tsuika_3");
@@ -104,33 +104,32 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		tabbedPane.addTab("集計", buttonPanel1);
 
 		//ボタン５
-		button_5 = new JButton("機能追加枠④");
+		button_5 = new JButton("簡易版");
 		button_5.addActionListener(this);
 		button_5.setFont(new Font("メイリオ", Font.BOLD, 26));
 		button_5.setActionCommand("tsuika_4");
 		button_5.setEnabled(false);
 
 		//ボタン６
-		button_6 = new JButton("機能追加枠⑤");
+		button_6 = new JButton("施設別");
 		button_6.addActionListener(this);
 		button_6.setFont(new Font("メイリオ", Font.BOLD, 26));
 		button_6.setActionCommand("tsuika_5");
 		button_6.setEnabled(false);
 
 		//ボタン７
-		button_7 = new JButton("機能追加枠⑥");
+		button_7 = new JButton("町域表示");
 		button_7.addActionListener(this);
 		button_7.setFont(new Font("メイリオ", Font.BOLD, 26));
 		button_7.setActionCommand("tsuika_6");
 		button_7.setEnabled(false);
 
 		//ボタン８
-		button_8 = new JButton("機能追加枠⑦");
+		button_8 = new JButton("訪問予定チェック");
 		button_8.addActionListener(this);
 		button_8.setFont(new Font("メイリオ", Font.BOLD, 26));
 		button_8.setActionCommand("tsuika_7");
 		button_8.setEnabled(false);
-
 
 		//パネル２を生成。
 		buttonPanel2 = new JPanel();
