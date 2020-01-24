@@ -1,4 +1,4 @@
-package jp.ne.tbs.view.FD03;
+package jp.ne.tbs.view.RE01;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,15 +24,16 @@ import jp.ne.tbs.frame.AA00.MAA00B001Z00;
 import jp.ne.tbs.frame.AA00.MAA00B003Z00;
 import jp.ne.tbs.frame.AA00.MAAT00;
 import jp.ne.tbs.view.MFM00V001Z00;
+import jp.ne.tbs.view.FD03.MFD03V001Z00;
 
 /**
  * <p>[クラス名]</p>
- * 　　汎用検索　メイン画面
+ * 　　報告書データ作成　メイン画面
  * <p>[概要]</p>
  * <p>[変更履歴]</p>
- * 　　2019/10/15　小嶋純史　新規作成
+ * 　　2019/12/27　小嶋純史　新規作成
  */
-public class MFD03V001Z00 extends JFrame implements ActionListener {
+public class MRE01V001Z00 extends JFrame implements ActionListener {
 
 	/** 部品群 */
 	private JPanel panel;
@@ -109,7 +110,7 @@ public class MFD03V001Z00 extends JFrame implements ActionListener {
 	 * 　画面のレイアウトを作成する。
 	 * <p>[備 考] </p>
 	 */
-	public MFD03V001Z00() {
+	public MRE01V001Z00() {
 
 		//画面設定
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
