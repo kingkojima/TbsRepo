@@ -205,7 +205,6 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 
 			label_6.setText("しばらくお待ちください。");
 
-
 			remComp(label_7, pgBar, 0, 5, 3, 1);
 
 			//appData作成

@@ -30,6 +30,7 @@ public final class MAAT00 {
 		public static final String SEMICOLON = ";";
 		public static final String PLUS = " + ";
 		public static final String EQUAL = " = ";
+		public static final String TAB = "	";
 	}
 
 	public static class DROP {
@@ -132,6 +133,24 @@ public final class MAAT00 {
 	/** 項目10　終了文字 */
 	public static final String ITM_END_10 = "FD00C042Z00";
 
+	/** 項目11　名前 */
+	public static final String ITM_NME_11 = "FD00C043Z00";
+	/** 項目11　区切り */
+	public static final String ITM_DLM_11 = "FD00C044Z00";
+	/** 項目11　集計形式 */
+	public static final String ITM_PTN_11 = "FD00C045Z00";
+	/** 項目11　終了文字 */
+	public static final String ITM_END_11 = "FD00C046Z00";
+
+	/** 項目12　名前 */
+	public static final String ITM_NME_12 = "FD00C047Z00";
+	/** 項目12　区切り */
+	public static final String ITM_DLM_12 = "FD00C048Z00";
+	/** 項目12　集計形式 */
+	public static final String ITM_PTN_12 = "FD00C049Z00";
+	/** 項目12　終了文字 */
+	public static final String ITM_END_12 = "FD00C050Z00";
+
 	/** 患者　漢字名 */
 	public static final String PTT_NME = "FD00C100Z00";
 	/** 患者　フリガナ */
@@ -155,6 +174,11 @@ public final class MAAT00 {
 	public static final String USR_RYK = "FD00C108Z00";
 	/** 職員　情報 */
 	public static final String USR_INF = "FD00C109Z00";
+
+	/** 患者　在宅開始日 */
+	public static final String ZAI_STR = "FD00C110Z00";
+	/** 患者　在宅終了日 */
+	public static final String ZAI_END = "FD00C111Z00";
 
 
 }

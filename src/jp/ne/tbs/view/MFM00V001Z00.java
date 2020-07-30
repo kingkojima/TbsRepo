@@ -14,6 +14,8 @@ import jp.ne.tbs.view.FD01.MFD01V001Z00;
 import jp.ne.tbs.view.FD02.MFD02V001Z00;
 import jp.ne.tbs.view.FD03.MFD03V001Z00;
 import jp.ne.tbs.view.PA01.MPA01V001Z00;
+import jp.ne.tbs.view.PT01.MPT01V001Z00;
+import jp.ne.tbs.view.RE01.MRE01V001Z00;
 
 /**
  * <p>[クラス名]</p>
@@ -84,18 +86,18 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_15.setEnabled(true);
 
 		//ボタン１３
-		button_13 = new JButton("診療レポート");
+		button_13 = new JButton("新患情報入力");
 		button_13.addActionListener(this);
 		button_13.setFont(new Font("メイリオ", Font.BOLD, 26));
-		button_13.setActionCommand("tsuika_13");
-		button_13.setEnabled(false);
+		button_13.setActionCommand("pte_inf_ipt");
+		button_13.setEnabled(true);
 
 		//ボタン１４
-		button_14 = new JButton("物品管理");
+		button_14 = new JButton("レセ対象一覧作成");
 		button_14.addActionListener(this);
 		button_14.setFont(new Font("メイリオ", Font.BOLD, 26));
-		button_14.setActionCommand("tsuika_14");
-		button_14.setEnabled(false);
+		button_14.setActionCommand("rec_tar_lst");
+		button_14.setEnabled(true);
 
 		//ボタン１６
 		button_16 = new JButton("報告書データ作成");
@@ -343,14 +345,33 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 			//処理が終わったら終了
 			this.dispose();
 
-			//報告書データ作成の場合
-		} else if (cmd.equals("rep_dat_mke")) {
+			//新患情報入力の場合
+		} else if (cmd.equals("pte_inf_ipt")) {
 
 			try {
 
-				//予後予測指標入力画面
-				MPA01V001Z00 papFrame = new MPA01V001Z00();
+				//新患受付（非がん患者様用）メイン画面
+				MRE01V001Z00 papFrame = new MRE01V001Z00();
 				papFrame.setVisible(true);
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+
+			//処理が終わったら終了
+			this.dispose();
+
+			//レセプト対象患者一覧作成
+		} else if (cmd.equals("rec_tar_lst")) {
+
+			try {
+
+				//レセ対象一覧作成メイン画面
+				MPT01V001Z00 pecFrame = new MPT01V001Z00();
+				pecFrame.setVisible(true);
 
 				//エラー発生時
 			} catch (Exception ex) {

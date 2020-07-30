@@ -9,5 +9,11 @@
 	<classpathentry kind="lib" path="C:/pleiades/eclipse/jar/poi-ooxml-schemas-4.1.0.jar"/>
 	<classpathentry kind="lib" path="C:/pleiades/eclipse/jar/lib/commons-collections4-4.3.jar"/>
 	<classpathentry kind="lib" path="C:/pleiades/eclipse/jar/lib/commons-compress-1.18.jar"/>
+	<classpathentry kind="lib" path="C:/pleiades/eclipse/jar/mysql-connector-java-3.1.14-bin.jar"/>
+	<classpathentry kind="lib" path="C:/pleiades/eclipse/jar/LGoodDatePicker-10.4.1.jar" sourcepath="C:/pleiades/eclipse/jar/LGoodDatePicker-10.4.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/pleiades/eclipse/jar/LGoodDatePicker-10.4.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

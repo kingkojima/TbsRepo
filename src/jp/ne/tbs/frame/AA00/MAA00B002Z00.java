@@ -7,6 +7,7 @@ import jp.ne.tbs.frame.DB02.MDB02T001Z00;
 import jp.ne.tbs.frame.DB03.MDB03T001Z00;
 import jp.ne.tbs.frame.DB04.MDB04T001Z00;
 import jp.ne.tbs.frame.DB05.MDB05T001Z00;
+import jp.ne.tbs.frame.DB31.MDB31T001Z00;
 
 /**
  * <p>[クラス名]</p>
@@ -52,6 +53,11 @@ public class MAA00B002Z00 {
 	 * 職員情報TBLリスト
 	 */
 	private List<MDB05T001Z00> userTbls;
+
+	/**
+	 * MySQL患者TBLリスト
+	 */
+	private List<MDB31T001Z00> pmqlTbls;
 
 	/**
 	 * ログアウト
@@ -196,6 +202,26 @@ public class MAA00B002Z00 {
 	 */
 	protected void setUserTbls(List<MDB05T001Z00> userTbls) {
 		this.userTbls = userTbls;
+	}
+
+	/**
+	 * <p>[概 要] pmqlTbls を取得する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @return pmqlTbls
+	 */
+	public List<MDB31T001Z00> getPMQLTbls() {
+		return pmqlTbls;
+	}
+
+	/**
+	 * <p>[概 要] pmqlTbls を設定する。</p>
+	 * <p>[詳 細] </p>
+	 * <p>[備 考] </p>
+	 * @param pmqlTbls セットする pmqlTbls
+	 */
+	protected void setPMQLTbls(List<MDB31T001Z00> pmqlTbls) {
+		this.pmqlTbls = pmqlTbls;
 	}
 
 	/**

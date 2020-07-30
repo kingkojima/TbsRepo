@@ -167,6 +167,12 @@ public abstract class MAA00B001Z00 {
 		MDB05A001Z00 userDao = new MDB05A001Z00();
 		List<MDB05T001Z00> userDtoList = userDao.findAll(allInOneData);
 		allInOneData.setUserTbls(userDtoList);
+
+		//MySQL患者TBL
+//		MDB31A001Z00 patientMQLDao = new MDB31A001Z00();
+//		List<MDB31T001Z00> patientMQLDtoList = patientMQLDao.findAll(allInOneData);
+//		allInOneData.setPMQLTbls(patientMQLDtoList);
+
 	}
 
 	/**
