@@ -25,10 +25,11 @@ import jp.ne.tbs.view.MFM00V001Z00;
 
 /**
  * <p>[クラス名]</p>
- * 　　インフルエンザワクチン接種希望集計　メイン画面
+ * インフルエンザワクチン接種希望集計　メイン画面
  * <p>[概要]</p>
  * <p>[変更履歴]</p>
- * 　　2019/09/17　小嶋純史　新規作成
+ * 2019/09/17 小嶋純史 新規作成
+ * 2020/09/25 小嶋純史 汎用対応・集計不備対応
  */
 public class MFD01V001Z00 extends JFrame implements ActionListener {
 
@@ -108,7 +109,7 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 		this.addComp(label_4, 2, 1, 1, 1);
 
 		//３行目
-		text_1 = new JTextField("2019/09/01");
+		text_1 = new JTextField("2020/09/01");
 		text_1.setFont(new Font("メイリオ", Font.PLAIN, 17));
 		text_1.setPreferredSize(new Dimension(120, 40));
 		this.addComp(text_1, 0, 2, 1, 1);
@@ -117,7 +118,7 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 		label_3.setFont(new Font("メイリオ", Font.PLAIN, 22));
 		this.addComp(label_3, 1, 2, 1, 1);
 
-		text_2 = new JTextField("2019/12/31");
+		text_2 = new JTextField("2020/12/31");
 		text_2.setFont(new Font("メイリオ", Font.PLAIN, 17));
 		text_2.setPreferredSize(new Dimension(120, 40));
 		this.addComp(text_2, 2, 2, 1, 1);
@@ -217,32 +218,69 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 			appData.setMsgIn(MAAT00.ITM_PTN_1, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_1, MAAT00.CHAR.CRLF);
 
-			appData.setMsgIn(MAAT00.ITM_NME_2, "家族");
+//2020/09/25 Del Start J.Kojima
+//			appData.setMsgIn(MAAT00.ITM_NME_2, "家族");
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Add Start J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_2, "■本人以外の家族希望");
+//2020/09/25 Add End J.Kojima
 			appData.setMsgIn(MAAT00.ITM_DLM_2, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_2, MAAT00.DROP.NUMBER);
 			appData.setMsgIn(MAAT00.ITM_END_2, MAAT00.CHAR.CRLF);
 
-			appData.setMsgIn(MAAT00.ITM_NME_3, "続柄");
+//2020/09/25 Del Start J.Kojima
+//			appData.setMsgIn(MAAT00.ITM_NME_3, "続柄");
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Add Start J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_3, "■続柄・読み仮名");
+//2020/09/25 Add End J.Kojima
 			appData.setMsgIn(MAAT00.ITM_DLM_3, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_3, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_3, MAAT00.CHAR.CRLF);
 
-			appData.setMsgIn(MAAT00.ITM_NME_4, "保険証撮影");
+
+//2020/09/25 Del Start J.Kojima
+//			appData.setMsgIn(MAAT00.ITM_NME_4, "保険証撮影");
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Add Start J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_4, "■保険証撮影");
+//2020/09/25 Add End J.Kojima
 			appData.setMsgIn(MAAT00.ITM_DLM_4, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_4, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_4, MAAT00.CHAR.CRLF);
 
-			appData.setMsgIn(MAAT00.ITM_NME_5, "助成");
+
+//2020/09/25 Del Start J.Kojima
+//			appData.setMsgIn(MAAT00.ITM_NME_5, "助成");
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Add Start J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_5, "■助成");
+//2020/09/25 Add End J.Kojima
 			appData.setMsgIn(MAAT00.ITM_DLM_5, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_5, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_5, MAAT00.CHAR.CRLF);
 
-			appData.setMsgIn(MAAT00.ITM_NME_6, "予診票保管場所");
+//2020/09/25 Del Start J.Kojima
+//			appData.setMsgIn(MAAT00.ITM_NME_6, "予診票保管場所");
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Add Start J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_6, "■予診票保管場所");
+//2020/09/25 Add End J.Kojima
 			appData.setMsgIn(MAAT00.ITM_DLM_6, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_6, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_6, MAAT00.CHAR.CRLF);
 
-			appData.setMsgIn(MAAT00.ITM_NME_7, "支払方法");
+//2020/09/25 Del Start J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_7, "■支払方法");
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Del End J.Kojima
+//2020/09/25 Add Start J.Kojima
+//			appData.setMsgIn(MAAT00.ITM_NME_7, "■支払方法");
+//2020/09/25 Add End J.Kojima
 			appData.setMsgIn(MAAT00.ITM_DLM_7, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_7, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_7, MAAT00.CHAR.CRLF);

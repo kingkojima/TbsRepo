@@ -25,12 +25,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import jp.ne.tbs.control.RE01.MRE01B001Z00;
 import jp.ne.tbs.frame.AA00.JTextFieldEx;
+import jp.ne.tbs.frame.AA00.MAA00B001Z00;
+import jp.ne.tbs.frame.AA00.MAA00B003Z00;
 import jp.ne.tbs.frame.AA00.MAAT00;
 
 /**
@@ -70,6 +74,8 @@ public class MRE01V001Z00 extends JFrame implements ActionListener,KeyListener {
 
 	/** レイアウトサイズ  10 × 2  タイトル */
 	static Dimension LAYOUT_10BY2 = new Dimension(1200, 60);
+	/** レイアウトサイズ   0.5 × 1   ラベル、テキスト */
+	static Dimension LAYOUT_05BY1 = new Dimension(60, 40);
 	/** レイアウトサイズ   1 × 1   ラベル、テキスト */
 	static Dimension LAYOUT_1BY1 = new Dimension(120, 40);
 	/** レイアウトサイズ   2 × 1   ボタン */
@@ -250,6 +256,17 @@ public class MRE01V001Z00 extends JFrame implements ActionListener,KeyListener {
 	JButton button_2;
 	/** 削除ボタン */
 	JButton button_3;
+	/** 新規ボタン */
+	JButton button_4;
+	/** 検索ボタン */
+	JButton button_5;
+
+	/** 業務処理スレッド */
+	BusinessThread1 bizTh1;
+//	BusinessThread2 bizTh2;
+
+	/** 進捗バー */
+	JProgressBar pgBar = null;
 
 	/**
 	 * <p>[概 要] </p>
@@ -1753,8 +1770,19 @@ public class MRE01V001Z00 extends JFrame implements ActionListener,KeyListener {
 
 		}
 
-		//「登録」の場合
-		if (cmd.endsWith("reg_btn")) {
+		//「カナ検索」の場合
+		if (cmd.endsWith("grp_fnm_btn")) {
+
+			//ボタンを非活性
+//			button_4.setEnabled(false);
+//			button_5.setEnabled(false);
+
+			//業務処理スタート
+			bizTh1 = new BusinessThread1();
+			bizTh1.start();
+
+			//「登録」の場合
+		} else if (cmd.endsWith("reg_btn")) {
 
 //			//メインフレームを生成し実行。
 //			MFM00V001Z00 frame = new MFM00V001Z00();
@@ -1886,6 +1914,48 @@ public class MRE01V001Z00 extends JFrame implements ActionListener,KeyListener {
 //
 //	}
 
+
+	//業務処理
+	class BusinessThread1 extends Thread {
+
+		public void run() {
+
+//			label_1.setText("しばらくお待ちください。");
+
+			//appData作成
+			MAA00B003Z00 appData = new MAA00B003Z00();
+
+			//カナを設定
+
+//			appData.setMsgIn(MAAT00.DCP_SRT, "" + calendar1.getYear() + "/" + calendar1.getMonth() + "/" + calendar1.getDay());
+//			appData.setMsgIn(MAAT00.DCP_END, "" + calendar2.getYear() + "/" + calendar2.getMonth() + "/" + calendar2.getDay());
+
+			try {
+
+				//新患受付カナ検索　業務メインクラスを実行
+				pgBar = new JProgressBar(0, 100);
+				MAA00B001Z00 fluDsrObj = new MRE01B001Z00();
+				fluDsrObj.execute(appData, pgBar);
+
+				//業務エラーが発生していた場合は画面を閉じずに終了。
+				if (fluDsrObj.getAllInOneData().getCa().errOccurred()) {
+					return;
+				}
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+//			label_1.setText("×ボタンで画面を閉じて下さい。");
+//			label_1.setForeground(Color.red);
+		}
+	}
+
+
+
+
 	//和暦入力された生年月日を元に、年齢(本日)を計算する処理
 	private int calcAgeWareki(String gyymmdd, Date now) {
 
@@ -1929,6 +1999,7 @@ public class MRE01V001Z00 extends JFrame implements ActionListener,KeyListener {
 		gbc.gridy = y;
 		gbc.gridwidth = w;
 		gbc.gridheight = h;
+		gbc.anchor = GridBagConstraints.WEST;
 		gblayout.setConstraints(comp, gbc);
 		panel.add(comp);
 	}

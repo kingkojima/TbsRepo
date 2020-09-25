@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -14,6 +15,13 @@ import javax.swing.text.MaskFormatter;
 
 import jp.ne.tbs.frame.AA00.JTextFieldEx;
 
+/**
+ * <p>[クラス名]</p>
+ *	 　　新患受付（非がん患者様用）　メイン画面　患者情報
+ * <p>[概要]</p>
+ * <p>[変更履歴]</p>
+ *	 　　2020/08/21　小嶋純史　新規作成
+ */
 public class MRE01V003Z00 {
 
 	/** テキストフィールド */
@@ -31,6 +39,9 @@ public class MRE01V003Z00 {
 	private JComboBox<?> combo_6_4;
 	private JComboBox<?> combo_8_2;
 
+	/** ボタン */
+	JButton button_4;
+	JButton button_5;
 
 	/** コンボボックスのデータ */
 	private String[] comb_6_4 = { "", "男", "女" };
@@ -59,12 +70,20 @@ public class MRE01V003Z00 {
 		text_5_3.setPreferredSize(MRE01V001Z00.LAYOUT_1BY1);
 		obj.addComp(text_5_3, 2, LOW_PAT_INF, 1, 1);
 
+		//カナ検索ボタン
+		button_4 = new JButton("検索");
+		button_4.addActionListener(obj);
+		button_4.setFont(new Font("メイリオ", Font.PLAIN, 12));
+		button_4.setPreferredSize(MRE01V001Z00.LAYOUT_05BY1);
+		button_4.setActionCommand("grp_fnm_btn");
+		obj.addComp(button_4, 3, LOW_PAT_INF, 1, 1);
+
 		//カルテID ラベル
 		JLabel label_5_4 = new JLabel("カルテID");
 		label_5_4.setFont(new Font("メイリオ", Font.PLAIN, 22));
 		label_5_4.setPreferredSize(MRE01V001Z00.LAYOUT_1BY1);
 		label_5_4.setHorizontalAlignment(JLabel.RIGHT);
-		obj.addComp(label_5_4, 3, LOW_PAT_INF, 1, 1);
+		obj.addComp(label_5_4, 4, LOW_PAT_INF, 1, 1);
 
 		//カルテID テキスト
 		DecimalFormat df = new DecimalFormat("0");
@@ -76,7 +95,15 @@ public class MRE01V003Z00 {
 		text_5_5.setActionCommand("pat_inf_pid");
 		text_5_5.setFont(new Font("メイリオ", Font.PLAIN, 17));
 		text_5_5.setPreferredSize(MRE01V001Z00.LAYOUT_1BY1);
-		obj.addComp(text_5_5, 4, LOW_PAT_INF, 1, 1);
+		obj.addComp(text_5_5, 5, LOW_PAT_INF, 1, 1);
+
+		//カルテID検索
+		button_5 = new JButton("検索");
+		button_5.addActionListener(obj);
+		button_5.setFont(new Font("メイリオ", Font.PLAIN, 12));
+		button_5.setPreferredSize(MRE01V001Z00.LAYOUT_05BY1);
+		button_5.setActionCommand("grp_pid_btn");
+		obj.addComp(button_5, 6, LOW_PAT_INF, 1, 1);
 
 		//６行目
 		JLabel label_6_1 = new JLabel("氏名");

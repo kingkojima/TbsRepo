@@ -362,7 +362,7 @@ public class MFD01M002Z00 {
 	}
 
 	/**
-	 * <p>[概 要] patDisCnt を取得する。</p>
+	 * <p>[概 要] 本人希望カウントを取得する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
 	 * @return patDisCnt
@@ -372,7 +372,7 @@ public class MFD01M002Z00 {
 	}
 
 	/**
-	 * <p>[概 要] patDisCnt を設定する。</p>
+	 * <p>[概 要] 本人希望カウントを設定する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
 	 * @param patDisCnt セットする patDisCnt
@@ -382,7 +382,7 @@ public class MFD01M002Z00 {
 	}
 
 	/**
-	 * <p>[概 要] fmyDisCnt を取得する。</p>
+	 * <p>[概 要] 本人以外希望カウントを取得する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
 	 * @return fmyDisCnt
@@ -392,7 +392,7 @@ public class MFD01M002Z00 {
 	}
 
 	/**
-	 * <p>[概 要] fmyDisCnt を設定する。</p>
+	 * <p>[概 要] 本人以外希望カウントを設定する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
 	 * @param fmyDisCnt セットする fmyDisCnt

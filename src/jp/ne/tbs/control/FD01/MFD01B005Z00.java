@@ -35,7 +35,8 @@ import jp.ne.tbs.frame.AA00.MAAT00;
  * 　　インフルエンザ予防接種希望集計　帳票編集コントロールクラス
  * <p>[概要]</p>
  * <p>[変更履歴]</p>
- * 　　2019/09/17　小嶋純史　新規作成
+ * 2019/09/17 小嶋純史 新規作成
+ * 2020/09/25 小嶋純史 汎用対応
  */
 public class MFD01B005Z00 extends MAA00B007Z00 {
 
@@ -107,8 +108,12 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			cell.setCellStyle(titleCellStyle);
 
 			// セルに「タイトル」を設定
-			cell.setCellValue("2019年　インフルエンザワクチン接種希望　集計表");
-
+//2020/09/25 Del Start J.kojima
+//			cell.setCellValue("2019年　インフルエンザワクチン接種希望　集計表");
+//2020/09/25 Del End J.kojima
+//2020/09/25 Add Start J.kojima
+			cell.setCellValue("インフルエンザワクチン接種希望　集計表");
+//2020/09/25 Add End J.kojima
 			//=======================
 			//=表の作成=================
 			//=======================
@@ -256,10 +261,12 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 			printSetup.setPaperSize(PrintSetup.A3_PAPERSIZE);
 			//横(true)印刷
 			printSetup.setLandscape(true);
-			//			//横１枚←うまく動かない
-			//			printSetup.setFitWidth((short) 1);
-			//			//縦１枚←うまく動かない
-			//			printSetup.setFitHeight((short) 1);
+//2019/09/17 Del Start J.Kojima
+//			//横１枚←うまく動かない
+//			printSetup.setFitWidth((short) 1);
+//			//縦１枚←うまく動かない
+//			printSetup.setFitHeight((short) 1);
+//2019/09/17 Del End J.Kojima
 			//印刷倍率
 			printSetup.setScale((short) 65);
 
@@ -284,8 +291,6 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 				}
 				workBook.write(outPutFile);
 
-//				System.out.println("「" + outPutFilePath + outPutFileName + "」を出力しました。");
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -293,8 +298,6 @@ public class MFD01B005Z00 extends MAA00B007Z00 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-//		System.out.println("帳票編集が終わったぜい！");
 
 		JOptionPane.showConfirmDialog((Component) null, "デスクトップに集計表が出来ました。", "集計完了", -1, 1);
 

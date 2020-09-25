@@ -9,6 +9,13 @@ import com.github.lgooddatepicker.components.DatePicker;
 
 import jp.ne.tbs.frame.AA00.JTextFieldEx;
 
+/**
+ * <p>[クラス名]</p>
+ *	 　　新患受付（非がん患者様用）　メイン画面　ヘッダー部
+ * <p>[概要]</p>
+ * <p>[変更履歴]</p>
+ *	 　　2020/08/21　小嶋純史　新規作成
+ */
 public class MRE01V002Z00 {
 
 	/** テキストフィールド */

@@ -15,6 +15,7 @@ import jp.ne.tbs.view.FD02.MFD02V001Z00;
 import jp.ne.tbs.view.FD03.MFD03V001Z00;
 import jp.ne.tbs.view.PA01.MPA01V001Z00;
 import jp.ne.tbs.view.PT01.MPT01V001Z00;
+import jp.ne.tbs.view.PT02.MPT02V001Z00;
 import jp.ne.tbs.view.RE01.MRE01V001Z00;
 
 /**
@@ -131,14 +132,14 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_1.addActionListener(this);
 		button_1.setFont(new Font("メイリオ", Font.BOLD, 26));
 		button_1.setActionCommand("flu_dsr_btn");
-		button_1.setEnabled(false);
+		button_1.setEnabled(true);
 
 		//ボタン２
 		button_2 = new JButton("インフル希望(往診列)");
 		button_2.addActionListener(this);
 		button_2.setFont(new Font("メイリオ", Font.BOLD, 26));
 		button_2.setActionCommand("flu_vst_btn");
-		button_2.setEnabled(false);
+		button_2.setEnabled(true);
 
 		//ボタン３
 		button_3 = new JButton("カルテ汎用検索");
@@ -148,11 +149,11 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_3.setEnabled(true);
 
 		//ボタン４
-		button_4 = new JButton("患者病名検索");
+		button_4 = new JButton("患者病名一覧");
 		button_4.addActionListener(this);
 		button_4.setFont(new Font("メイリオ", Font.BOLD, 26));
-		button_4.setActionCommand("tsuika_4");
-		button_4.setEnabled(false);
+		button_4.setActionCommand("pat_dsa_lst");
+		button_4.setEnabled(true);
 
 		//パネル１を生成。
 		buttonPanel1 = new JPanel();
@@ -369,8 +370,27 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 
 			try {
 
-				//レセ対象一覧作成メイン画面
+				//レセプト対象一覧作成メイン画面
 				MPT01V001Z00 pecFrame = new MPT01V001Z00();
+				pecFrame.setVisible(true);
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+
+			//処理が終わったら終了
+			this.dispose();
+
+			//患者病名一覧作成
+		} else if (cmd.equals("pat_dsa_lst")) {
+
+			try {
+
+				//患者病名一覧作成メイン画面
+				MPT02V001Z00 pecFrame = new MPT02V001Z00();
 				pecFrame.setVisible(true);
 
 				//エラー発生時
