@@ -209,6 +209,7 @@ public class SwingCalendar extends JPanel {
                         selectedDay = Integer.parseInt(label.getText());
                         // カレンダーの日付グリッドを再描画
                         refreshDayLabels(selectedYear, selectedMonth - 1);
+System.out.println("マウスがクリックされた");
                     }
 
                     @Override

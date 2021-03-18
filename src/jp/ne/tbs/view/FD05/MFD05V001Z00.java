@@ -1,4 +1,4 @@
-package jp.ne.tbs.view.FD01;
+package jp.ne.tbs.view.FD05;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -8,17 +8,17 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
-import jp.ne.tbs.control.FD01.MFD01B001Z00;
+import jp.ne.tbs.control.FD05.MFD05B001Z00;
 import jp.ne.tbs.frame.AA00.MAA00B001Z00;
 import jp.ne.tbs.frame.AA00.MAA00B003Z00;
 import jp.ne.tbs.frame.AA00.MAAT00;
@@ -26,29 +26,24 @@ import jp.ne.tbs.view.MFM00V001Z00;
 
 /**
  * <p>[クラス名]</p>
- * インフルエンザワクチン接種希望集計　メイン画面
+ * 　　往診列毎コロナワクチン接種希望集計　メイン画面
  * <p>[概要]</p>
  * <p>[変更履歴]</p>
- * 2019/09/17 小嶋純史 新規作成
- * 2020/09/25 小嶋純史 汎用対応・集計不備対応
- * 2020/10/09 小嶋純史 死亡・終了の患者を除く対応
+ * 　　2021/03/15　小嶋純史　新規作成
  */
-public class MFD01V001Z00 extends JFrame implements ActionListener {
+public class MFD05V001Z00 extends JFrame implements ActionListener {
 
-	/** 部品群 */
+	//部品群
 	private JPanel panel;
 	private GridBagLayout gblayout;
 	private GridBagConstraints gbc;
 
-	/** 集計開始日テキスト */
+	//集計開始日テキスト
 	JTextField text_1;
-	/** 集計終了日テキスト */
+	//集計終了日テキスト
 	JTextField text_2;
-
-//2020/10/09 Add Start J.Kojima
-	/** 死亡・終了の除外チェックボックス */
-	JCheckBox check_1;
-//2020/10/09 Add End J.Kojima
+	//対象年月日テキスト
+	JTextField text_3;
 
 	/** 戻るボタン */
 	JButton button_1;
@@ -57,43 +52,21 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 
 	/** 進捗バー */
 	JProgressBar pgBar = null;
+
 	/** 表示ラベル */
-	JLabel label_6 = null;
+	JLabel label_8 = null;
 	/** 表示ラベル(進捗バーにあたる場所) */
-	JLabel label_7 = null;
+	JLabel label_9 = null;
 
 	/** 業務処理スレッド */
 	BusinessThread bizTh;
 
-	/**
-	 * <p>[概 要] </p>
-	 * 　インフルエンザワクチン接種希望集計　実行メソッド<BR>
-	 * <p>[詳 細] </p>
-	 * <p>[備 考] </p>
-	 */
-	public static void exec() {
-
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				MFD01V001Z00 fluFrame = new MFD01V001Z00();
-				fluFrame.setVisible(true);
-			}
-		});
-	}
-
-	/**
-	 * <p>[概 要] </p>
-	 * 　インフルエンザワクチン接種希望集計　コンストラクタ<BR>
-	 * <p>[詳 細] </p>
-	 * 　画面のレイアウトを作成する。
-	 * <p>[備 考] </p>
-	 */
-	public MFD01V001Z00() {
+	public MFD05V001Z00() {
 
 		//画面設定
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(800, 100, 400, 350);
-		setTitle("インフルエンザ希望集計君");
+		setBounds(800, 100, 400, 400);
+		setTitle("コロナワクチン希望(往診列)君");
 
 		//パネル,GBL,GBCを生成。
 		panel = new JPanel();
@@ -102,8 +75,8 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 		panel.setLayout(gblayout);
 
 		//１行目
-		JLabel label_1 = new JLabel("インフルエンザ希望集計");
-		label_1.setFont(new Font("メイリオ", Font.BOLD, 26));
+		JLabel label_1 = new JLabel("コロナワクチン希望(往診列毎)");
+		label_1.setFont(new Font("メイリオ", Font.BOLD, 22));
 		this.addComp(label_1, 0, 0, 3, 1);
 
 		//２行目
@@ -116,7 +89,7 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 		this.addComp(label_4, 2, 1, 1, 1);
 
 		//３行目
-		text_1 = new JTextField("2020/09/01");
+		text_1 = new JTextField("2021/02/01");
 		text_1.setFont(new Font("メイリオ", Font.PLAIN, 17));
 		text_1.setPreferredSize(new Dimension(120, 40));
 		this.addComp(text_1, 0, 2, 1, 1);
@@ -125,71 +98,74 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 		label_3.setFont(new Font("メイリオ", Font.PLAIN, 22));
 		this.addComp(label_3, 1, 2, 1, 1);
 
-		text_2 = new JTextField("2020/12/31");
+		text_2 = new JTextField("2021/04/30");
 		text_2.setFont(new Font("メイリオ", Font.PLAIN, 17));
 		text_2.setPreferredSize(new Dimension(120, 40));
 		this.addComp(text_2, 2, 2, 1, 1);
 
-//2020/10/09 Add Start J.Kojima
-		//改行のための空白文字
-		JLabel label_9 = new JLabel("　");
-		label_9.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		this.addComp(label_9, 0, 3, 3, 1);
+		//4行目(改行のための空白文字)
+		JLabel label_7 = new JLabel("　");
+		label_7.setFont(new Font("メイリオ", Font.PLAIN, 11));
+		this.addComp(label_7, 0, 3, 1, 1);
 
-		check_1 = new JCheckBox("本日時点の死亡者・終了社を除く");
-		check_1.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		check_1.setSelected(true);
-		this.addComp(check_1, 0, 4, 3, 1);
-//2020/10/09 Add End J.Kojima
+		//5行目
+		JLabel label_6 = new JLabel("往診日");
+		label_6.setFont(new Font("メイリオ", Font.PLAIN, 22));
+		this.addComp(label_6, 2, 4, 1, 1);
 
-		//４行目(改行のための空白文字)
+		//翌日を取得
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 1);
+
+		//6行目
+		text_3 = new JTextField(sdf.format(cal.getTime()));
+		text_3.setFont(new Font("メイリオ", Font.PLAIN, 17));
+		text_3.setPreferredSize(new Dimension(120, 40));
+		this.addComp(text_3, 2, 5, 1, 1);
+
+		//7行目(改行のための空白文字)
 		JLabel label_5 = new JLabel("　");
 		label_5.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		this.addComp(label_5, 0, 5, 3, 1);
+		this.addComp(label_5, 0, 6, 1, 1);
 
-		//５行目(進捗バーのラベル)
-		label_6 = new JLabel("開始日と終了日を入力し集計ボタンを押してください");
-		label_6.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		this.addComp(label_6, 0, 6, 3, 1);
+		//8行目(進捗バーのラベル)
+		label_8 = new JLabel("開始日と終了日を入力し集計ボタンを押してください");
+		label_8.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		this.addComp(label_8, 0, 7, 3, 1);
 
-		//６行目(進捗バーのための余白)
-		label_7 = new JLabel("　");
-		label_7.setFont(new Font("メイリオ", Font.PLAIN, 13));
-		this.addComp(label_7, 0, 7, 3, 1);
+		//9行目(進捗バーのための余白)
+		label_9 = new JLabel("　");
+		label_9.setFont(new Font("メイリオ", Font.PLAIN, 13));
+		this.addComp(label_9, 0, 8, 3, 1);
 
 		//進捗バーはここで生成しておく
 		pgBar = new JProgressBar(0, 100);
 		pgBar.setStringPainted(true);
 
-		//７行目(改行のための空白文字)
-		JLabel label_8 = new JLabel("　");
-		label_8.setFont(new Font("メイリオ", Font.PLAIN, 10));
-		this.addComp(label_8, 0, 8, 3, 1);
+		//10行目(改行のための空白文字)
+		JLabel label_10 = new JLabel("　");
+		label_10.setFont(new Font("メイリオ", Font.PLAIN, 10));
+		this.addComp(label_10, 0, 9, 3, 1);
 
-		//８行目
+		//11行目
 		button_1 = new JButton("戻る");
 		button_1.addActionListener(this);
 		button_1.setFont(new Font("メイリオ", Font.PLAIN, 18));
 		button_1.setActionCommand("return_btn");
-		this.addComp(button_1, 0, 9, 1, 1);
+		this.addComp(button_1, 0, 10, 1, 1);
 
-		button_2 = new JButton("集計");
+		button_2 = new JButton("作成");
 		button_2.addActionListener(this);
 		button_2.setFont(new Font("メイリオ", Font.PLAIN, 18));
 		button_2.setActionCommand("calc_btn");
-		this.addComp(button_2, 2, 9, 1, 1);
+		this.addComp(button_2, 2, 10, 1, 1);
 
 		//パネルを設定。
 		getContentPane().add(panel, BorderLayout.CENTER);
 	}
 
-	/**
-	 * <p>[概 要] </p>
-	 * 　ボタン押下後に呼ばれる処理<BR>
-	 * <p>[詳 細] </p>
-	 * <p>[備 考] </p>
-	 */
-	@Override
+	//ボタン押下後の処理
 	public void actionPerformed(ActionEvent e) {
 
 		//ボタン毎にセットしたアクションコマンドを取得
@@ -198,14 +174,23 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 		//「戻る」の場合
 		if (cmd.endsWith("return_btn")) {
 
-			//メインフレームを生成し実行。
-			MFM00V001Z00 frame = new MFM00V001Z00();
-			frame.setVisible(true);
+			try {
 
-			//処理が終わったら画面終了
+				//メインフレームを生成し実行。
+				MFM00V001Z00 frame = new MFM00V001Z00();
+				frame.setVisible(true);
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+
+			//処理が終わったら終了
 			this.dispose();
 
-			//「集計」の場合
+			//「作成」の場合
 		} else if (cmd.endsWith("calc_btn")) {
 
 			//ボタンを非活性
@@ -223,86 +208,49 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 
 		public void run() {
 
-			label_6.setText("しばらくお待ちください。");
-
-			remComp(label_7, pgBar, 0, 5, 3, 1);
+			label_8.setText("しばらくお待ちください。");
+			remComp(label_9, pgBar, 0, 8, 3, 1);
 
 			//appData作成
 			MAA00B003Z00 appData = new MAA00B003Z00();
 			appData.setMsgIn(MAAT00.DCP_SRT, text_1.getText());
 			appData.setMsgIn(MAAT00.DCP_END, text_2.getText());
+			appData.setMsgIn(MAAT00.TRG_YMD, text_3.getText());
 
-			appData.setMsgIn(MAAT00.ITM_NME_1, "/*インフルエンザ希望");
+			appData.setMsgIn(MAAT00.ITM_NME_1, "/*コロナワクチン希望");
 			appData.setMsgIn(MAAT00.ITM_DLM_1, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_1, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_1, MAAT00.CHAR.CRLF);
 
-//2020/09/25 Del Start J.Kojima
-//			appData.setMsgIn(MAAT00.ITM_NME_2, "家族");
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Add Start J.Kojima
-			appData.setMsgIn(MAAT00.ITM_NME_2, "■本人以外の家族希望");
-//2020/09/25 Add End J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_2, "■年齢");
 			appData.setMsgIn(MAAT00.ITM_DLM_2, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_2, MAAT00.DROP.NUMBER);
 			appData.setMsgIn(MAAT00.ITM_END_2, MAAT00.CHAR.CRLF);
 
-//2020/09/25 Del Start J.Kojima
-//			appData.setMsgIn(MAAT00.ITM_NME_3, "続柄");
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Add Start J.Kojima
-			appData.setMsgIn(MAAT00.ITM_NME_3, "■続柄・読み仮名");
-//2020/09/25 Add End J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_3, "■基礎疾患(64歳以下のみ)");
 			appData.setMsgIn(MAAT00.ITM_DLM_3, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_3, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_3, MAAT00.CHAR.CRLF);
 
-
-//2020/09/25 Del Start J.Kojima
-//			appData.setMsgIn(MAAT00.ITM_NME_4, "保険証撮影");
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Add Start J.Kojima
-			appData.setMsgIn(MAAT00.ITM_NME_4, "■保険証撮影");
-//2020/09/25 Add End J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_4, "■医師の判断で接種");
 			appData.setMsgIn(MAAT00.ITM_DLM_4, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_4, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_4, MAAT00.CHAR.CRLF);
 
-
-//2020/09/25 Del Start J.Kojima
-//			appData.setMsgIn(MAAT00.ITM_NME_5, "助成");
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Add Start J.Kojima
-			appData.setMsgIn(MAAT00.ITM_NME_5, "■助成");
-//2020/09/25 Add End J.Kojima
+			appData.setMsgIn(MAAT00.ITM_NME_5, "■住まい");
 			appData.setMsgIn(MAAT00.ITM_DLM_5, MAAT00.CHAR.CRLF);
 			appData.setMsgIn(MAAT00.ITM_PTN_5, MAAT00.DROP.STRING);
 			appData.setMsgIn(MAAT00.ITM_END_5, MAAT00.CHAR.CRLF);
 
-//2020/09/25 Del Start J.Kojima
-//			appData.setMsgIn(MAAT00.ITM_NME_6, "予診票保管場所");
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Add Start J.Kojima
-			appData.setMsgIn(MAAT00.ITM_NME_6, "■予診票保管場所");
-//2020/09/25 Add End J.Kojima
-			appData.setMsgIn(MAAT00.ITM_DLM_6, MAAT00.CHAR.CRLF);
-			appData.setMsgIn(MAAT00.ITM_PTN_6, MAAT00.DROP.STRING);
-			appData.setMsgIn(MAAT00.ITM_END_6, MAAT00.CHAR.CRLF);
+			appData.setMsgIn(MAAT00.ITM_NME_6, MAAT00.CHAR.EMPTY_STRING);
+			appData.setMsgIn(MAAT00.ITM_DLM_6, MAAT00.CHAR.EMPTY_STRING);
+			appData.setMsgIn(MAAT00.ITM_PTN_6, MAAT00.CHAR.EMPTY_STRING);
+			appData.setMsgIn(MAAT00.ITM_END_6, MAAT00.CHAR.EMPTY_STRING);
 
-//2020/09/25 Del Start J.Kojima
-			appData.setMsgIn(MAAT00.ITM_NME_7, "■支払方法");
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Del End J.Kojima
-//2020/09/25 Add Start J.Kojima
-//			appData.setMsgIn(MAAT00.ITM_NME_7, "■支払方法");
-//2020/09/25 Add End J.Kojima
-			appData.setMsgIn(MAAT00.ITM_DLM_7, MAAT00.CHAR.CRLF);
-			appData.setMsgIn(MAAT00.ITM_PTN_7, MAAT00.DROP.STRING);
-			appData.setMsgIn(MAAT00.ITM_END_7, MAAT00.CHAR.CRLF);
+			appData.setMsgIn(MAAT00.ITM_NME_7, MAAT00.CHAR.EMPTY_STRING);
+			appData.setMsgIn(MAAT00.ITM_DLM_7, MAAT00.CHAR.EMPTY_STRING);
+			appData.setMsgIn(MAAT00.ITM_PTN_7, MAAT00.CHAR.EMPTY_STRING);
+			appData.setMsgIn(MAAT00.ITM_END_7, MAAT00.CHAR.EMPTY_STRING);
 
 			appData.setMsgIn(MAAT00.ITM_NME_8, MAAT00.CHAR.EMPTY_STRING);
 			appData.setMsgIn(MAAT00.ITM_DLM_8, MAAT00.CHAR.EMPTY_STRING);
@@ -319,20 +267,14 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 			appData.setMsgIn(MAAT00.ITM_PTN_10, MAAT00.CHAR.EMPTY_STRING);
 			appData.setMsgIn(MAAT00.ITM_END_10, MAAT00.CHAR.EMPTY_STRING);
 
-//2020/10/09 Add Start J.Kojima
-			//死亡・終了の除外フラグ
-			appData.setMsgIn(MAAT00.DEL_FLG, String.valueOf(check_1.isSelected()));
-//2020/10/09 Add End J.Kojima
-
 			try {
 
-				//インフルエンザ予防接種希望集計表作成クラスを実行
-				MAA00B001Z00 fluDsrObj = new MFD01B001Z00();
+				//新型コロナワクチン接種希望(往診列毎)作成クラスを実行
+				MAA00B001Z00 fluDsrObj = new MFD05B001Z00();
 				fluDsrObj.execute(appData, pgBar);
 
-				//業務エラーが発生していた場合は画面を閉じずに終了。
 				if (fluDsrObj.getAllInOneData().getCa().errOccurred()) {
-					label_6.setText("×ボタンで画面を閉じて、最初からやり直して下さい。");
+					label_8.setText("×ボタンで画面を閉じて、最初からやり直して下さい。");
 					return;
 				}
 
@@ -342,7 +284,7 @@ public class MFD01V001Z00 extends JFrame implements ActionListener {
 				//標準出力
 				ex.printStackTrace();
 			}
-			label_6.setText("×ボタンで画面を閉じて下さい。");
+			label_8.setText("×ボタンで画面を閉じて下さい。");
 		}
 	}
 

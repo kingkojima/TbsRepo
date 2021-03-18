@@ -10,9 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import jp.ne.tbs.view.AM01.MAM01V001Z00;
 import jp.ne.tbs.view.FD01.MFD01V001Z00;
 import jp.ne.tbs.view.FD02.MFD02V001Z00;
 import jp.ne.tbs.view.FD03.MFD03V001Z00;
+import jp.ne.tbs.view.FD04.MFD04V001Z00;
+import jp.ne.tbs.view.FD05.MFD05V001Z00;
 import jp.ne.tbs.view.PA01.MPA01V001Z00;
 import jp.ne.tbs.view.PT01.MPT01V001Z00;
 import jp.ne.tbs.view.PT02.MPT02V001Z00;
@@ -30,30 +33,52 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 	//部品
 	private JTabbedPane tabbedPane;
 
+	//パネル
 	private JPanel buttonPanel1;
 	private JPanel buttonPanel2;
 	private JPanel buttonPanel3;
 	private JPanel buttonPanel4;
+	private JPanel buttonPanel5;
 
-	private JButton button_1;
-	private JButton button_2;
-	private JButton button_3;
-	private JButton button_4;
-
-	private JButton button_5;
-	private JButton button_6;
-	private JButton button_7;
-	private JButton button_8;
-
-	private JButton button_9;
-	private JButton button_10;
-	private JButton button_11;
-	private JButton button_12;
-
+	//ボタン群(ツール)
 	private JButton button_13;
 	private JButton button_14;
 	private JButton button_15;
 	private JButton button_16;
+	private JButton button_24;
+	private JButton button_29;
+
+	//ボタン群(集計)
+	private JButton button_1;
+	private JButton button_2;
+	private JButton button_3;
+	private JButton button_4;
+	private JButton button_21;
+	private JButton button_26;
+
+	//ボタン群(予定表)
+	private JButton button_5;
+	private JButton button_6;
+	private JButton button_7;
+	private JButton button_8;
+	private JButton button_22;
+	private JButton button_27;
+
+	//ボタン群(勤務表)
+	private JButton button_9;
+	private JButton button_10;
+	private JButton button_11;
+	private JButton button_12;
+	private JButton button_23;
+	private JButton button_28;
+
+	//ボタン群(その他)
+	private JButton button_17;
+	private JButton button_18;
+	private JButton button_19;
+	private JButton button_20;
+	private JButton button_25;
+	private JButton button_30;
 
 	//メイン処理
 	public static void main(String[] args) {
@@ -68,7 +93,7 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 
 		//画面設定
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(900, 100, 350, 400);
+		setBounds(900, 100, 350, 600);
 		setTitle("トーマス君デラックス");
 
 		//タブ生成
@@ -78,13 +103,6 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		//=================================================
 		//====ツールタブ===================================
 		//=================================================
-
-		//ボタン１５
-		button_15 = new JButton("予後予測ツール");
-		button_15.addActionListener(this);
-		button_15.setFont(new Font("メイリオ", Font.BOLD, 26));
-		button_15.setActionCommand("pap_scr_btn");
-		button_15.setEnabled(true);
 
 		//ボタン１３
 		button_13 = new JButton("新患情報入力");
@@ -100,6 +118,13 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_14.setActionCommand("rec_tar_lst");
 		button_14.setEnabled(true);
 
+		//ボタン１５
+		button_15 = new JButton("予後予測ツール");
+		button_15.addActionListener(this);
+		button_15.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_15.setActionCommand("pap_scr_btn");
+		button_15.setEnabled(true);
+
 		//ボタン１６
 		button_16 = new JButton("報告書データ作成");
 		button_16.addActionListener(this);
@@ -107,17 +132,33 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_16.setActionCommand("rep_dat_mke");
 		button_16.setEnabled(false);
 
+		//ボタン２４
+		button_24 = new JButton("");
+		button_24.addActionListener(this);
+		button_24.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_24.setActionCommand("xxx_xxx_btn");
+		button_24.setEnabled(false);
+
+		//ボタン２９
+		button_29 = new JButton("");
+		button_29.addActionListener(this);
+		button_29.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_29.setActionCommand("xxx_xxx_btn");
+		button_29.setEnabled(false);
+
 		//パネル４を生成。
 		buttonPanel4 = new JPanel();
 		//パネルにレイアウトを設定。
 		//※ボタンを増やすにはここを変更する。
-		buttonPanel4.setLayout(new GridLayout(4, 1));
+		buttonPanel4.setLayout(new GridLayout(6, 1));
 
 		//ボタンを設定。
 		buttonPanel4.add(button_15);
 		buttonPanel4.add(button_13);
 		buttonPanel4.add(button_14);
 		buttonPanel4.add(button_16);
+		buttonPanel4.add(button_24);
+		buttonPanel4.add(button_29);
 
 		//パネル４をタブに設定。
 		tabbedPane.addTab("ツール", buttonPanel4);
@@ -153,19 +194,36 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_4.addActionListener(this);
 		button_4.setFont(new Font("メイリオ", Font.BOLD, 26));
 		button_4.setActionCommand("pat_dsa_lst");
-		button_4.setEnabled(true);
+		button_4.setEnabled(false);
+
+		//ボタン２１
+		button_21 = new JButton("コロナワクチン希望集計");
+		button_21.addActionListener(this);
+		button_21.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_21.setActionCommand("cov_dsr_btn");
+		button_21.setEnabled(true);
+
+		//ボタン２６
+		button_26 = new JButton("コロナワクチン希望(往診列)");
+		button_26.addActionListener(this);
+		button_26.setFont(new Font("メイリオ", Font.BOLD, 22));
+		button_26.setActionCommand("cov_vst_btn");
+		button_26.setEnabled(true);
+
 
 		//パネル１を生成。
 		buttonPanel1 = new JPanel();
 		//パネル１にレイアウトを設定。
 		//※ボタンを増やすにはここを変更する。
-		buttonPanel1.setLayout(new GridLayout(4, 1));
+		buttonPanel1.setLayout(new GridLayout(6, 1));
 
 		//ボタンを設定。
 		buttonPanel1.add(button_1);
 		buttonPanel1.add(button_2);
 		buttonPanel1.add(button_3);
 		buttonPanel1.add(button_4);
+		buttonPanel1.add(button_21);
+		buttonPanel1.add(button_26);
 
 		//パネル１をタブに設定。
 		tabbedPane.addTab("集計", buttonPanel1);
@@ -202,17 +260,33 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_8.setActionCommand("tsuika_8");
 		button_8.setEnabled(false);
 
+		//ボタン２２
+		button_22 = new JButton("");
+		button_22.addActionListener(this);
+		button_22.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_22.setActionCommand("xxx_xxx_btn");
+		button_22.setEnabled(false);
+
+		//ボタン２７
+		button_27 = new JButton("");
+		button_27.addActionListener(this);
+		button_27.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_27.setActionCommand("xxx_xxx_btn");
+		button_27.setEnabled(false);
+
 		//パネル２を生成。
 		buttonPanel2 = new JPanel();
 		//パネルにレイアウトを設定。
 		//※ボタンを増やすにはここを変更する。
-		buttonPanel2.setLayout(new GridLayout(4, 1));
+		buttonPanel2.setLayout(new GridLayout(6, 1));
 
 		//ボタンを設定。
 		buttonPanel2.add(button_5);
 		buttonPanel2.add(button_6);
 		buttonPanel2.add(button_7);
 		buttonPanel2.add(button_8);
+		buttonPanel2.add(button_22);
+		buttonPanel2.add(button_27);
 
 		//パネル２をタブに設定。
 		tabbedPane.addTab("予定表", buttonPanel2);
@@ -249,20 +323,100 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 		button_12.setActionCommand("tsuika_12");
 		button_12.setEnabled(false);
 
+		//ボタン２３
+		button_23 = new JButton("");
+		button_23.addActionListener(this);
+		button_23.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_23.setActionCommand("xxx_xxx_btn");
+		button_23.setEnabled(false);
+
+		//ボタン２８
+		button_28 = new JButton("");
+		button_28.addActionListener(this);
+		button_28.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_28.setActionCommand("xxx_xxx_btn");
+		button_28.setEnabled(false);
+
 		//パネル３を生成。
 		buttonPanel3 = new JPanel();
 		//パネルにレイアウトを設定。
 		//※ボタンを増やすにはここを変更する。
-		buttonPanel3.setLayout(new GridLayout(4, 1));
+		buttonPanel3.setLayout(new GridLayout(6, 1));
 
 		//ボタンを設定。
 		buttonPanel3.add(button_9);
 		buttonPanel3.add(button_10);
 		buttonPanel3.add(button_11);
 		buttonPanel3.add(button_12);
+		buttonPanel3.add(button_23);
+		buttonPanel3.add(button_28);
 
 		//パネル３をタブに設定。
 		tabbedPane.addTab("勤務表", buttonPanel3);
+
+		//=================================================
+		//====その他タブ======================================
+		//=================================================
+
+		//ボタン１７
+		button_17 = new JButton("あみだくじ");
+		button_17.addActionListener(this);
+		button_17.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_17.setActionCommand("ami_daa_btn");
+		button_17.setEnabled(true);
+
+		//ボタン１８
+		button_18 = new JButton("外来宛名印刷");
+		button_18.addActionListener(this);
+		button_18.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_18.setActionCommand("out_add_btn");
+		button_18.setEnabled(false);
+
+		//ボタン１９
+		button_19 = new JButton("");
+		button_19.addActionListener(this);
+		button_19.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_19.setActionCommand("xxx_xxx_btn");
+		button_19.setEnabled(false);
+
+		//ボタン２０
+		button_20 = new JButton("");
+		button_20.addActionListener(this);
+		button_20.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_20.setActionCommand("xxx_xxx_btn");
+		button_20.setEnabled(false);
+
+		//ボタン２５
+		button_25 = new JButton("");
+		button_25.addActionListener(this);
+		button_25.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_25.setActionCommand("xxx_xxx_btn");
+		button_25.setEnabled(false);
+
+		//ボタン２６
+		button_30 = new JButton("");
+		button_30.addActionListener(this);
+		button_30.setFont(new Font("メイリオ", Font.BOLD, 26));
+		button_30.setActionCommand("xxx_xxx_btn");
+		button_30.setEnabled(false);
+
+		//パネル５を生成。
+		buttonPanel5 = new JPanel();
+		//パネルにレイアウトを設定。
+		//※ボタンを増やすにはここを変更する。
+		buttonPanel5.setLayout(new GridLayout(6, 1));
+
+		//ボタンを設定。
+		buttonPanel5.add(button_17);
+		buttonPanel5.add(button_18);
+		buttonPanel5.add(button_19);
+		buttonPanel5.add(button_20);
+		buttonPanel5.add(button_25);
+		buttonPanel5.add(button_30);
+
+		//パネル５をタブに設定。
+		tabbedPane.addTab("その他", buttonPanel5);
+
 	}
 
 	//ボタン押下後の処理
@@ -403,8 +557,80 @@ public class MFM00V001Z00 extends JFrame implements ActionListener {
 			//処理が終わったら終了
 			this.dispose();
 
+			//あみだくじ作成
+		} else if (cmd.equals("ami_daa_btn")) {
+
+			try {
+
+				//あみだくじ作成メイン画面
+				MAM01V001Z00 pecFrame = new MAM01V001Z00();
+				pecFrame.setVisible(true);
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+
+			//処理が終わったら終了
+			this.dispose();
+
+			//外来宛名印刷作成
+		} else if (cmd.equals("out_add_btn")) {
+
+			try {
+
+				//外来宛名印刷作成メイン画面
+//				MPT02V001Z00 pecFrame = new MPT02V001Z00();
+//				pecFrame.setVisible(true);
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+
+			//処理が終わったら終了
+			this.dispose();
+
+			//新型コロナワクチン接種希望集計
+		} else if (cmd.equals("cov_dsr_btn")) {
+
+			try {
+
+				//新型コロナワクチン接種希望集計画面
+				MFD04V001Z00.exec();
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+
+			//処理が終わったら終了
+			this.dispose();
+
+			//新型コロナワクチン希望(往診列)の場合
+		} else if (cmd.equals("cov_vst_btn")) {
+
+			try {
+
+				//新型コロナワクチン希望集計画面
+				MFD05V001Z00 fluFrame = new MFD05V001Z00();
+				fluFrame.setVisible(true);
+
+				//エラー発生時
+			} catch (Exception ex) {
+
+				//標準出力
+				ex.printStackTrace();
+			}
+
+			//処理が終わったら終了
+			this.dispose();
 		}
-
 	}
-
 }

@@ -1,4 +1,4 @@
-package jp.ne.tbs.model.FD01;
+package jp.ne.tbs.model.FD04;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,24 +17,23 @@ import jp.ne.tbs.frame.DB03.MDB03T001Z00;
 
 /**
  * <p>[クラス名]</p>
- * 　　集計開始日、集計終了日　インフル集計クラス
+ * 　　集計開始日、集計終了日　新型コロナ集計クラス
  * <p>[概要]</p>
  * 　以下を集計する。<br>
  * 　　①<br>
  * 　　②<br>
  * 　　③<br>
  * <p>[使用方法]</p>
- * 　		MFD01M002Z00 calcObj = new MFD01M002Z00();<br>
+ * 　		MFD04M002Z00 calcObj = new MFD04M002Z00();<br>
  * 　		calcObj.setAllInOneData(super.getAllInOneData());<br>
  * 　		calcObj.execute();<br>
  * 　		calcObj.getResultMap();<br>
  * 　		calcObj.getPatDisCnt();<br>
  * 　		calcObj.getFmyDisCnt();<br>
  * <p>[変更履歴]</p>
- * 　　2019/10/07　小嶋純史　新規作成
- *  2020/10/09 小嶋純史　死亡・終了の患者を除く対応
+ * 　　2021/03/08　小嶋純史　コピー新規作成
  */
-public class MFD01M002Z00 {
+public class MFD04M002Z00 {
 
 	/** 	オールインワンデータ */
 	private MAA00B002Z00 _allInOneData = null;
@@ -45,8 +44,11 @@ public class MFD01M002Z00 {
 	/** 本人希望カウント */
 	private int patDisCnt = 0;
 
-	/** 本人以外希望カウント */
-	private int fmyDisCnt = 0;
+//	/** 本人以外希望カウント */
+//	private int fmyDisCnt = 0;
+
+	/** 医師判断カウント */
+	private int docJdgCnt = 0;
 
 	/*********************/
 	/* 業務処理用の定数Map群 */
@@ -114,7 +116,7 @@ public class MFD01M002Z00 {
 		Date targetSrt = sdFormat.parse(_allInOneData.getAppData().getMsgIn(MAAT00.DCP_SRT));
 		Date targetEnd = sdFormat.parse(_allInOneData.getAppData().getMsgIn(MAAT00.DCP_END));
 
-		//①インフル希望リスト作成処理
+		//①コロナワクチン希望リスト作成処理
 		//①－1.対象患者抽出(集計期間内に死亡含む、診療中の患者)⇒ID,名前,フリガナ,ステータス(診療中/死亡/待機)
 		//ADOより患者情報TBLを取得
 		List<MDB01T001Z00> ptInfoTbls = _allInOneData.getPtInfoTbls();
@@ -185,7 +187,7 @@ public class MFD01M002Z00 {
 			}
 		}
 
-		//①－３.対象患者の診療記録抽出(全診療タイプ、期間指定の中で、"/*インフルエンザ希望希望"を含む最新の診療記録)⇒ID,診療記録,医師ID,診療タイプ
+		//①－３.対象患者の診療記録抽出(全診療タイプ、期間指定の中で、"/*コロナワクチン希望希望"を含む最新の診療記録)⇒ID,診療記録,医師ID,診療タイプ
 		//ADOより診療記録TBLを取得
 		List<MDB03T001Z00> snRecoTbls = _allInOneData.getSnRecoTbls();
 
@@ -208,12 +210,12 @@ public class MFD01M002Z00 {
 				if (targetSrt.compareTo(fDateDate) <= 0
 						&& fDateDate.compareTo(targetEnd) <= 0) {
 
-					//記録２TBL.SUBJECT に "/*インフルエンザ希望希望" を含む場合
+					//記録２TBL.SUBJECT に "/*コロナワクチン希望" を含む場合
 					String title = _allInOneData.getAppData().getMsgIn(MAAT00.ITM_NME_1);
 					String subject = snRecoDto.getSubject();
 					if (subject.contains(title)) {
 
-						//インフルエンザ希望の入力内容を取得
+						//コロナワクチン希望の入力内容を取得
 						int index = subject.indexOf(title);
 						String targetStr = subject.substring(index);
 
@@ -284,25 +286,31 @@ public class MFD01M002Z00 {
 
 								//集計行用カウント
 								if (ITM_NME_LIST[i].equals(MAAT00.ITM_NME_1)) {
-									if (val.equals("あり")) {
+									if (val.equals("希望する")) {
 										patDisCnt++;
 									}
 								}
 
-								if (ITM_NME_LIST[i].equals(MAAT00.ITM_NME_2)) {
-									if (!val.equals("無し")) {
-										String removed = val.replace("人", MAAT00.CHAR.EMPTY_STRING);
-										try {
-											//人数を数値変換
-											fmyDisCnt += Integer.parseInt(removed);
-										} catch (NumberFormatException e) {
-											//人数入力エラー
-											_allInOneData.getCa().setWarningCode(targetId + "の" + MAAW00.WFD00A001);
-											continue;
-										}
-										//System.out.println("ID：" + targetId + "　　トータル：" + fmyDisCnt + "　　追加：" + Integer.parseInt(removed));
+								if (ITM_NME_LIST[i].equals(MAAT00.ITM_NME_4)) {
+									if (val.equals("可")) {
+										docJdgCnt++;
 									}
 								}
+
+//								if (ITM_NME_LIST[i].equals(MAAT00.ITM_NME_2)) {
+//									if (!val.equals("無し")) {
+//										String removed = val.replace("人", MAAT00.CHAR.EMPTY_STRING);
+//										try {
+//											//人数を数値変換
+//											fmyDisCnt += Integer.parseInt(removed);
+//										} catch (NumberFormatException e) {
+//											//人数入力エラー
+//											_allInOneData.getCa().setWarningCode(targetId + "の" + MAAW00.WFD00A001);
+//											continue;
+//										}
+//										//System.out.println("ID：" + targetId + "　　トータル：" + fmyDisCnt + "　　追加：" + Integer.parseInt(removed));
+//									}
+//								}
 
 								//終了文字を含めた文字列長を算出
 								indexEnd1 += end1.length();
@@ -393,24 +401,43 @@ public class MFD01M002Z00 {
 		this.patDisCnt = patDisCnt;
 	}
 
+//	/**
+//	 * <p>[概 要] 本人以外希望カウントを取得する。</p>
+//	 * <p>[詳 細] </p>
+//	 * <p>[備 考] </p>
+//	 * @return fmyDisCnt
+//	 */
+//	public int getFmyDisCnt() {
+//		return fmyDisCnt;
+//	}
+//
+//	/**
+//	 * <p>[概 要] 本人以外希望カウントを設定する。</p>
+//	 * <p>[詳 細] </p>
+//	 * <p>[備 考] </p>
+//	 * @param fmyDisCnt セットする fmyDisCnt
+//	 */
+//	protected void setFmyDisCnt(int fmyDisCnt) {
+//		this.fmyDisCnt = fmyDisCnt;
+//	}
+
 	/**
-	 * <p>[概 要] 本人以外希望カウントを取得する。</p>
+	 * <p>[概 要] 医師判断カウントを取得する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
-	 * @return fmyDisCnt
+	 * @return docJdgCnt
 	 */
-	public int getFmyDisCnt() {
-		return fmyDisCnt;
+	public int getDocJdgCnt() {
+		return docJdgCnt;
 	}
 
 	/**
-	 * <p>[概 要] 本人以外希望カウントを設定する。</p>
+	 * <p>[概 要] 医師判断カウントを設定する。</p>
 	 * <p>[詳 細] </p>
 	 * <p>[備 考] </p>
-	 * @param fmyDisCnt セットする fmyDisCnt
+	 * @param docJdgCnt セットする docJdgCnt
 	 */
-	protected void setFmyDisCnt(int fmyDisCnt) {
-		this.fmyDisCnt = fmyDisCnt;
+	protected void setDocJdgCnt(int docJdgCnt) {
+		this.docJdgCnt = docJdgCnt;
 	}
-
 }

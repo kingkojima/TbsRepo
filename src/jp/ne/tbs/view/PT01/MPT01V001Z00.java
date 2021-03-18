@@ -170,7 +170,10 @@ public class MPT01V001Z00 extends JFrame implements ActionListener {
 
 		public void run() {
 
-			label_1.setText("しばらくお待ちください。");
+//			label_1.setText("しばらくお待ちください。");
+			label_1.setText("※" + calendar1.getMonth() + "/" + calendar1.getDay() + "～" + calendar2.getMonth()
+					+ "/" + calendar2.getDay() + "の期間で作成中です。");
+			label_1.setForeground(Color.red);
 
 			//appData作成
 			MAA00B003Z00 appData = new MAA00B003Z00();

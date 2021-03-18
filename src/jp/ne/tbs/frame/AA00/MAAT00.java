@@ -180,5 +180,11 @@ public final class MAAT00 {
 	/** 患者　在宅終了日 */
 	public static final String ZAI_END = "FD00C111Z00";
 
+	/** 死亡患者・終了患者を集計リストから除くフラグ */
+	public static final String DEL_FLG = "FD00C112Z00";
+
+	/** 医師判断 */
+	public static final String DOC_JDG = "FD04C001Z00";
+
 
 }

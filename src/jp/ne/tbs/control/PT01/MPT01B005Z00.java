@@ -277,7 +277,9 @@ public class MPT01B005Z00 extends MAA00B007Z00 {
 
 				//ファイルパス・ファイル名の指定
 				outPutFilePath = System.getProperty("user.home") + "/Desktop/";
-				outPutFileName = "レセプト対象一覧_" + dateFormat.format(date).toString() + ".xlsx";
+//				outPutFileName = "レセプト対象一覧_" + dateFormat.format(date).toString() + ".xlsx";
+				outPutFileName = "レセプト対象一覧_" + "" + "_" + dateFormat.format(date).toString() + ".xlsx";
+
 
 				try {
 					// エクセルファイルを出力
